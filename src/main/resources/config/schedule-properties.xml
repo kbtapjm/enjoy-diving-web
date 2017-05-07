@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+    <comment>schedule-properties scheduler에 의해 실행될 작업 시간 설정</comment>
+
+    <!--<entry key="work">3 0 */1 * * *</entry>-->
+
+</properties>

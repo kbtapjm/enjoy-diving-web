@@ -1,0 +1,105 @@
+
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+  # context-path: /web
+  session:
+    timeout: 1800
+  error:
+    whitelabel:
+      enabled: false 
+
+spring:
+  application:
+    name: enjoy-diving-web
+  output:
+    ansi:
+      enabled: always 
+  profiles:
+    active: local
+  resources:
+    chain:
+      enabled: true
+  thymeleaf:
+    cache: false
+    enabled: true
+    encoding: UTF-8
+    mode: HTML5
+    template-resolver-order: 2
+  messages:
+    encoding: UTF-8
+    cache-seconds: 5
+    fallback-to-system-locale: false
+    basename: i18n/messages 
+  http:
+    encoding:
+      charset: UTF-8
+    multipart:
+      enabled: true
+      max-file-size: 3MB
+      max-request-size: 3MB
+       
+security:
+  basic:
+    enabled: false 
+    
+---
+# local profile(개발자 환경)
+spring:
+  profiles: local
+  profiles.include: mysqlDB
+
+logging:
+  level:
+    root: DEBUG 
+    org.apache: ERROR
+  config: classpath:config/logback-spring.xml
+  file : local
+  path : data/logs
+  
+  
+#upload:
+#  resources:
+#    location:
+#      handler: upload
+#      path: ${upload.path}
+  
+---
+# h2database profile(개발자 환경)
+spring:
+  profiles: h2database
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  datasource:
+    type: org.apache.tomcat.jdbc.pool.DataSource
+    driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:h2:mem:diving
+    username: sa
+    password: test
+    initialize: true
+    #schema: classpath:database/sql/ddl-*.sql
+    #data: classpath:database/sql/dml-*.sql
+    
+---
+# maria db profile(운영 환경)
+spring:
+  profiles: mysqlDB
+  datasource:
+    url: jdbc:mysql://localhost:3306/diving
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.jdbc.Driver
+    sql-script-encoding: UTF-8
+    #schema: classpath:database/sql/ddl-*.sql
+    data: classpath:database/sql/dml-*.sql
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+      
