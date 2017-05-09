@@ -3,6 +3,7 @@ package kr.co.pjm.diving.web.common.security;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.co.pjm.diving.web.domain.entity.Role;
 import kr.co.pjm.diving.web.domain.entity.User;
+import kr.co.pjm.diving.web.domain.entity.UserRole;
 import kr.co.pjm.diving.web.repasitory.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,7 +58,11 @@ public class ExtensibleUserDetailsService implements UserDetailsService {
     
     /* ROLE set */
     List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-    for (Role userRole : user.getRoles()) {
+    
+    Iterator<UserRole> itr = user.getUserRoles().iterator();
+    while (itr.hasNext()) {
+      UserRole userRole = itr.next();
+      
       authorities.add(new SimpleGrantedAuthority(userRole.getRole().toString()));
     }
     

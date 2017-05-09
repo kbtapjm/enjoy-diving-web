@@ -8,6 +8,7 @@ jar {
 dependencies {
     ext {
         springBootVersion = '1.5.2.RELEASE'
+        queryDslVersion = '4.1.4'
     }
 
     compile project(':enjoy-diving-common')
@@ -16,14 +17,18 @@ dependencies {
 
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: "${springBootVersion}"
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: "${springBootVersion}"
-    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.41'
-
+    
     compile group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
     compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: "${springBootVersion}"
 
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: "${springBootVersion}"
     compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '3.0.2.RELEASE'
-
+    
+    compile group: 'com.querydsl', name: 'querydsl-core', version: queryDslVersion
+    compile group: 'com.querydsl', name: 'querydsl-jpa', version: queryDslVersion
+    compile group: 'com.querydsl', name: 'querydsl-apt', version: queryDslVersion
+    
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.41'
     compile group: 'com.h2database', name: 'h2', version: '1.4.194'
 }
 
@@ -34,6 +39,47 @@ eclipse {
         containers('org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8')
     }
 }
+
+def queryDslOutput = file("src-gen/main/java")
+ 
+sourceSets {
+    main {
+        java {
+            srcDir "src-gen/main/java"
+        }
+    }
+}
+ 
+task generateQueryDSL(type: JavaCompile, group: 'build') {
+    doFirst {
+        if (!queryDslOutput.exists()) {
+            logger.info("Creating `$queryDslOutput` directory")
+ 
+            if (!queryDslOutput.mkdirs()) {
+                throw new InvalidUserDataException("Unable to create `$queryDslOutput` directory")
+            }
+        }
+    }
+ 
+    source = sourceSets.main.java
+    classpath = configurations.compile
+    options.compilerArgs = [
+            "-proc:only",
+            "-processor",
+            "com.querydsl.apt.jpa.JPAAnnotationProcessor"
+    ]
+    destinationDir = queryDslOutput
+}
+ 
+compileTestJava.dependsOn(generateQueryDSL)
+
+/**
+ * gradle clean task 실행 시 querydsl 경로 제거
+ */
+clean {
+    delete queryDslOutput
+}
+
 
 bootRepackage {
     mainClass = 'kr.co.pjm.diving.web.Application'

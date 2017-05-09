@@ -74,12 +74,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     
     http
     .exceptionHandling()
-        .accessDeniedPage("/accessDenied");
+      .accessDeniedPage("/accessDenied");
   }
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(userDetailsService());
+    auth.userDetailsService(userDetailsService()).passwordEncoder(new ShaPasswordEncoder(512));
   }
   
   @Override
@@ -94,7 +94,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
   
   @Bean
   public PasswordEncoder passwordEncoder() {
-      return new StandardPasswordEncoder();
+    return new StandardPasswordEncoder();
   }
   
   @Bean

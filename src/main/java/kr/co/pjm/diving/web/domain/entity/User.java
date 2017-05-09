@@ -1,5 +1,6 @@
 package kr.co.pjm.diving.web.domain.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -8,8 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
@@ -54,12 +54,11 @@ public class User extends CommonEntity {
   @Transient
   private String confirmPassword;
   
-  /* 유저 엔티티, 롤 엔티티 테이블 맵핑 */
-  @ManyToMany(cascade = CascadeType.ALL)
-  @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-  private Set<Role> roles;
+  /* 유저 롤 */
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+  private Set<UserRole> userRoles = new HashSet<UserRole>();
   
-  /* 유저 기본 엔티티 1:1 맵핑 */
+  /* 유저 기본 */
   @OneToOne
   @JoinColumn(name = "user_basic_id")
   private UserBasic userBasic;

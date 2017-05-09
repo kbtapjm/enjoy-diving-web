@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author : jmpark
  * @Date : 2017. 5. 6.
  * @Version : 1.0
- * @Description : 
+ * @Description : 메인 컨트롤러
  *
  */
 @Controller

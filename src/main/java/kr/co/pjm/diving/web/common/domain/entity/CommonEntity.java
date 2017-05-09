@@ -3,6 +3,7 @@ package kr.co.pjm.diving.web.common.domain.entity;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
@@ -17,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
-
 /**
  * <pre>
  * @Package Name : kr.co.pjm.diving.web.common.domain.entity
@@ -31,7 +31,8 @@ import lombok.Setter;
  *
  */
 @Getter @Setter
-public class CommonEntity {
+@MappedSuperclass  
+public abstract class CommonEntity {
   
   /* 등록일 */
   @Column(name = "reg_date", nullable = false, insertable = true, updatable = false)
@@ -41,7 +42,7 @@ public class CommonEntity {
   private Date regDate;
 
   /* 수정일 */
-  @Column(name = "update_date", nullable = true, insertable = true, updatable = false)
+  @Column(name = "update_date", nullable = true, insertable = false, updatable = true)
   @Temporal(TemporalType.DATE)
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+9")
@@ -49,7 +50,7 @@ public class CommonEntity {
 
   @Override
   public String toString() {
-    return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
   
   @PrePersist

@@ -53,7 +53,7 @@ spring:
 logging:
   level:
     root: DEBUG 
-    org.apache: ERROR
+    org.apache: INFO
   config: classpath:config/logback-spring.xml
   file : local
   path : data/logs
