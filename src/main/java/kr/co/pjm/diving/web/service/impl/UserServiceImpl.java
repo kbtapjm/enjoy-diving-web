@@ -1,7 +1,7 @@
 package kr.co.pjm.diving.web.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,16 +44,14 @@ public class UserServiceImpl implements UserService {
   private RoleRepository roleRepository;
   
   @Autowired
-  private ShaPasswordEncoder shaPasswordEncoder;
+  private PasswordEncoder passwordEncoder;
 
   @Override
   @Transactional
   public void set(UserDto userDto) throws Exception {
     User user = new User();
     user.setEmail(userDto.getEmail());
-    
-    String encodePassword = shaPasswordEncoder.encodePassword(userDto.getPassword(), null); // TODO salt 추가 확인 필요
-    user.setPassword(encodePassword);
+    user.setPassword(passwordEncoder.encode(userDto.getPassword()));
     
     /* 유저 기본 등록 */
     UserBasic userBasic = new UserBasic();

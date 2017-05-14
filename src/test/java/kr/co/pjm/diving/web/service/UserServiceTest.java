@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.pjm.diving.common.domain.enumeration.GenderEnum;
 import kr.co.pjm.diving.common.domain.enumeration.UserStatusEnum;
+import kr.co.pjm.diving.web.common.security.service.SecurityService;
 import kr.co.pjm.diving.web.domain.dto.UserDto;
 import kr.co.pjm.diving.web.domain.entity.User;
 import kr.co.pjm.diving.web.domain.entity.UserRole;
@@ -43,7 +44,11 @@ public class UserServiceTest {
   @Autowired
   private UserService userService;
   
+  @Autowired
+  private SecurityService securityService;
+  
   @Test
+  @Ignore
   public void testSet() throws Exception {
     UserDto userDto = new UserDto();
     userDto.setEmail("kbtapjm@gmail.com");
@@ -60,7 +65,16 @@ public class UserServiceTest {
   }
   
   @Test
+  public void testLogin() throws Exception {
+    securityService.login("kbtapjm@gmail.com", "1234");
+    
+    String loginUser = securityService.getLoginUser();
+    log.debug("loginUser : {}", loginUser);
+  }
+  
+  @Test
   @Transactional(readOnly = true)
+  @Ignore
   public void testGetById() throws Exception {
     Long id = (long) 1;
     
@@ -78,6 +92,7 @@ public class UserServiceTest {
   
   @Test
   @Transactional(readOnly = true)
+  @Ignore
   public void testGetByEmail() throws Exception {
     String email = "kbtapjm@gmail.com";
     User user = userService.getByEmail(email);
@@ -86,6 +101,7 @@ public class UserServiceTest {
   }
   
   @Test
+  @Ignore
   public void testUpdate() throws Exception {
     Long id = (long) 1;
     

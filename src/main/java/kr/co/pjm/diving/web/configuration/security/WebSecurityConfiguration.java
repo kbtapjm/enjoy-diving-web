@@ -13,8 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
 import kr.co.pjm.diving.web.common.security.ExtensibleUserDetailsService;
@@ -79,7 +79,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(userDetailsService()).passwordEncoder(new ShaPasswordEncoder(512));
+    auth.userDetailsService(userDetailsService()).passwordEncoder(new BCryptPasswordEncoder());
   }
   
   @Override
@@ -91,15 +91,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
   public void configure(WebSecurity web) throws Exception {
     web.ignoring().antMatchers("/static/**");
   }
-  
+ 
   @Bean
   public PasswordEncoder passwordEncoder() {
-    return new StandardPasswordEncoder();
-  }
-  
-  @Bean
-  public ShaPasswordEncoder shaPasswordEncoder() {
-      return new ShaPasswordEncoder(512);
+      return new BCryptPasswordEncoder();
   }
   
   @Bean

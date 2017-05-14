@@ -11,6 +11,8 @@ import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -39,6 +41,7 @@ public abstract class CommonEntity {
   @Temporal(TemporalType.DATE)
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+9")
+  @CreatedDate
   private Date regDate;
 
   /* 수정일 */
@@ -46,6 +49,7 @@ public abstract class CommonEntity {
   @Temporal(TemporalType.DATE)
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+9")
+  @LastModifiedDate
   private Date updateDate;
 
   @Override
@@ -55,11 +59,11 @@ public abstract class CommonEntity {
   
   @PrePersist
   public void prePersist() {
-      this.regDate = new Date();
+      //this.regDate = new Date();
   }
   
   @PreUpdate
   public void preUpdate() {
-      this.updateDate = new Date();
+      //this.updateDate = new Date();
   }
 }
