@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<script th:inline="javascript">
+  var console = window.console || {
+    log: function() {
+    }
+  };
+
+  var contextPath = /*[[@{/}]]*/;
+  if (contextPath == "/") {
+    contextPath = "";
+  } else {
+    contextPath = contextPath + "/"; 
+  }
+
+  $(document).ready(function() {
+    /* ajax 요청시 csrf token을 삽입처리 하도록 한다. */
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+      if (token !== undefined) {
+        xhr.setRequestHeader(header, token);
+      }
+    });
+
+    /* ajax error global event 처리를 담당한다. */
+    $(document).ajaxError(function(event, jqxhr, settings, thrownError) {
+      if (jqxhr.status === 401) {
+        if (typeof jqxhr.responseJSON === 'object') {
+          alert(jqxhr.responseJSON.message);
+          return;
+        }
+
+        alert(errorUnauthorized);
+        return;
+      }
+
+      if (jqxhr.status === 403) {
+        alert(errorForbidden);
+        $(location).attr('href', contextPath + '/login');
+        return;
+      }
+    });
+
+    /* $('#signout').on('click', function() {
+      $('#frm_signout').submit();
+    }); */
+  });
+</script>
+</head>
+</html>

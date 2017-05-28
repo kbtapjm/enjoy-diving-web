@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.pjm.diving.common.domain.enumeration.RoleTypeEnum;
+import kr.co.pjm.diving.common.domain.enumeration.UserStatusEnum;
 import kr.co.pjm.diving.web.domain.dto.UserBasicDto;
 import kr.co.pjm.diving.web.domain.dto.UserDto;
 import kr.co.pjm.diving.web.domain.entity.Role;
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
-  public void set(UserDto userDto) throws Exception {
+  public User set(UserDto userDto) {
     User user = new User();
     user.setEmail(userDto.getEmail());
     user.setPassword(passwordEncoder.encode(userDto.getPassword()));
@@ -59,7 +60,7 @@ public class UserServiceImpl implements UserService {
     userBasic.setNickname(userDto.getNickname());
     userBasic.setGender(userDto.getGender());
     userBasic.setCountry(userDto.getCountry());
-    userBasic.setStatus(userDto.getStatus());
+    userBasic.setStatus(UserStatusEnum.NORMAL);
     userBasic.setIntroduce(userDto.getIntroduce());
     
     userBasicRepository.save(userBasic);
@@ -76,22 +77,24 @@ public class UserServiceImpl implements UserService {
     user.getUserRoles().add(userRole);
     
     /* 유저 등록 */
-    userRepository.save(user);
+    User retUser = userRepository.save(user);
+    
+    return retUser;
   }
 
   @Override
-  public User getById(Long id) throws Exception {
+  public User getById(Long id) {
     return userRepository.findOne(id);
   }
 
   @Override
-  public User getByEmail(String email) throws Exception {
+  public User getByEmail(String email) {
     return userRepository.findByEmail(email);
   }
 
   @Override
   @Transactional
-  public void update(UserDto userDto) throws Exception {
+  public void update(UserDto userDto) {
     
     UserBasicDto userBasicDto = new UserBasicDto();
     userBasicDto.setId(userDto.getId());
@@ -110,7 +113,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
-  public void delete(Long id) throws Exception {
+  public void delete(Long id) {
     userRepository.delete(id);
     userBasicRepository.delete(id);
   }

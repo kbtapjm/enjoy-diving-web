@@ -17,14 +17,14 @@ import kr.co.pjm.diving.web.domain.entity.User;
  */
 public interface UserService {
   
-  void set(UserDto userDto) throws Exception;
+  User set(UserDto userDto);
   
-  User getById(Long id) throws Exception;
+  User getById(Long id);
   
-  User getByEmail(String email) throws Exception;
+  User getByEmail(String email);
   
-  void update(UserDto userDto) throws Exception;
+  void update(UserDto userDto);
   
-  void delete(Long id) throws Exception;
+  void delete(Long id);
   
 }

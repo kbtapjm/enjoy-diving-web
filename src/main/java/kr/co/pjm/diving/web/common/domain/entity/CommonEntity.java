@@ -59,11 +59,11 @@ public abstract class CommonEntity {
   
   @PrePersist
   public void prePersist() {
-      //this.regDate = new Date();
+      this.regDate = new Date();
   }
   
   @PreUpdate
   public void preUpdate() {
-      //this.updateDate = new Date();
+      this.updateDate = new Date();
   }
 }
