@@ -14327,7 +14327,7 @@ ul.ui.list li:before,
   left: auto;
   font-weight: normal;
   margin-left: -1.25rem;
-  content: '��';
+  content: '•';
   opacity: 1;
   color: inherit;
   vertical-align: top;
@@ -23199,7 +23199,7 @@ Floated Menu / Item
 
 .ui.message .list:not(.ui) li:before {
   position: absolute;
-  content: '��';
+  content: '•';
   left: -1em;
   height: 100%;
   vertical-align: baseline;
