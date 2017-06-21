@@ -8,11 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
@@ -31,8 +33,7 @@ import lombok.Setter;
  * @Description : 유저 롤 엔티티
  *
  */
-@Getter @Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 @Entity(name = "user_role")
 public class UserRole implements Serializable  {
 
@@ -42,6 +43,7 @@ public class UserRole implements Serializable  {
   @Id
   @ManyToOne
   @JoinColumn(name = "user_id")
+  @JsonBackReference
   private User user;
   
   /* 롤 */
@@ -52,9 +54,14 @@ public class UserRole implements Serializable  {
   
   /* 등록일 */
   @Column(name = "reg_date", nullable = false, insertable = true, updatable = false)
-  @Temporal(TemporalType.DATE)
+  @Temporal(TemporalType.TIMESTAMP)
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+9")
-  private Date regDate = new Date();
+  private Date regDate;
+  
+  @PrePersist
+  public void prePersist() {
+      this.regDate = new Date();
+  }
   
 }

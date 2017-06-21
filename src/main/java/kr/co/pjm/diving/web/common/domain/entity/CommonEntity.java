@@ -38,23 +38,23 @@ public abstract class CommonEntity {
   
   /* 등록일 */
   @Column(name = "reg_date", nullable = false, insertable = true, updatable = false)
-  @Temporal(TemporalType.DATE)
+  @Temporal(TemporalType.TIMESTAMP)
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+9")
-  @CreatedDate
+  //@CreatedDate
   private Date regDate;
 
   /* 수정일 */
   @Column(name = "update_date", nullable = true, insertable = false, updatable = true)
-  @Temporal(TemporalType.DATE)
+  @Temporal(TemporalType.TIMESTAMP)
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+9")
-  @LastModifiedDate
+  //@LastModifiedDate
   private Date updateDate;
 
   @Override
   public String toString() {
-    return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
   }
   
   @PrePersist

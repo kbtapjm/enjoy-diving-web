@@ -48,23 +48,25 @@ public class UserServiceTest {
   private SecurityService securityService;
   
   @Test
-  @Ignore
   public void testSet() throws Exception {
     UserDto userDto = new UserDto();
-    userDto.setEmail("kbtapjm@gmail.com");
+    userDto.setEmail("tapjm@naver.com");
     userDto.setPassword("1234");
     userDto.setCountry("Korea");
     userDto.setName("박재명");
-    userDto.setNickname("검은몽스");
+    userDto.setNickname("코비");
     userDto.setGender(GenderEnum.MALE);
-    userDto.setStatus(UserStatusEnum.NORMAL);
     userDto.setLoginDate(new Date());
     userDto.setIntroduce("반가워요");
     
-    userService.set(userDto);
+    User user = userService.set(userDto);
+    log.debug("user : {}", user.toString());
+    
+    assertNotNull(user);
   }
   
   @Test
+  @Ignore
   public void testLogin() throws Exception {
     securityService.login("kbtapjm@gmail.com", "1234");
     
@@ -122,6 +124,5 @@ public class UserServiceTest {
     Long id = (long) 1;
     userService.delete(id);
   }
-  
 
 }

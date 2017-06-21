@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import kr.co.pjm.diving.common.domain.enumeration.GenderEnum;
 import kr.co.pjm.diving.common.domain.enumeration.UserStatusEnum;
@@ -77,7 +78,7 @@ public class UserBasic extends CommonEntity {
   
   /* 로그인 일자 */
   @Column(name = "login_date", nullable = true)
-  @Temporal(TemporalType.DATE)
+  @Temporal(TemporalType.TIMESTAMP)
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
   private Date loginDate;
@@ -85,6 +86,7 @@ public class UserBasic extends CommonEntity {
   /* 유저 */ 
   @OneToOne(mappedBy = "userBasic")
   @JoinColumn(name = "user_id")
+  @JsonIgnore
   private User user;
 
 }

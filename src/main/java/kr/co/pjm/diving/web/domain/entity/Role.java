@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import kr.co.pjm.diving.common.domain.enumeration.RoleTypeEnum;
 import kr.co.pjm.diving.web.common.domain.entity.CommonEntity;
 import lombok.Getter;
@@ -47,6 +49,7 @@ public class Role extends CommonEntity {
   private String roleName;
   
   /* 유저 롤 엔티티 */
+  @JsonBackReference
   @OneToMany(mappedBy = "role")
   private Set<UserRole> userRoles;
 

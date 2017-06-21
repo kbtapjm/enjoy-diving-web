@@ -19,7 +19,7 @@ var UserCreateModule = UserCreateModule || (function($) {
   
   var data = {
     init: function() {
-      this.validate();
+      //this.validate();
     },
     
     validate: function() {
@@ -46,17 +46,16 @@ var UserCreateModule = UserCreateModule || (function($) {
         data[key] = $.trim(value);
       });
       
-      return;
       // TODO 벨리데이션 체크 로직(우선적으로 서버에서 체크) 
       
       $.ajax({
-        method : 'POST',
+        method: 'POST',
         headers: { 
           Accept: 'application/json; charset=UTF-8'
         },
         contentType: 'application/json; charset=UTF-8',
-        url : url,
-        data : JSON.stringify(data)
+        url: url,
+        data: JSON.stringify(data)
       }).done(function(data) {
         
       }).fail(function(jqXHR, textStatus, errorThrown) {
