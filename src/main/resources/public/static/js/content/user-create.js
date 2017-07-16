@@ -19,7 +19,7 @@ var UserCreateModule = UserCreateModule || (function($) {
   
   var data = {
     init: function() {
-      //this.validate();
+      this.validate(); // TODO: 벨리데이션 체크 후 AJAX 요청으로 로직처리 하게 
     },
     
     validate: function() {

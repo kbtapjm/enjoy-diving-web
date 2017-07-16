@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import kr.co.pjm.diving.web.domain.dto.UserDto;
 import kr.co.pjm.diving.web.domain.entity.User;
@@ -42,8 +41,7 @@ public class UserController {
   
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody @ResponseStatus(HttpStatus.CREATED)
-  public User create(@RequestBody UserDto userDto, UriComponentsBuilder uriComponentsBuilder) {
-    // TODO: validation check
+  public User create(@RequestBody UserDto userDto) {
     return userService.set(userDto);
   }
   

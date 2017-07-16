@@ -33,17 +33,6 @@ import lombok.Setter;
  * @Date : 2017. 5. 4.
  * @Version : 1.0
  * @Description : 유저 엔티티
- * 
- * <참조>
- * - JSON으로 변경할때 조인 컬럼들이 변환에러 해결 방법
- * JsonIdentityInfo : 객체의 ID 속성을 이용해 한번만 serialize 되도록 해준다. 
- * 따라서 A.B.A.B … 의 객체 구조는 A.B 까지만 변환이 되고, B.A는 변환되지 않는다.
- * 
- * Jackson-module-hiberate : Jpa Entity의 lazy loading 되는 부분은 json 변환에서 제외해준다. 
- * 상황에 따라서 다르겠지만 사실 나는 B도 불필요했기 때문에 유용하게 쓸 수 있을 것 같다.
- * 
- * @JsonManagedReference : json 부모
- * @JsonBackReference : json 자식
  */
 @Getter @Setter @NoArgsConstructor
 @Entity(name = "user")
