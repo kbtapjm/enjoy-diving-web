@@ -21,25 +21,25 @@
         <p>Fill out the form below to sign-up for a new account</p>
         </div>
         
-        <form class="ui form attached fluid segment" th:action="@{/users}" th:id="form">
+        <form class="ui form attached fluid segment" th:action="@{/users}" th:id="form" onsubmit="return false;">
             <div class="field">
                 <label>이메일</label>
-                <input type="text" th:name="email" th:id="email" placeholder="이메일" />
+                <input type="text" th:name="email" th:id="email" placeholder="이메일" value="111@naver.com" />
             </div>
             <div class="field">
                 <label>비밀번호</label>
-                <input type="password" th:name="password" th:id="password" placeholder="비밀번호" />
+                <input type="password" th:name="password" th:id="password" placeholder="비밀번호" value="123456" />
             </div>
             <div class="field">
                 <div class="field">
                     <label>이름</label>
-                    <input type="text" th:name="name" th:id="name" placeholder="이름" />
+                    <input type="text" th:name="name" th:id="name" placeholder="이름" value="test" />
                 </div>
             </div>
             <div class="field">
                 <div class="field">
                     <label>닉네임</label>
-                    <input type="text" th:name="nickname" th:id="nickname" placeholder="닉네임" />
+                    <input type="text" th:name="nickname" th:id="nickname" placeholder="닉네임" value="test2" />
                 </div>
             </div>
             <div class="field">

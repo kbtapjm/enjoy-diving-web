@@ -19,19 +19,81 @@ var UserCreateModule = UserCreateModule || (function($) {
   
   var data = {
     init: function() {
-      this.validate(); // TODO: 벨리데이션 체크 후 AJAX 요청으로 로직처리 하게 
+      this.validation(); 
     },
     
-    validate: function() {
+    validation: function() {
       $('.ui.form')
       .form({
         fields: {
+          email: {
+            identifier: 'email',
+            rules: [
+              {
+                type   : 'empty',
+                prompt : '이메일을 입력하세요.'
+              },
+              {
+                type   : 'email',
+                prompt : '유효한 이메일을 입력하세요.'
+              }
+            ]
+          },
+          password: {
+            identifier: 'password',
+            rules: [
+              {
+                type   : 'empty',
+                prompt : '비밀번호를 입력하세요.'
+              },
+              {
+                type   : 'minLength[6]',
+                prompt : '비밀번호는 {ruleValue}자 이상이어야합니다.'
+              }
+            ]
+          },
           name: {
             identifier: 'name',
             rules: [
               {
                 type   : 'empty',
                 prompt : '이름을 입력하세요.'
+              }
+            ]
+          },
+          nickname: {
+            identifier: 'nickname',
+            rules: [
+              {
+                type   : 'empty',
+                prompt : '닉네임을 입력하세요.'
+              }
+            ]
+          },
+          gender: {
+            identifier: 'gender',
+            rules: [
+              {
+                type   : 'empty',
+                prompt : '성별을 선택하세요.'
+              }
+            ]
+          },
+          country: {
+            identifier: 'country',
+            rules: [
+              {
+                type   : 'empty',
+                prompt : '국가를 선택하세요.'
+              }
+            ]
+          },
+          terms: {
+            identifier: 'terms',
+            rules: [
+              {
+                type   : 'checked',
+                prompt : '이용 약관에 동의해야합니다.'
               }
             ]
           }
@@ -46,8 +108,11 @@ var UserCreateModule = UserCreateModule || (function($) {
         data[key] = $.trim(value);
       });
       
-      // TODO 벨리데이션 체크 로직(우선적으로 서버에서 체크) 
+      if (!$('.ui.form').form('is valid')) {
+        return false;
+      }
       
+      // TODO: loading 추가
       $.ajax({
         method: 'POST',
         headers: { 
@@ -57,14 +122,36 @@ var UserCreateModule = UserCreateModule || (function($) {
         url: url,
         data: JSON.stringify(data)
       }).done(function(data) {
+        // Login
+        UserCreateModule.data.login();
+        
+        // main redirect
         
       }).fail(function(jqXHR, textStatus, errorThrown) {
         console.error(jqXHR);
       });
     },
     
-    validation: function(data) {
-      return true;
+    login: function() {
+      var data = {
+        email: $('#email').val(),
+        password: $('#password').val()
+      }
+      
+      $.ajax({
+        method: 'POST',
+        headers: { 
+          Accept: 'application/json; charset=UTF-8'
+        },
+        contentType: 'application/json; charset=UTF-8',
+        url: '/login',
+        data: JSON.stringify(data)
+      }).done(function(data) {
+        
+        
+      }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.error(jqXHR);
+      });
     }
   };
   
@@ -84,7 +171,8 @@ var UserCreateModule = UserCreateModule || (function($) {
     data: {
       init: data.init,
       submit: data.submit,
-      validate: data.validate
+      validation: data.validation,
+      login: data.login
     },
     event: {
       init: event.init

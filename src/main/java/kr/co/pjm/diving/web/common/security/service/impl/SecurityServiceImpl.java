@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import kr.co.pjm.diving.web.common.security.service.SecurityService;
+import kr.co.pjm.diving.web.domain.dto.LoginDto;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -35,17 +36,19 @@ public class SecurityServiceImpl implements SecurityService {
   private UserDetailsService userDetailsService;
 
   @Override
-  public void login(String email, String password) {
-    UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+  public UserDetails login(LoginDto loginDto) {
+    UserDetails userDetails = userDetailsService.loadUserByUsername(loginDto.getEmail());
     
-    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
+    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, loginDto.getPassword(), userDetails.getAuthorities());
 
     authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
     if (usernamePasswordAuthenticationToken.isAuthenticated()) {
       SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-      log.debug(String.format("Auto login %s successfully!", email));
+      log.debug(String.format("Auto login %s successfully!", loginDto.getEmail()));
     }
+    
+    return userDetails;
   }
 
   @Override

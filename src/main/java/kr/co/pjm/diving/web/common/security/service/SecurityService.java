@@ -1,5 +1,9 @@
 package kr.co.pjm.diving.web.common.security.service;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
+import kr.co.pjm.diving.web.domain.dto.LoginDto;
+
 /**
  * <pre>
  * @Package Name : kr.co.pjm.diving.web.common.security.service
@@ -14,7 +18,7 @@ package kr.co.pjm.diving.web.common.security.service;
  */
 public interface SecurityService {
 
-  void login(String email, String password);
+  UserDetails login(LoginDto loginDto);
   
   String getLoginUser();
 }

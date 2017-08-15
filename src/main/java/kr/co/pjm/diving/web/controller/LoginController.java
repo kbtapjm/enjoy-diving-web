@@ -4,18 +4,27 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import kr.co.pjm.diving.web.common.security.service.SecurityService;
+import kr.co.pjm.diving.web.domain.dto.LoginDto;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -38,6 +47,10 @@ public class LoginController {
   
   static final String RESOURCE_PATH = "/login";
   
+  @Autowired
+  private SecurityService securityService;
+  
+  
   /**
    * 로그인 페이지
    * @param principal
@@ -57,14 +70,34 @@ public class LoginController {
   }
   
   /**
-   * 로그인 처리(API형식)
+   * 로그인 처리
    * @return
    */
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody @ResponseStatus(HttpStatus.OK)
-  public Map<String, Object> login() {
+  public Map<String, Object> login(@RequestBody LoginDto loginDto, HttpSession httpSession) {
     Map<String, Object> resultMap = new HashMap<String, Object>();
     
+    try {
+      UserDetails userDetails = securityService.login(loginDto);
+      
+      httpSession.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
+      
+      HashMap<String, Object> dataMap = new HashMap<String, Object>();
+      dataMap.put("email", loginDto.getEmail());
+      dataMap.put("authorities", userDetails.getAuthorities());
+      dataMap.put("token", httpSession.getId());
+      
+      resultMap.put("resultCd", "0000");
+      resultMap.put("resultMsg", "SUCCESS");
+      resultMap.put("resultData", dataMap);
+    } catch (Exception e) {
+      e.printStackTrace();
+      
+      resultMap.put("resultCd", "9999");
+      resultMap.put("resultMsg", e.getMessage());
+    }
+        
     return resultMap;
   }
 
