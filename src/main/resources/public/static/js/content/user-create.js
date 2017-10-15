@@ -122,11 +122,8 @@ var UserCreateModule = UserCreateModule || (function($) {
         url: url,
         data: JSON.stringify(data)
       }).done(function(data) {
-        // Login
+      
         UserCreateModule.data.login();
-        
-        // main redirect
-        
       }).fail(function(jqXHR, textStatus, errorThrown) {
         console.error(jqXHR);
       });
@@ -147,8 +144,10 @@ var UserCreateModule = UserCreateModule || (function($) {
         url: '/login',
         data: JSON.stringify(data)
       }).done(function(data) {
+        console.log(data);
         
-        
+        // main redirect
+        location.href = '/';
       }).fail(function(jqXHR, textStatus, errorThrown) {
         console.error(jqXHR);
       });

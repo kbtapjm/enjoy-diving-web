@@ -2,17 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
-        <title>로그인 - Enjoy Diving</title>
+        <title data-th-text="'로그인'">로그인 - Enjoy Diving</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link rel="stylesheet" href="css/semantic.min.css" data-th-href="@{/static/css/semantic.css}" />
-        
-        <script src="js/lib/jquery-3.2.0.min.js" data-th-src="@{/static/js/lib/jquery-3.2.0.min.js}"></script>
-        <script src="js/lib/jquery-ui-1.12.1.min.js" data-th-src="@{/static/js/lib/jquery-ui-1.12.1.min.js}"></script>
-        <script src="js/lib/jquery-cookie.js" data-th-src="@{/static/js/lib/jquery-cookie.js}"></script>
-        <script src="js/common/common.js" data-th-src="@{/static/js/common/common.js}"></script>
-        
-        <script src="js/publish/semantic.min.js" data-th-src="@{/static/js/publish/semantic.min.js}"></script>
-        
         <style type="text/css">
             body {
               background-color: #DADADA;
@@ -27,25 +19,33 @@
               max-width: 450px;
             }
         </style>
+        
+        <script src="js/lib/jquery-3.2.0.min.js" data-th-src="@{/static/js/lib/jquery-3.2.0.min.js}"></script>
+        <script src="js/lib/jquery-ui-1.12.1.min.js" data-th-src="@{/static/js/lib/jquery-ui-1.12.1.min.js}"></script>
+        <script src="js/lib/jquery-cookie.js" data-th-src="@{/static/js/lib/jquery-cookie.js}"></script>
+        <script src="js/common/common.js" data-th-src="@{/static/js/common/common.js}"></script>
+        <script src="js/publish/semantic.min.js" data-th-src="@{/static/js/publish/semantic.min.js}"></script>
+        
     </head>
     <body>
         <div class="ui middle aligned center aligned grid">
             <div class="column">
-                <form class="ui large form error" th:action="@{/signIn}" method="post">
+                <form class="ui large form error" th:id="form" th:action="@{/login}" onsubmit="return false;">
                     <div class="ui stacked segment">
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
-                                <input type="text" name="email" id="email" placeholder="email"/>
+                                <input type="text" th:name="email" th:id="email" placeholder="email"/>
                             </div>
                         </div>
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="lock icon"></i>
-                                <input type="password" name="password" placeholder="Password"/>
+                                <input type="password" th:name="password" th:id="password" placeholder="Password"/>
                             </div>
                         </div>
-                        <button class="ui fluid large teal submit button" type="submit">Login</button>
+                        <button class="ui fluid large teal submit button" id="submit">Login</button>
+                        <div class="ui error message"></div>
                     </div>
                 </form>
                 
@@ -55,6 +55,8 @@
                 <button class="ui fluid large facebook button"><i class="facebook icon"></i>Facebook</button>
             </div>
         </div>
+        
+        <script src="js/content/login.js" data-th-src="@{/static/js/content/login.js}"></script>
         
     </body>
 </html>

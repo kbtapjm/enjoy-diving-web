@@ -15,7 +15,7 @@ spring:
     name: enjoy-diving-web
   output:
     ansi:
-      enabled: always 
+      enabled: always
   profiles:
     active: local
   resources:

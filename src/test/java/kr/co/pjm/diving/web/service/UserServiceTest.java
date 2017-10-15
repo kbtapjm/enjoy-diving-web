@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.pjm.diving.common.domain.enumeration.GenderEnum;
 import kr.co.pjm.diving.common.domain.enumeration.UserStatusEnum;
 import kr.co.pjm.diving.web.common.security.service.SecurityService;
+import kr.co.pjm.diving.web.domain.dto.LoginDto;
 import kr.co.pjm.diving.web.domain.dto.UserDto;
 import kr.co.pjm.diving.web.domain.entity.User;
 import kr.co.pjm.diving.web.domain.entity.UserRole;
@@ -47,7 +49,11 @@ public class UserServiceTest {
   @Autowired
   private SecurityService securityService;
   
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+  
   @Test
+  @Ignore
   public void testSet() throws Exception {
     UserDto userDto = new UserDto();
     userDto.setEmail("tapjm@naver.com");
@@ -68,7 +74,11 @@ public class UserServiceTest {
   @Test
   @Ignore
   public void testLogin() throws Exception {
-    securityService.login("kbtapjm@gmail.com", "1234");
+    LoginDto loginDto = new LoginDto();
+    loginDto.setEmail("kbtapjm@gmail.com");
+    loginDto.setPassword("1234");
+    
+    securityService.login(loginDto);
     
     String loginUser = securityService.getLoginUser();
     log.debug("loginUser : {}", loginUser);
@@ -123,6 +133,11 @@ public class UserServiceTest {
   public void testDelete() throws Exception {
     Long id = (long) 1;
     userService.delete(id);
+  }
+  
+  @Test
+  public void testGetPassword()throws Exception {
+    log.debug("passwordEncoder : {}", passwordEncoder.encode("111222"));
   }
 
 }
