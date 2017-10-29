@@ -56,7 +56,6 @@ var LoginModule = LoginModule || (function($) {
       });
     },
     
-    // 로그인 처리
     submit: function() {
       var data = _form.serializeObject();
       
@@ -68,7 +67,6 @@ var LoginModule = LoginModule || (function($) {
         return false;
       }
       
-      // TODO: loading 추가
       $.ajax({
         method: 'POST',
         headers: { 
@@ -78,10 +76,25 @@ var LoginModule = LoginModule || (function($) {
         url: url,
         data: JSON.stringify(data)
       }).done(function(data) {
+        if (data.resultCd !== '0000') {
+          LoginModule.data.setErrorMsg('이메일 또는 비밀번호가 일치 하지 않습니다.');
+          return false;
+        }
+        
         location.href = '/';
       }).fail(function(jqXHR, textStatus, errorThrown) {
         console.error(jqXHR);
       });
+    },
+    
+    setErrorMsg: function(msg) {
+      var html = '';
+      html += '<ul class="list">';
+      html += ' <li> ' + msg + '</li>';
+      html += '</ul>';
+      
+      $('.ui.error.message').show();
+      $('.ui.error.message').html(html);
     }
   };
   
@@ -99,6 +112,7 @@ var LoginModule = LoginModule || (function($) {
     data: {
       init: data.init,
       validation: data.validation,
+      setErrorMsg: data.setErrorMsg,
       submit: data.submit
     },
     event: {

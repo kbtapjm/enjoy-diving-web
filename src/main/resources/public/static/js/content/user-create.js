@@ -112,7 +112,7 @@ var UserCreateModule = UserCreateModule || (function($) {
         return false;
       }
       
-      // TODO: loading 추가
+      UiUtilModule.mask.open();
       $.ajax({
         method: 'POST',
         headers: { 
@@ -122,9 +122,9 @@ var UserCreateModule = UserCreateModule || (function($) {
         url: url,
         data: JSON.stringify(data)
       }).done(function(data) {
-      
         UserCreateModule.data.login();
       }).fail(function(jqXHR, textStatus, errorThrown) {
+        UiUtilModule.mask.close();
         console.error(jqXHR);
       });
     },
@@ -149,6 +149,7 @@ var UserCreateModule = UserCreateModule || (function($) {
         // main redirect
         location.href = '/';
       }).fail(function(jqXHR, textStatus, errorThrown) {
+        UiUtilModule.mask.close();
         console.error(jqXHR);
       });
     }
