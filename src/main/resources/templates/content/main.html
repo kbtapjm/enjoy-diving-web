@@ -5,15 +5,204 @@
         <title>메인 - Enjoy Diving </title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link rel="stylesheet" href="css/semantic.min.css" data-th-href="@{/static/css/semantic.min.css}" />
-        
-    </head>
-    <body>
-        
+        <link rel="stylesheet" href="css/main.css" data-th-href="@{/static/css/main.css}" />
         
         <script src="js/lib/jquery-3.2.0.min.js" data-th-src="@{/static/js/lib/jquery-3.2.0.min.js}"></script>
         <script src="js/lib/jquery-ui-1.12.1.min.js" data-th-src="@{/static/js/lib/jquery-ui-1.12.1.min.js}"></script>
         <script src="js/lib/jquery-cookie.js" data-th-src="@{/static/js/lib/jquery-cookie.js}"></script>
         <script src="js/common/common.js" data-th-src="@{/static/js/common/common.js}"></script>
+        <script src="js/publish/semantic.min.js" data-th-src="@{/static/js/publish/semantic.min.js}"></script>
         
+        <script>
+		  $(document).ready(function() {
+		    // fix menu when passed
+            $('.masthead').visibility({
+              once: false,
+              onBottomPassed: function() {
+                $('.fixed.menu').transition('fade in');
+              },
+              onBottomPassedReverse: function() {
+                $('.fixed.menu').transition('fade out');
+              }
+            });
+		
+            // create sidebar and attach to menu open
+            $('.ui.sidebar').sidebar('attach events', '.toc.item');
+          });
+	    </script>
+    </head>
+    <body>
+        <!-- Following Menu -->
+        <div class="ui large top fixed hidden menu">
+            <div class="ui container">
+                <a class="active item">Home</a>
+                <a class="item" th:href="@{/log}" sec:authorize="isAuthenticated()">로그</a>
+                <a class="item" th:href="@{/story}">이야기</a>
+                <a class="item" th:href="@{/tour}" sec:authorize="isAuthenticated()">투어정보</a>
+                
+                <div class="right menu">
+                    <div class="item" sec:authorize="isAuthenticated()">
+                        <a class="ui button" th:href="@{/login}"><span sec:authentication="principal.username"></span></a>
+                    </div>
+                    <div class="item" sec:authorize="!isAuthenticated()">
+                        <a class="ui button" th:href="@{/login}">로그인</a>
+                    </div>
+                    <div class="item" sec:authorize="isAuthenticated()">
+                        <a class="ui button" th:href="@{/signOut}">로그아웃</a>
+                    </div>
+                    <div class="item" sec:authorize="!isAuthenticated()">
+                        <a class="ui primary button" th:href="@{/users/new}">회원가입</a>
+                    </div>
+                    <div class="ui simple dropdown item">
+                    언어 <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item" href="#">한국어</a>
+                            <a class="item" href="#">영어</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+		<!-- Sidebar Menu -->
+        <div class="ui vertical inverted sidebar menu">
+            <a class="active item">Home</a>
+            <a class="item" th:href="@{/log}" sec:authorize="isAuthenticated()">로그</a>
+            <a class="item" th:href="@{/story}">이야기</a>
+            <a class="item" th:href="@{/tour}" sec:authorize="isAuthenticated()">투어정보</a>
+            <a class="item" th:href="@{/login}" sec:authorize="!isAuthenticated()">로그인</a>
+            <a class="item" th:href="@{/signOut}" sec:authorize="isAuthenticated()">로그아웃</a>
+            <a class="item" th:href="@{/users/new}" sec:authorize="!isAuthenticated()">회원가입</a>
+            <div class="item">
+                <div class="header">언어</div>
+                <div class="menu">
+                    <a class="item" >한국어</a>
+                    <a class="item" >영어</a>
+                </div>
+            </div>
+            <a class="item" th:href="@{/users/new}" sec:authorize="isAuthenticated()"><span sec:authentication="principal.username"></span></a>
+        </div>
+		
+        <!-- Page Contents -->
+        <div class="pusher">
+            <div class="ui inverted vertical masthead center aligned segment">
+		        <div class="ui container">
+                    <div class="ui large secondary inverted pointing menu">
+	                    <a class="toc item">
+	                        <i class="sidebar icon"></i>
+	                    </a>
+	                    <a class="active item">Home</a>
+	                    <a class="item" th:href="@{/log}" sec:authorize="isAuthenticated()">로그</a>
+	                    <a class="item" th:href="@{/story}">이야기</a>
+	                    <a class="item" th:href="@{/tour}" sec:authorize="isAuthenticated()">투어정보</a>
+	                    <div class="right item">
+                            <a class="ui inverted button" th:href="@{/users/new}" sec:authorize="isAuthenticated()"><span sec:authentication="principal.username"></span></a>
+	                        <a class="ui inverted button" th:href="@{/login}" sec:authorize="!isAuthenticated()">로그인</a>
+	                        <a class="ui inverted button" th:href="@{/signOut}" sec:authorize="isAuthenticated()">로그아웃</a>
+	                        <a class="ui inverted button" th:href="@{/users/new}" sec:authorize="!isAuthenticated()">회원가입</a>
+	                        <div class="ui simple dropdown item">
+                            언어 <i class="dropdown icon"></i>
+                                <div class="menu">
+                                    <a class="item" href="#">한국어</a>
+                                    <a class="item" href="#">영어</a>
+                                </div>
+                            </div>
+                            
+                            <div class="ui simple dropdown item" sec:authorize="hasRole('ADMIN')">
+                            관리메뉴<i class="dropdown icon"></i>
+                                <div class="menu">
+                                    <a class="item" href="#">권한 관리</a>
+                                    <a class="item" href="#">사용자 관리</a>
+                                    <a class="item" href="#">인증 이력 관리</a>
+                                </div>
+                            </div>
+	                    </div>
+	                </div>
+                </div>
+		
+	            <div class="ui text container">
+	                <h1 class="ui inverted header">Enjoy Diving</h1>
+	                <h2>언제나 즐겁고 신나는 홈페이지에 오신걸 환영합니다.</h2>
+	                <h2>다이빙 로그 정보, 장소 정보 등을 공유하고 확인이 가능합니다.</h2>
+	                <div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div>
+	                <div sec:authorize="isAuthenticated()"><span sec:authentication="principal.authorities"></span></div>
+	                
+	                <div th:if="${ #authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}">          
+                        <a th:href="@{/somelink}">ADMIN LINK</a>
+                    </div>
+	            </div>
+		    </div>
+		
+            <div class="ui vertical stripe segment">
+                <div class="ui middle aligned stackable grid container">
+                    <div class="row">
+                        <div class="eight wide column">
+                            <h3 class="ui header">We Help Companies and Companions</h3>
+                            <p>We can give your company superpowers to do things that they never thought possible. Let us delight your customers and empower your needs...through pure data analytics.</p>
+                            <h3 class="ui header">We Make Bananas That Can Dance</h3>
+                            <p>Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.</p>
+                        </div>
+                        <div class="six wide right floated column">
+                            <img src="/images/wireframe/white-image.png" data-th-src="@{/static/images/wireframe/white-image.png}" class="ui large bordered rounded image"  /> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="center aligned column">
+                            <a class="ui huge button">Check Them Out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		
+            <div class="ui vertical stripe quote segment">
+                <div class="ui equal width stackable internally celled grid">
+                    <div class="center aligned row">
+                        <div class="column">
+                            <h3>"What a Company"</h3>
+                            <p>That is what they all say about us</p>
+                        </div>
+                        <div class="column">
+                            <h3>"I shouldn't have gone with their competitor."</h3>
+                            <p>
+                                <img src="/images/avatar/nan.jpg" data-th-src="@{/static/images/avatar/nan.jpg}" class="ui avatar image" /> <b>Nan</b> Chief Fun Officer Acme Toys
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		
+            <div class="ui vertical stripe segment">
+                <div class="ui text container">
+                    <h3 class="ui header">Breaking The Grid, Grabs Your Attention</h3>
+                    <p>Instead of focusing on content creation and hard work, we have learned how to master the art of doing nothing by providing massive amounts of whitespace and generic content that can seem massive, monolithic and worth your attention.</p>
+                    <a class="ui large button">Read More</a>
+                    <h4 class="ui horizontal header divider">
+                        <a href="#">Case Studies</a>
+                    </h4>
+                    <h3 class="ui header">Did We Tell You About Our Bananas?</h3>
+                    <p>Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
+                    <a class="ui large button">I'm Still Quite Interested</a>
+                </div>
+            </div>
+		
+            <!-- Layout Bottom -->
+            <div class="ui inverted vertical footer segment">
+	            <div class="ui center aligned container">
+	                <img src="/images/logo.png" data-th-src="@{/static/images/logo.png}" class="ui centered mini image" />
+	                <div class="ui horizontal inverted small divided link list">
+	                    <a class="item" href="#">사이트맵</a>
+	                    <a class="item" href="#">연락처</a>
+	                    <a class="item" href="#">이용 약관</a>
+	                    <a class="item" href="#">개인 정보 정책</a>
+	                </div>
+	            </div>
+	        </div>
+		</div>
+		
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.ui.dropdown').dropdown();	  
+      }); 
+    </script>
     </body>
 </html>

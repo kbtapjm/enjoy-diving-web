@@ -1,16 +1,23 @@
 package kr.co.pjm.diving.web.common.security.service.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import kr.co.pjm.diving.web.common.security.service.SecurityService;
 import kr.co.pjm.diving.web.domain.dto.LoginDto;
+import kr.co.pjm.diving.web.domain.entity.UserRole;
+import kr.co.pjm.diving.web.repasitory.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -33,11 +40,26 @@ public class SecurityServiceImpl implements SecurityService {
   private AuthenticationManager authenticationManager;
   
   @Autowired
-  private UserDetailsService userDetailsService;
+  private UserRepository userRepository;
 
   @Override
   public UserDetails login(LoginDto loginDto) {
-    UserDetails userDetails = userDetailsService.loadUserByUsername(loginDto.getEmail());
+    
+    /* User select */
+    kr.co.pjm.diving.web.domain.entity.User user = userRepository.findByEmail(loginDto.getEmail());
+    
+    /* ROLE set */
+    List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+    
+    Iterator<UserRole> itr = user.getUserRoles().iterator();
+    while (itr.hasNext()) {
+      UserRole userRole = itr.next();
+      
+      authorities.add(new SimpleGrantedAuthority(userRole.getRole().toString()));
+    }
+    
+    UserDetails userDetails = (UserDetails) new org.springframework.security.core.userdetails.User(
+        user.getEmail(), user.getPassword(), authorities);
     
     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, loginDto.getPassword(), userDetails.getAuthorities());
 

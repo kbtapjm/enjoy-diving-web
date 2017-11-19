@@ -22,7 +22,7 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: "${springBootVersion}"
 
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: "${springBootVersion}"
-    compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '3.0.2.RELEASE'
+    compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '2.1.2.RELEASE'
     
     compile group: 'com.querydsl', name: 'querydsl-core', version: queryDslVersion
     compile group: 'com.querydsl', name: 'querydsl-jpa', version: queryDslVersion
@@ -40,6 +40,7 @@ eclipse {
     }
 }
 
+/* queryDsl setup */
 def queryDslOutput = file("src-gen/main/java")
  
 sourceSets {
@@ -73,13 +74,9 @@ task generateQueryDSL(type: JavaCompile, group: 'build') {
  
 compileTestJava.dependsOn(generateQueryDSL)
 
-/**
- * gradle clean task 실행 시 querydsl 경로 제거
- */
 clean {
     delete queryDslOutput
 }
-
 
 bootRepackage {
     mainClass = 'kr.co.pjm.diving.web.Application'
