@@ -43,8 +43,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     http
       .authorizeRequests()
         .antMatchers(HttpMethod.GET, "/signIn", "/login", "/users/new", "/").permitAll()
+        .antMatchers("/error/accessDenied").permitAll()
         .antMatchers(HttpMethod.POST, "/users", "/login").permitAll()
         .antMatchers("/h2console/**").hasAnyAuthority("ADMIN")
+        .antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority("ADMIN")            
         .anyRequest().authenticated()
       .and()
         .headers()
@@ -75,7 +77,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     
     http
     .exceptionHandling()
-      .accessDeniedPage("/accessDenied");
+      .accessDeniedPage("/error/accessDenied");
   }
 
   @Override
