@@ -1,87 +1,82 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" layout:decorator="layout/template-default">
     <head>
         <title>회원가입 - Enjoy Diving </title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <link type="text/css" rel="stylesheet" href="css/semantic.css" data-th-href="@{/static/css/semantic.css}" />
-        
-        <script src="js/lib/jquery-3.2.0.min.js" data-th-src="@{/static/js/lib/jquery-3.2.0.min.js}"></script>
-        <script src="js/lib/jquery-ui-1.12.1.min.js" data-th-src="@{/static/js/lib/jquery-ui-1.12.1.min.js}"></script>
-        <script src="js/lib/jquery-cookie.js" data-th-src="@{/static/js/lib/jquery-cookie.js}"></script>
-        <script src="js/common/common.js" data-th-src="@{/static/js/common/common.js}"></script>
-        <script src="js/publish/semantic.js" data-th-src="@{/static/js/publish/semantic.js}"></script>
-        
-        <script src="js/common/util/ui-util.js" data-th-src="@{/static/js/common/util/ui-util.js}"></script>
         
     </head>
     <body>
-        <div class="ui attached message">
-            <div class="header">
-            Welcome to our site!
-            </div>
-        <p>Fill out the form below to sign-up for a new account</p>
-        </div>
+        <th:block layout:fragment="content">
         
-        <form class="ui form attached fluid segment" th:action="@{/users}" th:id="form" onsubmit="return false;">
-            <div class="field">
-                <label>이메일</label>
-                <input type="text" th:name="email" th:id="email" placeholder="이메일" value="111@naver.com" />
-            </div>
-            <div class="field">
-                <label>비밀번호</label>
-                <input type="password" th:name="password" th:id="password" placeholder="비밀번호" value="123456" />
-            </div>
-            <div class="field">
-                <div class="field">
-                    <label>이름</label>
-                    <input type="text" th:name="name" th:id="name" placeholder="이름" value="test" />
-                </div>
-            </div>
-            <div class="field">
-                <div class="field">
-                    <label>닉네임</label>
-                    <input type="text" th:name="nickname" th:id="nickname" placeholder="닉네임" value="test2" />
-                </div>
-            </div>
-            <div class="field">
-                <label>성별</label>
-                <div class="ui selection dropdown">
-	                <input type="hidden" th:name="gender" th:id="gender"/>
-	                <i class="dropdown icon"></i>
-	                <div class="default text">성별</div>
-	                <div class="menu">
-	                    <div class="item" data-value="1">남자</div>
-	                    <div class="item" data-value="0">여자</div>
+	        <div class="ui attached message">
+	            <div class="header">
+	            Welcome to our site!
+	            </div>
+	        <p>Fill out the form below to sign-up for a new account</p>
+	        </div>
+	        
+	        <form class="ui form attached fluid segment" th:action="@{/users}" th:id="form" onsubmit="return false;">
+	            <div class="field">
+	                <label>이메일</label>
+	                <input type="text" th:name="email" th:id="email" placeholder="이메일" value="111@naver.com" />
+	            </div>
+	            <div class="field">
+	                <label>비밀번호</label>
+	                <input type="password" th:name="password" th:id="password" placeholder="비밀번호" value="123456" />
+	            </div>
+	            <div class="field">
+	                <div class="field">
+	                    <label>이름</label>
+	                    <input type="text" th:name="name" th:id="name" placeholder="이름" value="test" />
 	                </div>
-                </div>
-            </div>
-            <div class="field">
-                <label>국가</label>
-                <div class="ui selection dropdown">
-                    <input type="hidden" th:name="country" th:id="country"/>
-                    <i class="dropdown icon"></i>
-                    <div class="default text">국가</div>
-                    <div class="menu">
-                        <div class="item" data-value="Korea">Korea</div>
-                        <div class="item" data-value="Japan">Japan</div>
-                        <div class="item" data-value="China">China</div>
-                    </div>
-                </div>
-            </div>
-           
-            <div class="inline field">
-                <div class="ui checkbox">
-                    <input type="checkbox" id="terms"/>
-                    <label for="terms">I agree to the terms and conditions</label>
-                </div>
-            </div>
-            <div class="ui blue submit button" id="submit">회원가입</div>
-            <div class="ui error message"></div>
-        </form>
-        <div class="ui bottom attached warning message">
-            Already signed up? <a href="#" th:href="@{/login}">Login here</a> instead.
-        </div>
+	            </div>
+	            <div class="field">
+	                <div class="field">
+	                    <label>닉네임</label>
+	                    <input type="text" th:name="nickname" th:id="nickname" placeholder="닉네임" value="test2" />
+	                </div>
+	            </div>
+	            <div class="field">
+	                <label>성별</label>
+	                <div class="ui selection dropdown">
+		                <input type="hidden" th:name="gender" th:id="gender"/>
+		                <i class="dropdown icon"></i>
+		                <div class="default text">성별</div>
+		                <div class="menu">
+		                    <div class="item" data-value="1">남자</div>
+		                    <div class="item" data-value="0">여자</div>
+		                </div>
+	                </div>
+	            </div>
+	            <div class="field">
+	                <label>국가</label>
+	                <div class="ui selection dropdown">
+	                    <input type="hidden" th:name="country" th:id="country"/>
+	                    <i class="dropdown icon"></i>
+	                    <div class="default text">국가</div>
+	                    <div class="menu">
+	                        <div class="item" data-value="Korea">Korea</div>
+	                        <div class="item" data-value="Japan">Japan</div>
+	                        <div class="item" data-value="China">China</div>
+	                    </div>
+	                </div>
+	            </div>
+	           
+	            <div class="inline field">
+	                <div class="ui checkbox">
+	                    <input type="checkbox" id="terms"/>
+	                    <label for="terms">I agree to the terms and conditions</label>
+	                </div>
+	            </div>
+	            <div class="ui blue submit button" id="submit">회원가입</div>
+	            <div class="ui error message"></div>
+	        </form>
+	        <div class="ui bottom attached warning message">
+	            Already signed up? <a href="#" th:href="@{/login}">Login here</a> instead.
+	        </div>
+        
+        </th:block>
         
         <script src="js/content/user-create.js" data-th-src="@{/static/js/content/user-create.js}"></script>
         
