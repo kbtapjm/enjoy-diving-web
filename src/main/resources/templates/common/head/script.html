@@ -8,10 +8,10 @@
   };
 
   var contextPath = /*[[@{/}]]*/;
-  if (contextPath == "/") {
-    contextPath = "";
+  if (contextPath == '/') {
+    contextPath = '';
   } else {
-    contextPath = contextPath + "/"; 
+    contextPath = contextPath + '/'; 
   }
 
   $(document).ready(function() {
@@ -57,11 +57,11 @@
 
     // create sidebar and attach to menu open
     $('.ui.sidebar').sidebar('attach events', '.toc.item');
-
-    /* $('#signout').on('click', function() {
-      $('#frm_signout').submit();
-    }); */
+    
+    // ui dropdown set
+    $('.ui.dropdown').dropdown();
   });
+  
 </script>
 </head>
 </html>

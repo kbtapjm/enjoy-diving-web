@@ -18,44 +18,46 @@
     
 </head>
 
-<body>
+<body th:with="uri=${#httpServletRequest.getRequestURI()}">
     <!-- Following Menu -->
     <div class="ui large top fixed hidden menu">
         <div class="ui container">
-            <a class="active item">Home</a>
-            <a class="item" th:href="@{/log}" sec:authorize="isAuthenticated()">로그</a>
-            <a class="item" th:href="@{/story}">이야기</a>
-            <a class="item" th:href="@{/tour}" sec:authorize="isAuthenticated()">투어정보</a>
+            <a class="item" th:classappend="${uri == '/' ? 'active':''}">Home</a>
+            <a class="item" th:classappend="${uri == '/log' ? 'active':''}" th:href="@{/log}" sec:authorize="isAuthenticated()">로그</a>
+            <a class="item" th:classappend="${uri == '/story' ? 'active':''}" th:href="@{/story}">이야기</a>
+            <a class="item" th:classappend="${uri == '/tour' ? 'active':''}" th:href="@{/tour}" sec:authorize="isAuthenticated()">투어정보</a>
+            
+            <!-- ADMIN -->
+            <div class="ui simple dropdown item" th:if="${#authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}">
+            관리메뉴<i class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item" th:href="@{/admin/user}">사용자 관리</a>
+                    <a class="item" href="#">권한 관리</a>
+                    <a class="item" href="#">사용자 권한 관리</a>
+                    <a class="item" href="#">인증 이력 관리</a>
+                </div>
+            </div>
             
             <div class="right menu">
-                <div class="item" sec:authorize="isAuthenticated()">
-                    <a class="ui button" th:href="@{/login}"><span sec:authentication="principal.username"></span></a>
-                </div>
                 <div class="item" sec:authorize="!isAuthenticated()">
                     <a class="ui button" th:href="@{/login}">로그인</a>
                 </div>
                 <div class="item" sec:authorize="isAuthenticated()">
                     <a class="ui button" th:href="@{/signOut}">로그아웃</a>
                 </div>
+                <div class="item" sec:authorize="isAuthenticated()">
+                    <a class="ui button" th:href="@{/login}">내정보</a>
+                </div>
                 <div class="item" sec:authorize="!isAuthenticated()">
                     <a class="ui primary button" th:href="@{/users/new}">회원가입</a>
                 </div>
+                
+                <!-- 다국어 설정 -->
                 <div class="ui simple dropdown item">
                 언어 <i class="dropdown icon"></i>
                     <div class="menu">
                         <a class="item" href="#">한국어</a>
                         <a class="item" href="#">영어</a>
-                    </div>
-                </div>
-                
-                <!-- ADMIN -->
-                <div class="ui simple dropdown item" th:if="${#authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}">
-                관리메뉴<i class="dropdown icon"></i>
-                    <div class="menu">
-                        <a class="item" th:href="@{/admin/user}">사용자 관리</a>
-                        <a class="item" href="#">권한 관리</a>
-                        <a class="item" href="#">사용자 권한 관리</a>
-                        <a class="item" href="#">인증 이력 관리</a>
                     </div>
                 </div>
             </div>
@@ -64,20 +66,12 @@
     
     <!-- Sidebar Menu -->
     <div class="ui vertical inverted sidebar menu">
-        <a class="active item">Home</a>
-        <a class="item" th:href="@{/log}" sec:authorize="isAuthenticated()">로그</a>
-        <a class="item" th:href="@{/story}">이야기</a>
-        <a class="item" th:href="@{/tour}" sec:authorize="isAuthenticated()">투어정보</a>
+        <a class="item" th:classappend="${uri == '/' ? 'active':''}" th:href="@{/}">Home</a>
+        <a class="item" th:classappend="${uri == '/log' ? 'active':''}" th:href="@{/log}" sec:authorize="isAuthenticated()">로그</a>
+        <a class="item" th:classappend="${uri == '/story' ? 'active':''}" th:href="@{/story}">이야기</a>
+        <a class="item" th:classappend="${uri == '/tour' ? 'active':''}" th:href="@{/tour}" sec:authorize="isAuthenticated()">투어정보</a>
         <a class="item" th:href="@{/login}" sec:authorize="!isAuthenticated()">로그인</a>
-        <a class="item" th:href="@{/signOut}" sec:authorize="isAuthenticated()">로그아웃</a>
         <a class="item" th:href="@{/users/new}" sec:authorize="!isAuthenticated()">회원가입</a>
-        <div class="item">
-            <div class="header">언어</div>
-            <div class="menu">
-                <a class="item" >한국어</a>
-                <a class="item" >영어</a>
-            </div>
-        </div>
         
         <!-- ADMIN -->
         <div class="item" th:if="${#authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}">
@@ -90,7 +84,17 @@
             </div>
         </div>
         
-        <a class="item" th:href="@{/users/new}" sec:authorize="isAuthenticated()"><span sec:authentication="principal.username"></span></a>
+        <!-- 다국어 설정 -->
+        <div class="item">
+            <div class="header">언어</div>
+            <div class="menu">
+                <a class="item" >한국어</a>
+                <a class="item" >영어</a>
+            </div>
+        </div>
+        
+        <a class="item" th:href="@{/signOut}" sec:authorize="isAuthenticated()">로그아웃</a>
+        <a class="item" th:href="@{/users/new}" sec:authorize="isAuthenticated()">내정보</a>
     </div>
     
     <!-- Page Contents -->
@@ -101,31 +105,34 @@
                     <a class="toc item">
                         <i class="sidebar icon"></i>
                     </a>
-                    <a class="active item">Home</a>
-                    <a class="item" th:href="@{/log}" sec:authorize="isAuthenticated()">로그</a>
-                    <a class="item" th:href="@{/story}">이야기</a>
-                    <a class="item" th:href="@{/tour}" sec:authorize="isAuthenticated()">투어정보</a>
+                    <a class="item" th:classappend="${uri == '/' ? 'active':''}">Home</a>
+                    <a class="item" th:classappend="${uri == '/log' ? 'active':''}" th:href="@{/log}" sec:authorize="isAuthenticated()">로그</a>
+                    <a class="item" th:classappend="${uri == '/story' ? 'active':''}" th:href="@{/story}">이야기</a>
+                    <a class="item" th:classappend="${uri == '/tour' ? 'active':''}" th:href="@{/tour}" sec:authorize="isAuthenticated()">투어정보</a>
+                    
+                    <!-- ADMIN -->
+                    <div class="ui simple dropdown item" th:if="${#authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}">
+                    관리메뉴<i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item" th:href="@{/admin/user}" >사용자 관리</a>
+                            <a class="item" href="#">권한 관리</a>
+                            <a class="item" href="#">사용자 권한 관리</a>
+                            <a class="item" href="#">인증 이력 관리</a>
+                        </div>
+                    </div>
+                    
                     <div class="right item">
-                        <a class="ui inverted button" th:href="@{/users/new}" sec:authorize="isAuthenticated()"><span sec:authentication="principal.username"></span></a>
                         <a class="ui inverted button" th:href="@{/login}" sec:authorize="!isAuthenticated()">로그인</a>
                         <a class="ui inverted button" th:href="@{/signOut}" sec:authorize="isAuthenticated()">로그아웃</a>
+                        <a class="ui inverted button" th:href="@{/users/new}" sec:authorize="isAuthenticated()">내정보</a>
                         <a class="ui inverted button" th:href="@{/users/new}" sec:authorize="!isAuthenticated()">회원가입</a>
+                        
+                        <!-- 다국어 설정 -->
                         <div class="ui simple dropdown item">
                         언어 <i class="dropdown icon"></i>
                             <div class="menu">
                                 <a class="item" href="#">한국어</a>
                                 <a class="item" href="#">영어</a>
-                            </div>
-                        </div>
-                        
-                        <!-- ADMIN -->
-                        <div class="ui simple dropdown item" th:if="${#authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}">
-                        관리메뉴<i class="dropdown icon"></i>
-                            <div class="menu">
-                                <a class="item" th:href="@{/admin/user}" >사용자 관리</a>
-                                <a class="item" href="#">권한 관리</a>
-                                <a class="item" href="#">사용자 권한 관리</a>
-                                <a class="item" href="#">인증 이력 관리</a>
                             </div>
                         </div>
                     </div>
@@ -134,13 +141,15 @@
                 <div class="ui text container">
                     <h1 class="ui inverted header">Enjoy Diving</h1>
                     <h2>언제나 즐겁고 신나는 홈페이지에 오신걸 환영합니다.</h2>
-                    <h2>다이빙 로그 정보, 장소 정보 등을 공유하고 확인이 가능합니다.</h2>
-                    <div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div>
-                    <div sec:authorize="isAuthenticated()"><span sec:authentication="principal.authorities"></span></div>
+                    <h2>로그, 이야기, 투어 정보 등을 공유하고 확인이 가능합니다.</h2>
                     
+                    <!-- <div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div> -->
+                    
+                    <!-- <div sec:authorize="isAuthenticated()"><span sec:authentication="principal.authorities"></span></div>
                     <div th:if="${ #authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}">          
                         <a th:href="@{/somelink}">ADMIN LINK</a>
-                    </div>
+                        <a th:href="@{/somelink}"><span sec:authentication="principal.username"></span></a>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -156,7 +165,7 @@
                 <img src="/images/logo.png" data-th-src="@{/static/images/logo.png}" class="ui centered mini image" />
                 <div class="ui horizontal inverted small divided link list">
                     <a class="item" href="#">사이트맵</a>
-                    <a class="item" href="#">연락처</a>
+                    <a class="item" href="#">소개</a>
                     <a class="item" href="#">이용 약관</a>
                     <a class="item" href="#">개인 정보 정책</a>
                 </div>
