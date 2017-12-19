@@ -46,7 +46,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers("/error/accessDenied").permitAll()
         .antMatchers(HttpMethod.POST, "/users", "/login").permitAll()
         .antMatchers("/h2console/**").hasAnyAuthority("ADMIN")
-        .antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority("ADMIN")            
+//        .antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority("ADMIN")
         .anyRequest().authenticated()
       .and()
         .headers()

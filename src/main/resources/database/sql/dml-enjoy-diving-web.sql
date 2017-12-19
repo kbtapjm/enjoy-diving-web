@@ -10,8 +10,8 @@ INSERT INTO USER_BASIC(id, name, nickname, gender, country, status, profile, int
 
 -- 유저
 INSERT INTO USER(id, email, password, reg_date, user_basic_id) VALUES (1, 'kbtapjm@gmail.com', '$2a$10$MIMaITTnAT2RUtq4zNRjuuXhs5ao40U0QMzjHatZaArWxFqgrMntO', now(), 1);
-INSERT INTO USER(id, email, password, reg_date, user_basic_id) VALUES (2, 'manager@gmail.com', '$2a$10$MIMaITTnAT2RUtq4zNRjuuXhs5ao40U0QMzjHatZaArWxFqgrMntO', now(), 1);
-INSERT INTO USER(id, email, password, reg_date, user_basic_id) VALUES (3, 'user@gmail.com', '$2a$10$MIMaITTnAT2RUtq4zNRjuuXhs5ao40U0QMzjHatZaArWxFqgrMntO', now(), 1);
+INSERT INTO USER(id, email, password, reg_date, user_basic_id) VALUES (2, 'manager@gmail.com', '$2a$10$MIMaITTnAT2RUtq4zNRjuuXhs5ao40U0QMzjHatZaArWxFqgrMntO', now(), 2);
+INSERT INTO USER(id, email, password, reg_date, user_basic_id) VALUES (3, 'user@gmail.com', '$2a$10$MIMaITTnAT2RUtq4zNRjuuXhs5ao40U0QMzjHatZaArWxFqgrMntO', now(), 3);
 
 -- 유저 롤
 INSERT INTO USER_ROLE(user_id, role_id, reg_date) VALUES (1, 1, now());

@@ -31,10 +31,10 @@
             <div class="ui simple dropdown item" th:if="${#authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}">
             관리메뉴<i class="dropdown icon"></i>
                 <div class="menu">
-                    <a class="item" th:href="@{/admin/user}">사용자 관리</a>
-                    <a class="item" href="#">권한 관리</a>
-                    <a class="item" href="#">사용자 권한 관리</a>
-                    <a class="item" href="#">인증 이력 관리</a>
+                    <a class="item" th:classappend="${uri == '/users' ? 'active':''}" th:href="@{/users}" >사용자 관리</a>
+                    <a class="item" th:classappend="${uri == '/role' ? 'active':''}" th:href="@{/role}">권한 관리</a>
+                    <a class="item" th:classappend="${uri == '/user-role' ? 'active':''}" th:href="@{/user-role}">사용자 권한 관리</a>
+                    <a class="item" th:classappend="${uri == '/login-history' ? 'active':''}" th:href="@{/login-history}">인증 이력 관리</a>
                 </div>
             </div>
             
@@ -77,10 +77,10 @@
         <div class="item" th:if="${#authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}">
             <div class="header">관리메뉴</div>
             <div class="menu">
-                <a class="item" th:href="@{/admin/user}">사용자 관리</a>
-                <a class="item" href="#">권한 관리</a>
-                <a class="item" href="#">사용자 권한 관리</a>
-                <a class="item" href="#">인증 이력 관리</a>
+                <a class="item" th:classappend="${uri == '/users' ? 'active':''}" th:href="@{/users}" >사용자 관리</a>
+                <a class="item" th:classappend="${uri == '/role' ? 'active':''}" th:href="@{/role}">권한 관리</a>
+                <a class="item" th:classappend="${uri == '/user-role' ? 'active':''}" th:href="@{/user-role}">사용자 권한 관리</a>
+                <a class="item" th:classappend="${uri == '/login-history' ? 'active':''}" th:href="@{/login-history}">인증 이력 관리</a>
             </div>
         </div>
         
@@ -105,7 +105,7 @@
                     <a class="toc item">
                         <i class="sidebar icon"></i>
                     </a>
-                    <a class="item" th:classappend="${uri == '/' ? 'active':''}">Home</a>
+                    <a class="item" th:classappend="${uri == '/' ? 'active':''}" th:href="@{/}">Home</a>
                     <a class="item" th:classappend="${uri == '/log' ? 'active':''}" th:href="@{/log}" sec:authorize="isAuthenticated()">로그</a>
                     <a class="item" th:classappend="${uri == '/story' ? 'active':''}" th:href="@{/story}">이야기</a>
                     <a class="item" th:classappend="${uri == '/tour' ? 'active':''}" th:href="@{/tour}" sec:authorize="isAuthenticated()">투어정보</a>
@@ -114,10 +114,10 @@
                     <div class="ui simple dropdown item" th:if="${#authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}">
                     관리메뉴<i class="dropdown icon"></i>
                         <div class="menu">
-                            <a class="item" th:href="@{/admin/user}" >사용자 관리</a>
-                            <a class="item" href="#">권한 관리</a>
-                            <a class="item" href="#">사용자 권한 관리</a>
-                            <a class="item" href="#">인증 이력 관리</a>
+                            <a class="item" th:classappend="${uri == '/users' ? 'active':''}" th:href="@{/users}" >사용자 관리</a>
+                            <a class="item" th:classappend="${uri == '/role' ? 'active':''}" th:href="@{/role}">권한 관리</a>
+                            <a class="item" th:classappend="${uri == '/user-role' ? 'active':''}" th:href="@{/user-role}">사용자 권한 관리</a>
+                            <a class="item" th:classappend="${uri == '/login-history' ? 'active':''}" th:href="@{/login-history}">인증 이력 관리</a>
                         </div>
                     </div>
                     
