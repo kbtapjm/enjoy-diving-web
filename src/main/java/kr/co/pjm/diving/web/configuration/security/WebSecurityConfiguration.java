@@ -1,10 +1,10 @@
 package kr.co.pjm.diving.web.configuration.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -16,8 +16,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import kr.co.pjm.diving.web.common.security.ExtensibleUserDetailsService;
+import kr.co.pjm.diving.web.common.security.handler.AuthenticationFailureEventHandler;
+import kr.co.pjm.diving.web.common.security.handler.AuthenticationSuccessEventHandler;
+import kr.co.pjm.diving.web.common.security.handler.SessionDestroyedEventHandler;
 
 /**
  * <pre>
@@ -104,6 +108,31 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
   public SessionRegistry sessionRegistry() {
     SessionRegistry sessionRegistry = new SessionRegistryImpl();
     return sessionRegistry;
+  }
+  
+  @Bean
+  public static ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
+    return new ServletListenerRegistrationBean<HttpSessionEventPublisher>(new HttpSessionEventPublisher());
+  }
+  
+  @Bean
+  public AuthenticationSuccessEventHandler authenticationSuccessEventHandler() {
+    return new AuthenticationSuccessEventHandler();
+  }
+  
+  @Bean
+  public AuthenticationFailureEventHandler authenticationFailureEventHandler() {
+    return new AuthenticationFailureEventHandler();
+  }
+  
+  /*@Bean
+  public ApplicationEventHandler applicationEventHandler() {
+      return new ApplicationEventHandler();
+  }*/
+  
+  @Bean
+  public SessionDestroyedEventHandler sessionDestroyedEventHandler() {
+      return new SessionDestroyedEventHandler();
   }
 
 }
