@@ -15,10 +15,13 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import kr.co.pjm.diving.web.common.security.ExtensibleUserDetailsService;
+import kr.co.pjm.diving.web.common.security.filter.CORSFilter;
+import kr.co.pjm.diving.web.common.security.filter.SessionTimeoutFilter;
 import kr.co.pjm.diving.web.common.security.handler.AuthenticationFailureEventHandler;
 import kr.co.pjm.diving.web.common.security.handler.AuthenticationSuccessEventHandler;
 import kr.co.pjm.diving.web.common.security.handler.SessionDestroyedEventHandler;
@@ -82,6 +85,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     http
     .exceptionHandling()
       .accessDeniedPage("/error/accessDenied");
+    
+    http
+      .addFilterBefore(new SessionTimeoutFilter(), BasicAuthenticationFilter.class)
+      .addFilterAfter(new CORSFilter(), SessionTimeoutFilter.class);
   }
 
   @Override
@@ -134,5 +141,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
   public SessionDestroyedEventHandler sessionDestroyedEventHandler() {
       return new SessionDestroyedEventHandler();
   }
+  
+  
 
 }

@@ -5,6 +5,7 @@ import java.util.Locale;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -42,6 +43,17 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     registry.addInterceptor(localeChangeInterceptor());
-  } 
+  }
+
+  /*@Override
+  public void addCorsMappings(CorsRegistry registry) {
+    registry
+      .addMapping("/**")
+      .allowedOrigins("*")
+      .allowedMethods("POST", "GET",  "PUT", "DELETE")
+      .allowedHeaders("Access-Control-Allow-Headers", "Content-Type", "x-requested-with")
+      .allowCredentials(false)
+      .maxAge(1);
+  } */
   
 }
