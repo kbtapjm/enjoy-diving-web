@@ -17,53 +17,60 @@
 	        </div>
 	        
 	        <form class="ui form attached fluid segment" th:action="@{/users}" th:id="form" onsubmit="return false;">
-	            <div class="field">
-	                <label>이메일</label>
-	                <input type="text" th:name="email" th:id="email" placeholder="이메일" value="111@naver.com" />
-	            </div>
-	            <div class="field">
-	                <label>비밀번호</label>
-	                <input type="password" th:name="password" th:id="password" placeholder="비밀번호" value="123456" />
-	            </div>
-	            <div class="field">
-	                <div class="field">
+                <div class="two fields">
+	                <div class="required field">
+	                    <label>이메일</label>
+	                    <input type="text" th:name="email" th:id="email" placeholder="이메일" value="111@naver.com" />
+	                </div>
+	                <div class="required field">
+	                    <label>비밀번호</label>
+	                    <input type="password" th:name="password" th:id="password" placeholder="비밀번호" value="123456" />
+	                </div>
+                </div>
+                <div class="two fields">
+	                <div class="required field">
 	                    <label>이름</label>
 	                    <input type="text" th:name="name" th:id="name" placeholder="이름" value="test" />
 	                </div>
-	            </div>
-	            <div class="field">
-	                <div class="field">
+	                <div class="required field">
 	                    <label>닉네임</label>
 	                    <input type="text" th:name="nickname" th:id="nickname" placeholder="닉네임" value="test2" />
 	                </div>
-	            </div>
-	            <div class="field">
-	                <label>성별</label>
-	                <div class="ui selection dropdown">
-		                <input type="hidden" th:name="gender" th:id="gender"/>
-		                <i class="dropdown icon"></i>
-		                <div class="default text">성별</div>
-		                <div class="menu">
-		                    <div class="item" data-value="1">남자</div>
-		                    <div class="item" data-value="0">여자</div>
-		                </div>
-	                </div>
-	            </div>
-	            <div class="field">
-	                <label>국가</label>
-	                <div class="ui selection dropdown">
-	                    <input type="hidden" th:name="country" th:id="country"/>
-	                    <i class="dropdown icon"></i>
-	                    <div class="default text">국가</div>
-	                    <div class="menu">
-	                        <div class="item" data-value="Korea">Korea</div>
-	                        <div class="item" data-value="Japan">Japan</div>
-	                        <div class="item" data-value="China">China</div>
+                </div>
+                <div class="two fields">
+	                <div class="required field">
+	                    <label>성별</label>
+	                    <div class="ui selection dropdown">
+	                        <input type="hidden" th:name="gender" th:id="gender"/>
+	                        <i class="dropdown icon"></i>
+	                        <div class="default text">성별</div>
+	                        <div class="menu">
+	                            <div class="item" data-value="1">남자</div>
+	                            <div class="item" data-value="0">여자</div>
+	                        </div>
 	                    </div>
 	                </div>
-	            </div>
-	           
-	            <div class="inline field">
+	                <div class="required field">
+	                    <label>국가</label>
+	                    <div class="ui selection dropdown">
+	                        <input type="hidden" th:name="country" th:id="country"/>
+	                        <i class="dropdown icon"></i>
+	                        <div class="default text">국가</div>
+	                        <div class="menu">
+	                            <div class="item" data-value="kr"><i class="kr flag"></i>South Korea</div>
+                                <div class="item" data-value="cn"><i class="cn flag"></i>China</div>
+	                            <div class="item" data-value="jp"><i class="jp flag"></i>Japan</div>
+                                <div class="item" data-value="id"><i class="id flag"></i>Indonesia</div>
+	                            <div class="item" data-value="us"><i class="us flag"></i>United States</div>
+	                            <div class="item" data-value="gb"><i class="gb flag"></i>England</div>  
+                                <div class="item" data-value="ph"><i class="ph flag"></i>Philippines</div>
+                                <div class="item" data-value="pw"><i class="pw flag"></i>Palau</div>
+                                <div class="item" data-value="eg"><i class="eg flag"></i>Egypt</div>
+	                        </div>
+	                    </div>
+	                </div>
+                </div>
+	            <div class="required inline field">
 	                <div class="ui checkbox">
 	                    <input type="checkbox" id="terms"/>
 	                    <label for="terms">I agree to the terms and conditions</label>
@@ -75,10 +82,10 @@
 	        <div class="ui bottom attached warning message">
 	            Already signed up? <a href="#" th:href="@{/login}">Login here</a> instead.
 	        </div>
+	        
+	        <script src="js/content/user-create.js" data-th-src="@{/static/js/content/user-create.js}"></script>
         
         </th:block>
-        
-        <script src="js/content/user-create.js" data-th-src="@{/static/js/content/user-create.js}"></script>
         
     </body>
 </html>

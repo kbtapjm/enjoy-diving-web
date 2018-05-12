@@ -1,5 +1,7 @@
 package kr.co.pjm.diving.web.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import kr.co.pjm.diving.web.domain.dto.UserDto;
 import kr.co.pjm.diving.web.domain.entity.User;
@@ -46,24 +49,38 @@ public class UserController {
   }
   
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  @ResponseBody @ResponseStatus(HttpStatus.CREATED)
+  @ResponseBody 
+  @ResponseStatus(HttpStatus.CREATED)
   public User create(@RequestBody UserDto userDto) {
     return userService.set(userDto);
   }
   
   @RequestMapping(value = "{id}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE, produces = MediaType.TEXT_HTML_VALUE)
-  public String createPage(@PathVariable("id") String id, Model model) {
+  public String createPage(@PathVariable("id") String id, Model model, Principal principal) {
     if (log.isDebugEnabled()) {
       log.debug("id : {}", id);
     }
     
     if ("new".equals(id)) {
-     
+      return "content/user-create";
     } else {
+      // TODO : 이메일을 바로 전달 받는걸로 변경 필요
+      log.debug("email : {}", principal.getName());
       
+      User user = userService.getByEmail(principal.getName());
+      model.addAttribute("user", user);
+      
+      log.debug("getDiveGroup : {}", user.getUserDive().getDiveGroup());
+      
+      return "content/user-read";
     }
-
-    return "content/user-create";
+  }
+  
+  @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody 
+  @ResponseStatus(HttpStatus.OK)
+  public void update(@RequestBody UserDto userDto, UriComponentsBuilder b) {
+    userService.update(userDto);
   }
 
 }

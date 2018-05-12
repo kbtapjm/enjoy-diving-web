@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" layout:decorator="layout/template-default">
+    <head>
+        <title>유저 정보 - Enjoy Diving </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        
+    </head>
+    <body>
+        <th:block layout:fragment="content">
+            <form class="ui form attached fluid segment" th:action="@{/users}" th:id="form" th:object="${user}" onsubmit="return false;">
+                <input type="hidden" th:name="id" th:id="id" th:value="${user.id}" />
+            
+                <h4 class="ui dividing header">기본 정보</h4>
+                <div class="two fields">
+                    <div class="required field">
+                        <label>이름</label>
+                        <input type="text" th:name="name" th:id="name" th:value="${user.userBasic.name}" placeholder="이름" />
+                    </div>
+                    <div class="required field">
+                        <label>닉네임</label>
+                        <input type="text" th:name="nickname" th:id="nickname" th:value="${user.userBasic.nickname}" placeholder="닉네임" />
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="required field">
+                        <label>성별</label>
+                        <div class="ui selection dropdown">
+                            <input type="hidden" th:name="gender" th:id="gender" th:value="${user.userBasic.gender.code}" />
+                            <i class="dropdown icon"></i>
+                            <div class="default text">성별</div>
+                            <div class="menu">
+                                <div class="item" data-value="1">남자</div>
+                                <div class="item" data-value="0">여자</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="required field">
+                        <label>국가</label>
+                        <div class="ui selection dropdown">
+                            <input type="hidden" th:name="country" th:id="country" th:value="${user.userBasic.country}" />
+                            <i class="dropdown icon"></i>
+                            <div class="default text">국가</div>
+                            <div class="menu">
+                                <div class="item" data-value="kr"><i class="kr flag"></i>South Korea</div>
+                                <div class="item" data-value="cn"><i class="cn flag"></i>China</div>
+                                <div class="item" data-value="jp"><i class="jp flag"></i>Japan</div>
+                                <div class="item" data-value="id"><i class="id flag"></i>Indonesia</div>
+                                <div class="item" data-value="us"><i class="us flag"></i>United States</div>
+                                <div class="item" data-value="gb"><i class="gb flag"></i>England</div>  
+                                <div class="item" data-value="ph"><i class="ph flag"></i>Philippines</div>
+                                <div class="item" data-value="pw"><i class="pw flag"></i>Palau</div>
+                                <div class="item" data-value="eg"><i class="eg flag"></i>Egypt</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 class="ui dividing header">다이브 정보</h4>
+                <div class="two fields">
+                    <div class="field">
+                        <label>다이브 단체</label>
+                        <input type="text" th:name="diveGroup" th:id="diveGroup" placeholder="다이브 단체" th:value="${user.UserDive.diveGroup}" />
+                    </div>
+                    <div class="field">
+                        <label>다이브 레벨</label>
+                        <input type="text" th:name="diveLevel" th:id="diveLevel" placeholder="다이브 레벨" th:value="${user.UserDive.diveLevel}"/>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>소속(단체)</label>
+                    <input type="text" th:name="team" th:id="team" placeholder="소속(단체)" th:value="${user.UserDive.team}" />
+                </div>
+                <div class="field">
+                    <label>서명</label>
+                    <textarea rows="2" th:name="signature" th:id="signature" th:text="${user.UserDive.signature}"></textarea>
+                </div>
+                
+                <div class="ui blue submit button" id="submit">저장</div>
+                <div class="ui error message"></div>
+            </form>
+            
+            <script src="js/content/user-read.js" data-th-src="@{/static/js/content/user-read.js}"></script>
+        
+        </th:block>
+        
+    </body>
+</html>

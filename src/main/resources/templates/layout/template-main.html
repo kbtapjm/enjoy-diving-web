@@ -46,7 +46,7 @@
                     <a class="ui button" th:href="@{/signOut}">로그아웃</a>
                 </div>
                 <div class="item" sec:authorize="isAuthenticated()">
-                    <a class="ui button" th:href="@{/login}">내정보</a>
+                    <a class="ui button" th:href="@{/users/read}">내정보</a>
                 </div>
                 <div class="item" sec:authorize="!isAuthenticated()">
                     <a class="ui primary button" th:href="@{/users/new}">회원가입</a>
@@ -94,7 +94,7 @@
         </div>
         
         <a class="item" th:href="@{/signOut}" sec:authorize="isAuthenticated()">로그아웃</a>
-        <a class="item" th:href="@{/users/new}" sec:authorize="isAuthenticated()">내정보</a>
+        <a class="item" th:href="@{/users/read}" sec:authorize="isAuthenticated()">내정보</a>
     </div>
     
     <!-- Page Contents -->
@@ -124,7 +124,7 @@
                     <div class="right item">
                         <a class="ui inverted button" th:href="@{/login}" sec:authorize="!isAuthenticated()">로그인</a>
                         <a class="ui inverted button" th:href="@{/signOut}" sec:authorize="isAuthenticated()">로그아웃</a>
-                        <a class="ui inverted button" th:href="@{/users/new}" sec:authorize="isAuthenticated()">내정보</a>
+                        <a class="ui inverted button" th:href="@{/users/read}" sec:authorize="isAuthenticated()">내정보</a>
                         <a class="ui inverted button" th:href="@{/users/new}" sec:authorize="!isAuthenticated()">회원가입</a>
                         
                         <!-- 다국어 설정 -->

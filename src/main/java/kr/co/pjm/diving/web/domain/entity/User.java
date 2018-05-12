@@ -66,5 +66,9 @@ public class User extends CommonEntity {
   @OneToOne
   @JoinColumn(name = "user_basic_id")
   private UserBasic userBasic;
- 
+  
+  /* 유저 다이브 */
+  @OneToOne
+  @JoinColumn(name = "user_dive_id")
+  private UserDive userDive;
 }

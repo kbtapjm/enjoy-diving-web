@@ -1,5 +1,6 @@
 package kr.co.pjm.diving.web.domain.dto;
 
+import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
@@ -54,5 +55,17 @@ public class UserDto extends UserBasic {
   
   /* 소개 */
   private String introduce;
+  
+  /* 다이브 단체 */
+  private String diveGroup;
+  
+  /* 다이브 레벨 */
+  private String diveLevel;
+  
+  /* 다이브 소속 */
+  private String team;
+  
+  /* 서명 */
+  private String signature;
 
 }

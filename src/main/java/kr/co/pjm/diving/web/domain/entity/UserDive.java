@@ -4,6 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import kr.co.pjm.diving.web.common.domain.entity.CommonEntity;
 import lombok.Getter;
@@ -46,5 +50,11 @@ public class UserDive extends CommonEntity {
   /* 서명 */
   @Column(name = "signature", nullable = true, length = 300)
   private String signature;
+  
+  /* 유저 */ 
+  @OneToOne(mappedBy = "userDive")
+  @JoinColumn(name = "user_id")
+  @JsonIgnore
+  private User user;
 
 }

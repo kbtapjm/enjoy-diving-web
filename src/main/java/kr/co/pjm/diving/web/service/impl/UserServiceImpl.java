@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.pjm.diving.common.domain.enumeration.RoleTypeEnum;
 import kr.co.pjm.diving.common.domain.enumeration.UserStatusEnum;
 import kr.co.pjm.diving.web.domain.dto.UserBasicDto;
+import kr.co.pjm.diving.web.domain.dto.UserDiveDto;
 import kr.co.pjm.diving.web.domain.dto.UserDto;
 import kr.co.pjm.diving.web.domain.entity.Role;
 import kr.co.pjm.diving.web.domain.entity.User;
@@ -15,6 +16,7 @@ import kr.co.pjm.diving.web.domain.entity.UserBasic;
 import kr.co.pjm.diving.web.domain.entity.UserRole;
 import kr.co.pjm.diving.web.repasitory.RoleRepository;
 import kr.co.pjm.diving.web.repasitory.UserBasicRepository;
+import kr.co.pjm.diving.web.repasitory.UserDiveRepository;
 import kr.co.pjm.diving.web.repasitory.UserRepository;
 import kr.co.pjm.diving.web.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +42,9 @@ public class UserServiceImpl implements UserService {
   
   @Autowired
   private UserBasicRepository userBasicRepository;
+  
+  @Autowired
+  private UserDiveRepository userDiveRepository;
   
   @Autowired
   private RoleRepository roleRepository;
@@ -96,6 +101,7 @@ public class UserServiceImpl implements UserService {
   @Transactional
   public void update(UserDto userDto) {
     
+    /* 유저 기본 수정 */
     UserBasicDto userBasicDto = new UserBasicDto();
     userBasicDto.setId(userDto.getId());
     userBasicDto.setName(userDto.getName());
@@ -105,10 +111,18 @@ public class UserServiceImpl implements UserService {
     userBasicDto.setIntroduce(userDto.getIntroduce());
     
     Long result = userBasicRepository.updateUserBasic(userBasicDto);
-    
-    // TODO 유저 다이브 정보 수정
-    
     log.debug("===> update result : {}", result);
+    
+    /* 유저 다이브 수정 */
+    UserDiveDto userDiveDto = new UserDiveDto();
+    userDiveDto.setId(userDto.getId());
+    userDiveDto.setDiveGroup(userDto.getDiveGroup());
+    userDiveDto.setDiveLevel(userDto.getDiveLevel());
+    userDiveDto.setTeam(userDto.getTeam());
+    userDiveDto.setSignature(userDto.getSignature());
+    
+    Long result2 = userDiveRepository.updateUserDive(userDiveDto);
+    log.debug("===> update result2 : {}", result2);
   }
 
   @Override
