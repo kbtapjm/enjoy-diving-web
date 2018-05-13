@@ -100,6 +100,7 @@ var UserReadModule = UserReadModule || (function($) {
   var event = {
     init: function() {
       $('.ui.dropdown').dropdown();
+      $('.ui.radio.checkbox').checkbox();
       
       $('#submit').on('click', function(e) {
         e.preventDefault();

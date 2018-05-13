@@ -29,13 +29,14 @@
                 <div class="two fields">
                     <div class="required field">
                         <label>성별</label>
-                        <div class="ui selection dropdown">
-                            <input type="hidden" th:name="gender" th:id="gender" th:value="${user.userBasic.gender.code}" />
-                            <i class="dropdown icon"></i>
-                            <div class="default text">성별</div>
-                            <div class="menu">
-                                <div class="item" data-value="1">남자</div>
-                                <div class="item" data-value="0">여자</div>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" th:name="gender" th:id="male" value="0" tabindex="0" class="hidden" th:checked="${user.userBasic.gender.code == 0}" />
+                                <label>남자</label>
+                            </div>
+                            <div class="ui radio checkbox">
+                                <input type="radio" th:name="gender" th:id="female" value="1" tabindex="1" class="hidden" th:checked="${user.userBasic.gender.code == 1}" />
+                                <label>여자</label>
                             </div>
                         </div>
                     </div>

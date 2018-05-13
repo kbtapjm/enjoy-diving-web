@@ -1,5 +1,7 @@
 package kr.co.pjm.diving.web.repasitory.support.impl;
 
+import java.util.Date;
+
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
@@ -38,6 +40,7 @@ public class UserBasicRepositoryImpl extends QueryDslRepositorySupport implement
         .set(qUserBasic.country, userBasicDto.getCountry())
         .set(qUserBasic.gender, userBasicDto.getGender())
         .set(qUserBasic.introduce, userBasicDto.getIntroduce())
+        .set(qUserBasic.updateDate, new Date())
         .execute();
     
     return result;
