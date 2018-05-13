@@ -32,6 +32,8 @@ public class AuthenticationSuccessEventHandler implements ApplicationListener<Au
       log.debug(" getName : {}", event.getAuthentication().getName());                    // 로그인 아이디
       log.debug(" ----------------------------------------------------  ");
     }
+    
+    // TODO: 로그인 이력 등록 하기(몽고 DB NOSQL 적용)
   }
 
 }

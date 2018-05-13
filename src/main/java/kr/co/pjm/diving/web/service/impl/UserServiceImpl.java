@@ -1,5 +1,6 @@
 package kr.co.pjm.diving.web.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import kr.co.pjm.diving.web.domain.dto.UserDto;
 import kr.co.pjm.diving.web.domain.entity.Role;
 import kr.co.pjm.diving.web.domain.entity.User;
 import kr.co.pjm.diving.web.domain.entity.UserBasic;
+import kr.co.pjm.diving.web.domain.entity.UserDive;
 import kr.co.pjm.diving.web.domain.entity.UserRole;
 import kr.co.pjm.diving.web.repasitory.RoleRepository;
 import kr.co.pjm.diving.web.repasitory.UserBasicRepository;
@@ -72,6 +74,17 @@ public class UserServiceImpl implements UserService {
     
     user.setUserBasic(userBasic);
     
+    /* 유저 다이브 등록 */
+    UserDive userDive = new UserDive();
+    userDive.setDiveLevel(StringUtils.EMPTY);
+    userDive.setDiveGroup(StringUtils.EMPTY);
+    userDive.setTeam(StringUtils.EMPTY);
+    userDive.setSignature(StringUtils.EMPTY);
+    
+    userDiveRepository.save(userDive);
+    
+    user.setUserDive(userDive);
+    
     /* 롤 정보 조회 */
     Role role = roleRepository.findByRole(RoleTypeEnum.USER);
     
@@ -100,7 +113,6 @@ public class UserServiceImpl implements UserService {
   @Override
   @Transactional
   public void update(UserDto userDto) {
-    
     /* 유저 기본 수정 */
     UserBasicDto userBasicDto = new UserBasicDto();
     userBasicDto.setId(userDto.getId());
@@ -110,8 +122,8 @@ public class UserServiceImpl implements UserService {
     userBasicDto.setGender(userDto.getGender());
     userBasicDto.setIntroduce(userDto.getIntroduce());
     
-    Long result = userBasicRepository.updateUserBasic(userBasicDto);
-    log.debug("===> update result : {}", result);
+    Long updateUserBasic = userBasicRepository.updateUserBasic(userBasicDto);
+    log.debug("===> update updateUserBasic : {}", updateUserBasic);
     
     /* 유저 다이브 수정 */
     UserDiveDto userDiveDto = new UserDiveDto();
@@ -121,8 +133,8 @@ public class UserServiceImpl implements UserService {
     userDiveDto.setTeam(userDto.getTeam());
     userDiveDto.setSignature(userDto.getSignature());
     
-    Long result2 = userDiveRepository.updateUserDive(userDiveDto);
-    log.debug("===> update result2 : {}", result2);
+    Long updateUserDive = userDiveRepository.updateUserDive(userDiveDto);
+    log.debug("===> update updateUserDive : {}", updateUserDive);
   }
 
   @Override

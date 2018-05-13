@@ -12,6 +12,10 @@
                 <input type="hidden" th:name="id" th:id="id" th:value="${user.id}" />
             
                 <h4 class="ui dividing header">기본 정보</h4>
+                <div class="field">
+                    <label>E-mail</label>
+                    <input type="text" th:name="email" th:id="email" th:value="${user.email}" readonly="readonly" />
+                </div>
                 <div class="two fields">
                     <div class="required field">
                         <label>이름</label>
