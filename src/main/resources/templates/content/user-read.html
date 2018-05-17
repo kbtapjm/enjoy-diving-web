@@ -8,6 +8,7 @@
     </head>
     <body>
         <th:block layout:fragment="content">
+        <div class="ui form">
             <form class="ui form attached fluid segment" th:action="@{/users}" th:id="form" th:object="${user}" onsubmit="return false;">
                 <input type="hidden" th:name="id" th:id="id" th:value="${user.id}" />
             
@@ -80,10 +81,14 @@
                     <label>서명</label>
                     <textarea rows="2" th:name="signature" th:id="signature" th:text="${user.UserDive.signature}"></textarea>
                 </div>
+                <div class="ui success message">
+                    <p>저장 되었습니다.</p>
+                </div>
                 
                 <div class="ui blue submit button" id="submit">저장</div>
                 <div class="ui error message"></div>
             </form>
+            </div>
             
             <script src="js/content/user-read.js" data-th-src="@{/static/js/content/user-read.js}"></script>
         

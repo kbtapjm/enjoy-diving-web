@@ -87,8 +87,8 @@ var UserReadModule = UserReadModule || (function($) {
         url: url,
         data: JSON.stringify(data)
       }).done(function(data) {
-        // success
-        alert('저장되었습니다.');
+        $('.ui form').addClass('success');
+        UiUtilModule.mask.close();
         location.reload();
       }).fail(function(jqXHR, textStatus, errorThrown) {
         UiUtilModule.mask.close();
