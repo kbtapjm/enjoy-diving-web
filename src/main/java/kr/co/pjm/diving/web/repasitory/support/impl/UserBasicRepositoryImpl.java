@@ -45,5 +45,19 @@ public class UserBasicRepositoryImpl extends QueryDslRepositorySupport implement
     
     return result;
   }
+
+  @Override
+  public long updateLoginDate(UserBasicDto userBasicDto) {
+    QUserBasic qUserBasic = QUserBasic.userBasic;
+    
+    Long result = update(qUserBasic)
+        .where(qUserBasic.id.eq(userBasicDto.getId()))
+        .set(qUserBasic.loginDate, new Date())
+        .execute();
+    
+    return result;
+  }
+  
+  
   
 }

@@ -1,8 +1,12 @@
 package kr.co.pjm.diving.web.common.security.handler;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 
+import kr.co.pjm.diving.web.domain.dto.UserBasicDto;
+import kr.co.pjm.diving.web.domain.entity.User;
+import kr.co.pjm.diving.web.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -19,6 +23,9 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class AuthenticationSuccessEventHandler implements ApplicationListener<AuthenticationSuccessEvent> {
+  
+  @Autowired
+  private UserService userService;
 
   @Override
   public void onApplicationEvent(AuthenticationSuccessEvent event) {
@@ -32,6 +39,14 @@ public class AuthenticationSuccessEventHandler implements ApplicationListener<Au
       log.debug(" getName : {}", event.getAuthentication().getName());                    // 로그인 아이디
       log.debug(" ----------------------------------------------------  ");
     }
+    
+    /* 로그인 일자 업데이트 */
+    User user = userService.getByEmail(event.getAuthentication().getName());
+    
+    UserBasicDto userBasicDto = new UserBasicDto();
+    userBasicDto.setId(user.getId());
+    
+    userService.updateLoginDate(userBasicDto);
     
     // TODO: 로그인 이력 등록 하기(몽고 DB NOSQL 적용)
   }

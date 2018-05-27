@@ -17,5 +17,7 @@ import kr.co.pjm.diving.web.domain.dto.UserBasicDto;
 public interface UserBasicRepositorySupport {
   
   long updateUserBasic(UserBasicDto userBasicDto);
+  
+  long updateLoginDate(UserBasicDto userBasicDto);
 
 }

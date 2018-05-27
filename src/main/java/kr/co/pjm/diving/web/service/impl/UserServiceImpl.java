@@ -145,4 +145,10 @@ public class UserServiceImpl implements UserService {
     userDiveRepository.delete(id);
   }
 
+  @Override
+  @Transactional
+  public void updateLoginDate(UserBasicDto userBasicDto) {
+    userBasicRepository.updateLoginDate(userBasicDto);
+  }
+
 }
