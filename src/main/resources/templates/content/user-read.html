@@ -81,14 +81,33 @@
                     <label>서명</label>
                     <textarea rows="2" th:name="signature" th:id="signature" th:text="${user.UserDive.signature}"></textarea>
                 </div>
-                <div class="ui success message">
+                <div class="ui success message" style="display:none;">
                     <p>저장 되었습니다.</p>
-                </div>
+                </div >
                 
                 <div class="ui blue submit button" id="submit">저장</div>
+                <div class="ui red submit button" id="remove">탈퇴</div>
                 <div class="ui error message"></div>
             </form>
             </div>
+            
+            <div class="ui mini test modal">
+    <div class="header">
+      Delete Your Account
+    </div>
+    <div class="content">
+      <p>Are you sure you want to delete your account</p>
+    </div>
+    <div class="actions">
+      <div class="ui negative button">
+        No
+      </div>
+      <div class="ui positive right labeled icon button">
+        Yes
+        <i class="checkmark icon"></i>
+      </div>
+    </div>
+  </div>
             
             <script src="js/content/user-read.js" data-th-src="@{/static/js/content/user-read.js}"></script>
         

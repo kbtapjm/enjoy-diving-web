@@ -142,6 +142,7 @@ public class UserServiceImpl implements UserService {
   public void delete(Long id) {
     userRepository.delete(id);
     userBasicRepository.delete(id);
+    userDiveRepository.delete(id);
   }
 
 }

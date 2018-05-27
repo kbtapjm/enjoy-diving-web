@@ -94,6 +94,27 @@ var UserReadModule = UserReadModule || (function($) {
         UiUtilModule.mask.close();
         console.error(jqXHR);
       });
+    },
+    
+    remove: function() {
+      // TODO: 공통 컨펌 창 작업
+      
+      UiUtilModule.mask.open();
+      $.ajax({
+        method: 'DELETE',
+        headers: { 
+          Accept: 'application/json; charset=UTF-8'
+        },
+        contentType: 'application/json; charset=UTF-8',
+        url: url + '/' + $('#id').val(),
+        data: JSON.stringify(data)
+      }).done(function(data) {
+        UiUtilModule.mask.close();
+        location.href = '/signOut';
+      }).fail(function(jqXHR, textStatus, errorThrown) {
+        UiUtilModule.mask.close();
+        console.error(jqXHR);
+      });
     }
   };
   
@@ -106,6 +127,11 @@ var UserReadModule = UserReadModule || (function($) {
         e.preventDefault();
         UserReadModule.data.submit();
       });
+      
+      $('#remove').on('click', function(e) {
+        e.preventDefault();
+        UserReadModule.data.remove();
+      });
     }
   };
   
@@ -114,6 +140,7 @@ var UserReadModule = UserReadModule || (function($) {
     data: {
       init: data.init,
       submit: data.submit,
+      remove: data.remove,
       validation: data.validation,
       login: data.login
     },
