@@ -63,13 +63,8 @@ public class UserController {
     if ("new".equals(id)) {
       return "content/user-create";
     } else {
-      // TODO : 이메일을 바로 전달 받는걸로 변경 필요
-      log.debug("email : {}", principal.getName());
-      
       User user = userService.getByEmail(principal.getName());
       model.addAttribute("user", user);
-      
-      log.debug("getDiveGroup : {}", user.getUserDive().getDiveGroup());
       
       return "content/user-read";
     }

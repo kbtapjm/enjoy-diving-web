@@ -97,24 +97,32 @@ var UserReadModule = UserReadModule || (function($) {
     },
     
     remove: function() {
-      // TODO: 공통 컨펌 창 작업
+      var opt ={
+        title: '회원 탈퇴',
+        msg: '회원 탈퇴 하시겠습니까?',
+        actions: {
+          'yes': function() {
+            UiUtilModule.mask.open();
+            $.ajax({
+              method: 'DELETE',
+              headers: { 
+                Accept: 'application/json; charset=UTF-8'
+              },
+              contentType: 'application/json; charset=UTF-8',
+              url: url + '/' + $('#id').val(),
+              data: JSON.stringify(data)
+            }).done(function(data) {
+              UiUtilModule.mask.close();
+              location.href = '/signOut';
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+              UiUtilModule.mask.close();
+              console.error(jqXHR);
+            });
+          }
+        }
+      }
       
-      UiUtilModule.mask.open();
-      $.ajax({
-        method: 'DELETE',
-        headers: { 
-          Accept: 'application/json; charset=UTF-8'
-        },
-        contentType: 'application/json; charset=UTF-8',
-        url: url + '/' + $('#id').val(),
-        data: JSON.stringify(data)
-      }).done(function(data) {
-        UiUtilModule.mask.close();
-        location.href = '/signOut';
-      }).fail(function(jqXHR, textStatus, errorThrown) {
-        UiUtilModule.mask.close();
-        console.error(jqXHR);
-      });
+      UiUtilModule.modalMsg.open(opt);
     }
   };
   

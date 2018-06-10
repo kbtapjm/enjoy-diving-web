@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <th:block th:fragment="common">
+    
+    <!-- common modal popup type1 -->
+    <div class="ui mini test modal">
+        <div class="header" id="modal-header">
+            Delete Your Account
+        </div>
+        <div class="content" id="modal-msg">
+            <p>Are you sure you want to delete your account</p>
+        </div>
+        <div class="actions">
+            <div class="ui negative button" id="modal-action-no">
+                아니오
+            </div>
+            <div class="ui positive right labeled icon button" id="modal-action-yes">
+                예
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+    
+    </th:block>
+</head>
+</html> 
