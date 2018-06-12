@@ -1,7 +1,23 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      
+      <style type="text/css">
+          body {
+            background-color: #DADADA;
+          }
+          body > .grid {
+            height: 100%;
+          }
+          .image {
+            margin-top: -100px;
+          }
+          .column {
+            max-width: 450px;
+          }
+      </style>
 <head>
+
     <th:block th:fragment="common">
     
     <!-- common modal popup type1 -->
@@ -19,6 +35,42 @@
             <div class="ui positive right labeled icon button" id="modal-action-yes">
                 예
                 <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- login layer modal popup -->
+    <div class="ui mini modal" id="loginModal">
+        <i class="close icon"></i>
+        <div class="header">
+            Login
+        </div>
+        <div class="content">
+            <div class="ui middle aligned center aligned grid">
+                <div class="column">
+	                <form class="ui large form error" th:id="loginForm" th:action="@{/login}" onsubmit="return false;">
+	                    <div class="ui stacked segment">
+	                        <div class="field">
+	                            <div class="ui left icon input">
+	                                <i class="user icon"></i>
+	                                <input type="text" th:name="email" th:id="email" placeholder="email" value="kbtapjm@gmail.com"/>
+	                            </div>
+	                        </div>
+	                        <div class="field">
+	                            <div class="ui left icon input">
+	                                <i class="lock icon"></i>
+	                                <input type="password" th:name="password" th:id="password" placeholder="Password"/>
+	                            </div>
+	                        </div>
+	                        <button class="ui fluid large teal submit button" id="submit">Login</button>
+	                        <div class="ui error message"></div>
+	                    </div>
+	                </form>
+	                
+	                <div class="ui message">
+	                     New to us? <a href="#" th:href="@{/users/new}">회원가입</a>
+	                </div>
+                </div>
             </div>
         </div>
     </div>

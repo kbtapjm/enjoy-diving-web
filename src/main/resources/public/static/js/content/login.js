@@ -1,17 +1,6 @@
-$(document).ready(function() {
-  try {
-    LoginModule.init();
-  } catch (e) {
-    log('Error : ' + e.toString());
-  }
-}); 
-
 var LoginModule = LoginModule || (function($) {
   'use strict'
   
-  var _form = $('#form')
-  , url = _form.attr('action');
-
   var init = function() {
     this.data.init();
     this.event.init();
@@ -57,7 +46,10 @@ var LoginModule = LoginModule || (function($) {
     },
     
     submit: function() {
-      var data = _form.serializeObject();
+      var _form = $('#loginForm')
+      , url = _form.attr('action');
+      
+      var data = $('#loginForm').serializeObject();
       
       $.each(data, function (key, value) {
         data[key] = $.trim(value);

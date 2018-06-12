@@ -164,6 +164,11 @@ var UserCreateModule = UserCreateModule || (function($) {
         e.preventDefault();
         UserCreateModule.data.submit();
       });
+      
+      $('#cancel').on('click', function(e) {
+        e.preventDefault();
+        location.href = '/';
+      });
     }
   };
   
