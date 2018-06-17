@@ -13,6 +13,17 @@ var UiUtilModule = UiUtilModule || (function($) {
   
   var modalMsg = {
     open: function(opts) {
+      
+      var default_opts =  {
+         title: '알림',
+         msg: '',
+         actions: {
+           
+         }
+      }
+          
+      var opts = $.extend({}, default_opts, opts); 
+      
       if (opts.title) {
         $('#modal-header').text(opts.title);
       }
@@ -21,19 +32,35 @@ var UiUtilModule = UiUtilModule || (function($) {
       }
       
       if (opts.actions && typeof opts.actions.yes === 'function') {
-        /*if (opts.actions.no) {
+        if (opts.actions.no) {
+          $('#modal-action-no').show();
           $('#modal-action-no').on('click', function() {
             opts.actions.no(); 
           });        
-        }*/
+        } else {
+          $('#modal-action-no').hide();
+        }
         if (opts.actions.yes) {
+          $('#modal-action-yes').show();
           $('#modal-action-yes').on('click', function() {
             opts.actions.yes(); 
           });        
+        } else {
+          $('#modal-action-yes').hide();
         }
+      } else {
+        $('#modal-action-yes').show();
       }
       
       $('.mini.modal').modal('show');
+    },
+    
+    alert: function(opts) {
+      
+    },
+    
+    confirm: function() {
+      
     }
   }
   

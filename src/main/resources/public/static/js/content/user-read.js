@@ -87,9 +87,11 @@ var UserReadModule = UserReadModule || (function($) {
         url: url,
         data: JSON.stringify(data)
       }).done(function(data) {
-        $('.ui form').addClass('success');
         UiUtilModule.mask.close();
-        location.reload();
+        UiUtilModule.modalMsg.open(
+          {msg: '저장되었습니다.'}
+        );
+        //location.reload();
       }).fail(function(jqXHR, textStatus, errorThrown) {
         UiUtilModule.mask.close();
         console.error(jqXHR);
@@ -118,7 +120,8 @@ var UserReadModule = UserReadModule || (function($) {
               UiUtilModule.mask.close();
               console.error(jqXHR);
             });
-          }
+          },
+          'no': function() {}
         }
       }
       

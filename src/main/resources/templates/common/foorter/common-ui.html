@@ -23,24 +23,44 @@
     <!-- common modal popup type1 -->
     <div class="ui mini test modal">
         <div class="header" id="modal-header">
-            Delete Your Account
+            알림
         </div>
         <div class="content" id="modal-msg">
             <p>Are you sure you want to delete your account</p>
         </div>
         <div class="actions">
-            <div class="ui negative button" id="modal-action-no">
+            <div class="ui negative button" id="modal-action-no" style="display:none;">
                 아니오
             </div>
-            <div class="ui positive right labeled icon button" id="modal-action-yes">
+            <div class="ui positive right labeled icon button" id="modal-action-yes" style="display:none;">
                 예
                 <i class="checkmark icon"></i>
             </div>
         </div>
     </div>
     
+    <!-- ui basic msg modal -->
+    <div class="ui basic modal" id="ui-basic-modal">
+        <div class="ui icon header" id="basic-modal-header">
+            메세지
+        </div>
+        <div class="content" id="basic-modal-content">
+            <p>message</p>
+        </div>
+        <div class="actions" id="basic-modal-actions">
+            <div class="ui red basic cancel inverted button" id="basic-modal-actions-no">
+            <i class="remove icon"></i>
+            No
+            </div>
+            <div class="ui green ok inverted button" id="basic-modal-actions-yes">
+            <i class="checkmark icon"></i>
+            Yes
+            </div>
+        </div>
+    </div>
+
     <!-- login layer modal popup -->
-    <div class="ui mini modal" id="loginModal">
+    <div class="ui modal" id="loginModal">
         <i class="close icon"></i>
         <div class="header">
             Login
@@ -62,14 +82,16 @@
 	                                <input type="password" th:name="password" th:id="password" placeholder="Password"/>
 	                            </div>
 	                        </div>
+	                        <div class="field">
+                                <div class="ui checkbox">
+                                    <input type="checkbox" id="remember-me" name="remember-me" tabindex="0" class="hidden" />
+                                    <label for="remember-me">로그인 상태 유지</label>
+                                </div>
+                            </div>
 	                        <button class="ui fluid large teal submit button" id="submit">Login</button>
 	                        <div class="ui error message"></div>
 	                    </div>
 	                </form>
-	                
-	                <div class="ui message">
-	                     New to us? <a href="#" th:href="@{/users/new}">회원가입</a>
-	                </div>
                 </div>
             </div>
         </div>

@@ -9,7 +9,7 @@ $(document).ready(function() {
 var UserCreateModule = UserCreateModule || (function($) {
   'use strict'
   
-  var _form = $('#form')
+  var _form = $('#createform')
   , url = _form.attr('action');
 
   var init = function() {
@@ -23,7 +23,7 @@ var UserCreateModule = UserCreateModule || (function($) {
     },
     
     validation: function() {
-      $('.ui.form')
+      $('#createform')
       .form({
         fields: {
           email: {
@@ -108,7 +108,7 @@ var UserCreateModule = UserCreateModule || (function($) {
         data[key] = $.trim(value);
       });
       
-      if (!$('.ui.form').form('is valid')) {
+      if (!$('#createform').form('is valid')) {
         return false;
       }
       

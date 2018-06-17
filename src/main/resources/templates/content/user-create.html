@@ -11,12 +11,12 @@
         
 	        <div class="ui attached message">
 	            <div class="header">
-	            Welcome to our site!
+	            인조이 다이빙 사이트에 오신걸 환영합니다.
 	            </div>
-	        <p>Fill out the form below to sign-up for a new account</p>
+	        <p>아래 양식을 작성하여 새 계정에 가입하십시오.</p>
 	        </div>
 	        
-	        <form class="ui form attached fluid segment" th:action="@{/users}" th:id="form" onsubmit="return false;">
+	        <form class="ui form attached fluid segment" th:action="@{/users}" th:id="createform" onsubmit="return false;">
                 <div class="two fields">
 	                <div class="required field">
 	                    <label>이메일</label>
@@ -74,16 +74,16 @@
 	            <div class="required inline field">
 	                <div class="ui checkbox">
 	                    <input type="checkbox" id="terms"/>
-	                    <label for="terms">I agree to the terms and conditions</label>
+	                    <label for="terms">이용 약관에 동의합니다.</label>
 	                </div>
 	            </div>
 	            <div class="ui red button" id="cancel">취소</div>
 	            <div class="ui blue submit button" id="submit">회원가입</div>
 	            <div class="ui error message"></div>
 	        </form>
-	        <div class="ui bottom attached warning message">
+	        <!-- <div class="ui bottom attached warning message">
 	            Already signed up? <a href="#" th:href="@{/login}">Login here</a> instead.
-	        </div>
+	        </div> -->
 	        
 	        <script src="js/content/user-create.js" data-th-src="@{/static/js/content/user-create.js}"></script>
         

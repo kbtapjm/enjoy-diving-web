@@ -74,6 +74,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         .httpBasic()
       .and()
         .csrf().disable();
+      
+    http
+      .rememberMe()
+      .key("unique-and-secret")
+      .rememberMeCookieName("remember-me-cookie-name")
+      .tokenValiditySeconds(24 * 60 * 60);
     
     http
       .sessionManagement()

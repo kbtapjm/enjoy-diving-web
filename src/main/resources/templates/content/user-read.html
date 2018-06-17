@@ -81,13 +81,10 @@
                     <label>서명</label>
                     <textarea rows="2" th:name="signature" th:id="signature" th:text="${user.UserDive.signature}"></textarea>
                 </div>
-                <div class="ui success message" style="display:none;">
-                    <p>저장 되었습니다.</p>
-                </div >
                 
-                <div class="ui blue submit button" id="submit">저장</div>
-                <div class="ui red submit button" id="remove">탈퇴</div>
-                <div class="ui error message"></div>
+                <div class="ui blue submit button" id="submit">수정</div>
+                <div class="ui red submit button" id="remove">회원 탈퇴</div>
+                <div class="ui error message"><p id="update-message"></p></div>
             </form>
             </div>
             
