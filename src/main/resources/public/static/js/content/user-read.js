@@ -88,10 +88,14 @@ var UserReadModule = UserReadModule || (function($) {
         data: JSON.stringify(data)
       }).done(function(data) {
         UiUtilModule.mask.close();
-        UiUtilModule.modalMsg.open(
-          {msg: '저장되었습니다.'}
-        );
-        //location.reload();
+        UiUtilModule.modal.alert({
+          msg: '정상처리되었습니다.',
+          actions: {
+            'yes': function() {
+              location.reload();
+            }
+          }
+        });
       }).fail(function(jqXHR, textStatus, errorThrown) {
         UiUtilModule.mask.close();
         console.error(jqXHR);
@@ -125,7 +129,7 @@ var UserReadModule = UserReadModule || (function($) {
         }
       }
       
-      UiUtilModule.modalMsg.open(opt);
+      UiUtilModule.modal.confirm(opt);
     }
   };
   

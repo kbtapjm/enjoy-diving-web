@@ -11,19 +11,18 @@ var UiUtilModule = UiUtilModule || (function($) {
     }
   }
   
-  var modalMsg = {
-    open: function(opts) {
-      
+  var modal = {
+    alert: function(opts) {
       var default_opts =  {
-         title: '알림',
-         msg: '',
-         actions: {
-           
-         }
+        title: '알림',
+        msg: '',
+        actions: {
+          'yes': function() {}
+        }
       }
-          
+           
       var opts = $.extend({}, default_opts, opts); 
-      
+       
       if (opts.title) {
         $('#modal-header').text(opts.title);
       }
@@ -31,36 +30,66 @@ var UiUtilModule = UiUtilModule || (function($) {
         $('#modal-msg').text(opts.msg);
       }
       
-      if (opts.actions && typeof opts.actions.yes === 'function') {
+      if (opts.actions) {
+        if (opts.actions.yes) {
+          $('#modal-action-yes').show();
+          $('#modal-action-yes').click(function(){
+            opts.actions.yes();
+          })
+        }
+        
         if (opts.actions.no) {
           $('#modal-action-no').show();
-          $('#modal-action-no').on('click', function() {
-            opts.actions.no(); 
-          });        
+          $('#modal-action-no').click(function(){
+            opts.actions.no();
+          })        
         } else {
           $('#modal-action-no').hide();
         }
-        if (opts.actions.yes) {
-          $('#modal-action-yes').show();
-          $('#modal-action-yes').on('click', function() {
-            opts.actions.yes(); 
-          });        
-        } else {
-          $('#modal-action-yes').hide();
-        }
-      } else {
-        $('#modal-action-yes').show();
       }
       
       $('.mini.modal').modal('show');
     },
     
-    alert: function(opts) {
+    confirm: function(opts) {
+      var default_opts =  {
+        title: '알림',
+        msg: '',
+        actions: {
+          'yes': function() {},
+          'no': function() {}
+        }
+      }
+           
+      var opts = $.extend({}, default_opts, opts); 
+       
+      if (opts.title) {
+        $('#modal-header').text(opts.title);
+      }
       
-    },
-    
-    confirm: function() {
+      if (opts.msg) {
+        $('#modal-msg').text(opts.msg);
+      }
       
+      if (opts.actions) {
+        if (opts.actions.yes) {
+          $('#modal-action-yes').show();
+          $('#modal-action-yes').click(function(){
+            opts.actions.yes();
+          })
+        }
+        
+        if (opts.actions.no) {
+          $('#modal-action-no').show();
+          $('#modal-action-no').click(function(){
+            opts.actions.no();
+          })
+        } else {
+          $('#modal-action-no').hide();
+        }
+      }
+      
+      $('.mini.modal').modal('show');
     }
   }
   
@@ -69,8 +98,9 @@ var UiUtilModule = UiUtilModule || (function($) {
       open: mask.open,
       close: mask.close
     },
-    modalMsg: {
-      open: modalMsg.open
+    modal: {
+      alert: modal.alert,
+      confirm: modal.confirm
     }
   };
 })(jQuery)
