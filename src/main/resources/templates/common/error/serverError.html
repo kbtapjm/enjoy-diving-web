@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" layout:decorator="layout/template-no-menu">
+    <head>
+        <title>Error - 서버 오류 </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        
+        <link rel="stylesheet" href="css/main.css" data-th-href="@{/static/css/main.css}" />
+    </head>
+    <body>
+        <th:block layout:fragment="content">
+            <div class="ui message">
+                <div class="header">
+                페이지 오류
+                </div>
+                <p>
+                오류가 발생하였습니다. 잠시 후 다시 시도하세요.
+                </p>
+            </div>
+        </th:block>
+    </body>
+</html>

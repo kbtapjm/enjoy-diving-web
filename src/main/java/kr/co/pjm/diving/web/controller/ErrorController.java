@@ -29,7 +29,7 @@ public class ErrorController {
   static final String RESOURCE_PATH = "/error";
   
   /**
-   * 접근거부 에러(403)
+   * 403 access denied
    * @param model
    * @param principal
    * @return
@@ -42,6 +42,24 @@ public class ErrorController {
       }
       
       return "common/error/accessDenied";
+  }
+  
+  /**
+   * 404 not fount
+   * @return
+   */
+  @GetMapping(value = "/notFound")
+  public String notFound() {
+      return "common/error/notFound";
+  }
+  
+  /**
+   * 500 internal server error
+   * @return
+   */
+  @GetMapping(value = "/serverError")
+  public String serverError() {
+      return "common/error/serverError";
   }
 
 }

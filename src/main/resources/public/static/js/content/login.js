@@ -12,11 +12,11 @@ var LoginModule = LoginModule || (function($) {
     },
     
     validation: function() {
-      $('.ui.form')
+      $('#loginForm')
       .form({
         fields: {
           email: {
-            identifier: 'email',
+            identifier: 'login-email',
             rules: [
               {
                 type   : 'empty',
@@ -29,7 +29,7 @@ var LoginModule = LoginModule || (function($) {
             ]
           },
           password: {
-            identifier: 'password',
+            identifier: 'login-password',
             rules: [
               {
                 type   : 'empty',
@@ -49,13 +49,12 @@ var LoginModule = LoginModule || (function($) {
       var _form = $('#loginForm')
       , url = _form.attr('action');
       
-      var data = $('#loginForm').serializeObject();
+      var data = {
+        email: $('#login-email').val(),
+        password: $('#login-password').val()
+      }
       
-      $.each(data, function (key, value) {
-        data[key] = $.trim(value);
-      });
-      
-      if (!$('.ui.form').form('is valid')) {
+      if (!$('#loginForm').form('is valid')) {
         return false;
       }
       
@@ -92,7 +91,7 @@ var LoginModule = LoginModule || (function($) {
   
   var event = {
     init: function() {
-      $('#submit').on('click', function(e) {
+      $('#btnLogin').on('click', function(e) {
         e.preventDefault();
         LoginModule.data.submit();
       });
