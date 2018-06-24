@@ -53,7 +53,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers("/error/accessDenied").permitAll()
         .antMatchers(HttpMethod.POST, "/users", "/login").permitAll()
         .antMatchers("/story/**").permitAll()
-        .antMatchers("/h2console/**").hasAnyAuthority("ADMIN")
+      .antMatchers("/h2console/**").permitAll()
+//        .antMatchers("/h2console/**").hasAnyAuthority("ADMIN")
         .anyRequest().authenticated()
       .and()
         .headers()
@@ -73,7 +74,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
       .and()
         .httpBasic()
       .and()
-        .csrf().disable();
+        .csrf().disable()
+        .headers().frameOptions().disable();
       
     http
       .rememberMe()
