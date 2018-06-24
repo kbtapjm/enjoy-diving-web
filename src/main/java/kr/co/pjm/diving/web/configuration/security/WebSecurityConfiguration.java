@@ -52,8 +52,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.GET, "/signIn", "/login", "/users/new", "/").permitAll()
         .antMatchers("/error/accessDenied").permitAll()
         .antMatchers(HttpMethod.POST, "/users", "/login").permitAll()
+        .antMatchers("/story/**").permitAll()
         .antMatchers("/h2console/**").hasAnyAuthority("ADMIN")
-//        .antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority("ADMIN")
         .anyRequest().authenticated()
       .and()
         .headers()
@@ -147,7 +147,5 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
   public SessionDestroyedEventHandler sessionDestroyedEventHandler() {
       return new SessionDestroyedEventHandler();
   }
-  
-  
 
 }

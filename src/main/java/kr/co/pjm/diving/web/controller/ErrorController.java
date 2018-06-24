@@ -1,9 +1,6 @@
 package kr.co.pjm.diving.web.controller;
 
-import java.security.Principal;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -29,18 +26,20 @@ public class ErrorController {
   static final String RESOURCE_PATH = "/error";
   
   /**
+   * 401 unauthorized
+   * @return
+   */
+  @GetMapping(value = "/unauthorized")
+  public String unauthorized() {
+      return "common/error/unauthorized";
+  }
+  
+  /**
    * 403 access denied
-   * @param model
-   * @param principal
    * @return
    */
   @GetMapping(value = "/accessDenied")
-  public String accessDenied(Model model, Principal principal) {
-      if (log.isDebugEnabled()) {
-        log.debug("====== Page : AccessDenied ===== ");
-        log.debug("====== principal : {}", principal.getName());
-      }
-      
+  public String accessDenied() {
       return "common/error/accessDenied";
   }
   
