@@ -46,7 +46,7 @@
                     <a class="ui button" th:href="@{/signOut}" th:text="#{msg.label.logout}">로그아웃</a>
                 </div>
                 <div class="item" sec:authorize="isAuthenticated()">
-                    <a class="ui button" th:href="@{/users/read}" th:classappend="${uri == '/users/read' ? 'active':''}" sec:authentication="name"></a>
+                    <a class="ui button" th:href="@{/my/profile}" th:classappend="${uri == '/my/profile' ? 'active':''}" sec:authentication="name"></a>
                 </div>
                 <div class="item" sec:authorize="!isAuthenticated()">
                     <a class="ui primary button" th:href="@{/users/new}" th:text="#{msg.label.signin}">회원가입</a>
@@ -94,7 +94,7 @@
         </div>
         
         <a class="item" th:href="@{/signOut}" sec:authorize="isAuthenticated()" th:text="#{msg.label.logout}">로그아웃</a>
-        <a class="item" th:href="@{/users/read}" sec:authorize="isAuthenticated()" th:classappend="${uri == '/users/read' ? 'active':''}" sec:authentication="name">내정보</a>
+        <a class="item" th:href="@{/my/profile}" sec:authorize="isAuthenticated()" th:classappend="${uri == '/my/profile' ? 'active':''}" sec:authentication="name">내정보</a>
     </div>
     
     <!-- Page Contents -->
@@ -124,7 +124,7 @@
                     <div class="right item">
                         <a class="ui inverted button" href="javascript:login();" sec:authorize="!isAuthenticated()" th:text="#{msg.label.login}">로그인</a>
                         <a class="ui inverted button" th:href="@{/signOut}" sec:authorize="isAuthenticated()" th:text="#{msg.label.logout}">로그아웃</a>
-                        <a class="ui inverted button" th:href="@{/users/read}" sec:authorize="isAuthenticated()" th:classappend="${uri == '/users/read' ? 'active':''}" sec:authentication="name">내정보</a>
+                        <a class="ui inverted button" th:href="@{/my/profile}" sec:authorize="isAuthenticated()" th:classappend="${uri == '/my/profile' ? 'active':''}" sec:authentication="name">내정보</a>
                         <a class="ui inverted button" th:href="@{/users/new}" sec:authorize="!isAuthenticated()" th:text="#{msg.label.signin}">회원가입</a>
                         
                         <!-- 다국어 설정 -->

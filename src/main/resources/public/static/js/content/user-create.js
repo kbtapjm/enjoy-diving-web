@@ -52,6 +52,19 @@ var UserCreateModule = UserCreateModule || (function($) {
               }
             ]
           },
+          passwordConfirm: {
+            identifier: 'password-confirm',
+            rules: [
+              {
+                type   : 'empty',
+                prompt : '비밀번호 확인을 입력하세요.'
+              },
+              {
+                type   : 'match[password]',
+                prompt : '비밀번호와 비밀번호 확인 값이 일치 하지 않습니다.'
+              }
+            ]
+          },
           name: {
             identifier: 'name',
             rules: [

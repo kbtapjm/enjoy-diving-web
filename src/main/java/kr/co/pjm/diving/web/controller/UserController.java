@@ -49,8 +49,8 @@ public class UserController {
   
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody 
-  @ResponseStatus(HttpStatus.CREATED)
-  public User create(@RequestBody UserDto userDto) {
+  //@ResponseStatus(HttpStatus.CREATED)
+  public User create(@RequestBody UserDto userDto) throws Exception {
     return userService.set(userDto);
   }
   
@@ -60,20 +60,13 @@ public class UserController {
       log.debug("id : {}", id);
     }
     
-    if ("new".equals(id)) {
-      return "content/user-create";
-    } else {
-      User user = userService.getByEmail(principal.getName());
-      model.addAttribute("user", user);
-      
-      return "content/user-read";
-    }
+    return "content/user-create";
   }
   
   @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody 
   @ResponseStatus(HttpStatus.OK)
-  public void update(@RequestBody UserDto userDto) {
+  public void update(@RequestBody UserDto userDto) throws Exception {
     userService.update(userDto);
   }
   

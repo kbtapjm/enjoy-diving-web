@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" layout:decorator="layout/template-default">
     <head>
-        <title>유저 정보 - Enjoy Diving </title>
+        <title>프로필 - Enjoy Diving </title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         
     </head>
@@ -59,6 +59,12 @@
                                 <div class="item" data-value="eg"><i class="eg flag"></i>Egypt</div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>소개</label>
+                        <textarea rows="3" th:name="introduce" th:id="introduce" th:text="${user.userBasic.introduce}"></textarea>
                     </div>
                 </div>
                 
