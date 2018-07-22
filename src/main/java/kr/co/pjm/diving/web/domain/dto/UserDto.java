@@ -1,8 +1,10 @@
 package kr.co.pjm.diving.web.domain.dto;
 
-import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.social.connect.UserProfile;
 
 import kr.co.pjm.diving.common.domain.enumeration.GenderEnum;
 import kr.co.pjm.diving.common.domain.enumeration.UserStatusEnum;
@@ -67,5 +69,21 @@ public class UserDto extends UserBasic {
   
   /* 서명 */
   private String signature;
+  
+  /**
+   * 
+   * @param userProfile
+   * @return
+   */
+  public static UserDto fromSocialUserProfile(UserProfile userProfile) {
+    UserDto userDto = new UserDto();
+    userDto.setEmail(!StringUtils.isEmpty(userProfile.getEmail()) ? userProfile.getEmail() : "");
+    
+    String firstName = !StringUtils.isEmpty(userProfile.getFirstName()) ? userProfile.getFirstName() : ""; 
+    String lastName = !StringUtils.isEmpty(userProfile.getLastName()) ? userProfile.getLastName() : ""; 
+    userDto.setName(firstName + lastName);
+    
+    return userDto;
+}
 
 }

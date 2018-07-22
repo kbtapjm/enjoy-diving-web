@@ -40,7 +40,7 @@
             
             <div class="right menu">
                 <div class="item" sec:authorize="!isAuthenticated()">
-                    <a class="ui button" href="javascript:login();" th:text="#{msg.label.login}">로그인</a>
+                    <a class="ui button" th:href="@{/login}" th:text="#{msg.label.login}">로그인</a>
                 </div>
                 <div class="item" sec:authorize="isAuthenticated()">
                     <a class="ui button" th:href="@{/signOut}" th:text="#{msg.label.logout}">로그아웃</a>
@@ -70,7 +70,7 @@
         <a class="item" th:classappend="${uri == '/log' ? 'active':''}" th:href="@{/log}" sec:authorize="isAuthenticated()" th:text="#{msg.label.log}">로그</a>
         <a class="item" th:classappend="${uri == '/story' ? 'active':''}" th:href="@{/story}" th:text="#{msg.label.story}">이야기</a>
         <a class="item" th:classappend="${uri == '/tour' ? 'active':''}" th:href="@{/tour}" sec:authorize="isAuthenticated()" th:text="#{msg.label.tour}">투어정보</a>
-        <a class="item" href="javascript:login();" sec:authorize="!isAuthenticated()" th:text="#{msg.label.login}">로그인</a>
+        <a class="item" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{msg.label.login}">로그인</a>
         <a class="item" th:href="@{/users/new}" sec:authorize="!isAuthenticated()" th:text="#{msg.label.signin}">회원가입</a>
         
         <!-- ADMIN -->
@@ -122,7 +122,7 @@
                     </div>
                     
                     <div class="right item">
-                        <a class="ui inverted button" href="javascript:login();" sec:authorize="!isAuthenticated()" th:text="#{msg.label.login}">로그인</a>
+                        <a class="ui inverted button" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{msg.label.login}">로그인</a>
                         <a class="ui inverted button" th:href="@{/signOut}" sec:authorize="isAuthenticated()" th:text="#{msg.label.logout}">로그아웃</a>
                         <a class="ui inverted button" th:href="@{/my/profile}" sec:authorize="isAuthenticated()" th:classappend="${uri == '/my/profile' ? 'active':''}" sec:authentication="name">내정보</a>
                         <a class="ui inverted button" th:href="@{/users/new}" sec:authorize="!isAuthenticated()" th:text="#{msg.label.signin}">회원가입</a>

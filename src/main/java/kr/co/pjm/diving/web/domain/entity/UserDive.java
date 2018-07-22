@@ -31,6 +31,8 @@ import lombok.Setter;
 @Entity(name = "user_dive")
 public class UserDive extends CommonEntity {
   
+  private static final long serialVersionUID = -7362740858826005486L;
+
   @Id
   @GeneratedValue
   private Long id;

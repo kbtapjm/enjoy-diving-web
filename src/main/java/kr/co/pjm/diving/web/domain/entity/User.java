@@ -1,5 +1,6 @@
 package kr.co.pjm.diving.web.domain.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,6 +40,8 @@ import lombok.Setter;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User extends CommonEntity {
   
+  private static final long serialVersionUID = 6554423905905278957L;
+
   @Id
   @GeneratedValue
   private Long id;

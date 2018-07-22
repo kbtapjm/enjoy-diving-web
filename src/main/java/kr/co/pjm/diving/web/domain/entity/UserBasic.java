@@ -42,6 +42,8 @@ import lombok.Setter;
 @Entity(name = "user_basic")
 public class UserBasic extends CommonEntity {
 
+  private static final long serialVersionUID = -1639688996082330984L;
+
   @Id
   @GeneratedValue
   private Long id;

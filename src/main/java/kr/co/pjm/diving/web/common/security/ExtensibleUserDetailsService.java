@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.pjm.diving.web.common.security.social.SocialUserDetail;
 import kr.co.pjm.diving.web.domain.entity.User;
 import kr.co.pjm.diving.web.domain.entity.UserRole;
 import kr.co.pjm.diving.web.repasitory.UserRepository;
@@ -45,18 +46,19 @@ public class ExtensibleUserDetailsService implements UserDetailsService {
 
   @Override
   @Transactional(readOnly = true)
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+  public SocialUserDetail loadUserByUsername(String username) throws UsernameNotFoundException {
     if (log.isDebugEnabled()) {
       log.debug("==> username : {}", username);
     }
     
+    /* find by user */
     User user = userRepository.findByEmail(username);
     
     if (null == user) {
       throw new UsernameNotFoundException("Not found username: " + username);
     }
     
-    /* ROLE set */
+    /* role set */
     List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
     
     Iterator<UserRole> itr = user.getUserRoles().iterator();
@@ -66,10 +68,12 @@ public class ExtensibleUserDetailsService implements UserDetailsService {
       authorities.add(new SimpleGrantedAuthority(userRole.getRole().toString()));
     }
     
-    UserDetails userDetails = (UserDetails) new org.springframework.security.core.userdetails.User(
-        user.getEmail(), user.getPassword(), this.getAuthorities(authorities));
+    /*UserDetails userDetails = (UserDetails) new org.springframework.security.core.userdetails.User(
+        user.getEmail(), user.getPassword(), this.getAuthorities(authorities));*/
     
-    return userDetails;
+    SocialUserDetail socialUserDetail = new SocialUserDetail(user);
+    
+    return socialUserDetail;
   }
   
   public Collection<? extends GrantedAuthority> getAuthorities(List<GrantedAuthority> authorities) {

@@ -1,23 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-      
-      <style type="text/css">
-          body {
-            background-color: #DADADA;
-          }
-          body > .grid {
-            height: 100%;
-          }
-          .image {
-            margin-top: -100px;
-          }
-          .column {
-            max-width: 450px;
-          }
-      </style>
 <head>
-
     <th:block th:fragment="common">
     
     <!-- common modal popup type1 -->
@@ -35,65 +19,6 @@
             <div class="ui positive right labeled icon button" id="modal-action-yes" style="display:none;">
                 예
                 <i class="checkmark icon"></i>
-            </div>
-        </div>
-    </div>
-    
-    <!-- ui basic msg modal 
-    <div class="ui basic modal" id="ui-basic-modal">
-        <div class="ui icon header" id="basic-modal-header">
-            메세지
-        </div>
-        <div class="content" id="basic-modal-content">
-            <p>message</p>
-        </div>
-        <div class="actions" id="basic-modal-actions">
-            <div class="ui red basic cancel inverted button" id="basic-modal-actions-no">
-            <i class="remove icon"></i>
-            No
-            </div>
-            <div class="ui green ok inverted button" id="basic-modal-actions-yes">
-            <i class="checkmark icon"></i>
-            Yes
-            </div>
-        </div>
-    </div>
-    -->
-
-    <!-- login layer modal popup -->
-    <div class="ui modal" id="loginModal">
-        <i class="close icon"></i>
-        <div class="header">
-            Login
-        </div>
-        <div class="content">
-            <div class="ui middle aligned center aligned grid">
-                <div class="column">
-	                <form class="ui large form error" th:id="loginForm" th:action="@{/login}" onsubmit="return false;">
-	                    <div class="ui stacked segment">
-	                        <div class="field">
-	                            <div class="ui left icon input">
-	                                <i class="user icon"></i>
-	                                <input type="text" th:name="login-email" th:id="login-email" placeholder="email" value="kbtapjm@gmail.com"/>
-	                            </div>
-	                        </div>
-	                        <div class="field">
-	                            <div class="ui left icon input">
-	                                <i class="lock icon"></i>
-	                                <input type="password" th:name="login-password" th:id="login-password" placeholder="Password"/>
-	                            </div>
-	                        </div>
-	                        <!-- <div class="field">
-                                <div class="ui checkbox">
-                                    <input type="checkbox" id="remember-me" name="remember-me" tabindex="0" class="hidden" />
-                                    <label for="remember-me">로그인 상태 유지</label>
-                                </div>
-                            </div> -->
-	                        <button class="ui fluid large teal submit button" id="btnLogin">Login</button>
-	                        <div class="ui error message"></div>
-	                    </div>
-	                </form>
-                </div>
             </div>
         </div>
     </div>

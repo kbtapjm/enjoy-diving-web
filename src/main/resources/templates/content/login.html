@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
-        <title data-th-text="'로그인'">로그인 - Enjoy Diving</title>
+        <title data-th-text="'로그인'">로그인</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link rel="stylesheet" href="css/semantic.min.css" data-th-href="@{/static/css/semantic.css}" />
         <style type="text/css">
@@ -30,31 +30,39 @@
     <body>
         <div class="ui middle aligned center aligned grid">
             <div class="column">
-                <form class="ui large form error" th:id="form" th:action="@{/login}" onsubmit="return false;">
+                <form class="ui large form error" th:id="form" th:action="@{/login/authenticate}" method="post">
                     <div class="ui stacked segment">
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
-                                <input type="text" th:name="email" th:id="email" placeholder="email" value="kbtapjm@gmail.com"/>
+                                <input type="text" th:name="email" th:id="email" placeholder="" value=""/>
                             </div>
                         </div>
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="lock icon"></i>
-                                <input type="password" th:name="password" th:id="password" placeholder="Password"/>
+                                <input type="password" th:name="password" th:id="password" placeholder=""/>
                             </div>
                         </div>
-                        <button class="ui fluid large teal submit button" id="submit">Login</button>
-                        <div class="ui error message"></div>
+                        <button class="ui fluid large teal submit button" id="btnLogin">Login</button>
+                        <div class="ui error message">
+	                        <ul class="list" th:if="${error} == failure">
+                                <li>이메일 또는 비밀번호가 일치하지 않습니다.</li>
+	                        </ul>
+                        </div>
                     </div>
                 </form>
                 
                 <div class="ui message">
                      New to us? <a href="#" th:href="@{/users/new}">회원가입</a>
                 </div>
-                <!-- <button class="ui fluid large facebook button"><i class="facebook icon"></i>Facebook</button> -->
+                <button onclick="document.facebook.submit();" class="ui fluid large facebook button"><i class="facebook icon"></i>Facebook</button>
             </div>
         </div>
+        
+        <form name="facebook" th:action="@{/auth/facebook}" >
+            <input type="hidden" name="scope" value="email,user_friends"/>
+        </form>
         
         <script src="js/content/login.js" data-th-src="@{/static/js/content/login.js}"></script>
         

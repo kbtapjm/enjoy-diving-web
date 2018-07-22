@@ -9,31 +9,31 @@
     <body>
         <th:block layout:fragment="content">
         
-	        <div class="ui attached message">
-	            <div class="header">
-	            인조이 다이빙 사이트에 오신걸 환영합니다.
-	            </div>
-	        <p>아래 양식을 작성하여 새 계정에 가입하십시오.</p>
-	        </div>
-	        
-	        <form class="ui form attached fluid segment" th:action="@{/users}" th:id="createform" onsubmit="return false;">
+            <div class="ui attached message">
+                <div class="header">
+                인조이 다이빙 사이트에 오신걸 환영합니다.
+                </div>
+            <p>아래 양식을 작성하여 새 계정에 가입하십시오.</p>
+            </div>
+            
+            <form class="ui form attached fluid segment" th:action="@{/signup}" th:id="signupForm" onsubmit="return false;">
                 <div class="two fields">
-	                <div class="required field">
-	                    <label>이메일</label>
-	                    <input type="text" th:name="email" th:id="email" placeholder="이메일" value="" />
-	                </div>
-	                <div class="required field">
-                        <label>이름</label>
-                        <input type="text" th:name="name" th:id="name" placeholder="이름" value="" />
+                    <div class="required field">
+                        <label>이메일</label>
+                        <input type="text" th:name="email" th:id="email" placeholder="이메일" th:value="${user.email}" />
                     </div>
-	                
+                    <div class="required field">
+                        <label>이름</label>
+                        <input type="text" th:name="name" th:id="name" placeholder="이름" th:value="${user.name}" />
+                    </div>
+                    
                 </div>
                 <div class="two fields">
-	                <div class="required field">
+                    <div class="required field">
                         <label>비밀번호</label>
                         <input type="password" th:name="password" th:id="password" placeholder="비밀번호" value="" />
                     </div>
-	                <div class="required field">
+                    <div class="required field">
                         <label>비밀번호 확인</label>
                         <input type="password" th:name="password-confirm" th:id="password-confirm" placeholder="비밀번호 확인" value="" />
                     </div>
@@ -43,8 +43,8 @@
                         <label>닉네임</label>
                         <input type="text" th:name="nickname" th:id="nickname" placeholder="닉네임" value="" />
                     </div>
-	                <div class="required field">
-	                    <label>성별</label>
+                    <div class="required field">
+                        <label>성별</label>
                         <div class="field">
                             <div class="ui radio checkbox">
                                 <input type="radio" th:name="gender" th:id="male" value="0" tabindex="0" class="hidden" checked="checked" />
@@ -55,7 +55,7 @@
                                 <label>여자</label>
                             </div>
                         </div>
-	                </div>
+                    </div>
                 </div>
                 <div class="two fields">
                     <div class="required field">
@@ -78,21 +78,21 @@
                         </div>
                     </div>
                 </div>
-	            <div class="required inline field">
-	                <div class="ui checkbox">
-	                    <input type="checkbox" id="terms"/>
-	                    <label for="terms">이용 약관에 동의합니다.</label>
-	                </div>
-	            </div>
-	            <div class="ui red button" id="cancel">취소</div>
-	            <div class="ui blue submit button" id="submit">회원가입</div>
-	            <div class="ui error message"></div>
-	        </form>
-	        <!-- <div class="ui bottom attached warning message">
-	            Already signed up? <a href="#" th:href="@{/login}">Login here</a> instead.
-	        </div> -->
-	        
-	        <script src="js/content/user-create.js" data-th-src="@{/static/js/content/user-create.js}"></script>
+                <div class="required inline field">
+                    <div class="ui checkbox">
+                        <input type="checkbox" id="terms"/>
+                        <label for="terms">이용 약관에 동의합니다.</label>
+                    </div>
+                </div>
+                <div class="ui red button" id="cancel">취소</div>
+                <div class="ui blue submit button" id="submit">회원가입</div>
+                <div class="ui error message"></div>
+            </form>
+            <div class="ui bottom attached warning message">
+                Already signed up? <a href="#" th:href="@{/login}">Login here</a> instead.
+            </div>
+            
+            <script src="js/content/signup.js" data-th-src="@{/static/js/content/signup.js}"></script>
         
         </th:block>
         

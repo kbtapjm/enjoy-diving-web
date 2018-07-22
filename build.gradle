@@ -8,7 +8,11 @@ jar {
 dependencies {
     ext {
         springBootVersion = '1.5.2.RELEASE'
+        springSessionVersion = '1.0.2.RELEASE'
+        springSocialVersion = '1.1.4.RELEASE'
+        springSocialFacebookVersion = '2.0.3.RELEASE'
         queryDslVersion = '4.1.4'
+        embeddedRedisVersion = '0.6'
     }
 
     compile project(':enjoy-diving-common')
@@ -17,6 +21,7 @@ dependencies {
 
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: "${springBootVersion}"
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: "${springBootVersion}"
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: "${springBootVersion}"
     
     compile group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
     compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: "${springBootVersion}"
@@ -24,12 +29,19 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: "${springBootVersion}"
     compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '2.1.2.RELEASE'
     
+    compile group: 'org.springframework.session', name: 'spring-session', version: "${springSessionVersion}"
+    compile group: 'org.springframework.social', name: 'spring-social-security', version: "${springSocialVersion}"
+    compile group: 'org.springframework.social', name: 'spring-social-config', version: "${springSocialVersion}"
+    compile group: 'org.springframework.social', name: 'spring-social-facebook', version: "${springSocialFacebookVersion}"
+    
     compile group: 'com.querydsl', name: 'querydsl-core', version: queryDslVersion
     compile group: 'com.querydsl', name: 'querydsl-jpa', version: queryDslVersion
     compile group: 'com.querydsl', name: 'querydsl-apt', version: queryDslVersion
     
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.41'
     compile group: 'com.h2database', name: 'h2', version: '1.4.194'
+    
+    compile group: 'com.github.kstyrc', name: 'embedded-redis', version: "${embeddedRedisVersion}"
 }
 
 eclipse {

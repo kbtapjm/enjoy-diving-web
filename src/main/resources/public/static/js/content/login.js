@@ -12,7 +12,7 @@ var LoginModule = LoginModule || (function($) {
     },
     
     validation: function() {
-      $('#loginForm')
+      $('#form')
       .form({
         fields: {
           email: {
@@ -46,7 +46,7 @@ var LoginModule = LoginModule || (function($) {
     },
     
     submit: function() {
-      var _form = $('#loginForm')
+      var _form = $('#form')
       , url = _form.attr('action');
       
       var data = {
@@ -54,44 +54,22 @@ var LoginModule = LoginModule || (function($) {
         password: $('#login-password').val()
       }
       
-      if (!$('#loginForm').form('is valid')) {
+      if (!$('#form').form('is valid')) {
         return false;
       }
       
-      $.ajax({
-        method: 'POST',
-        headers: { 
-          Accept: 'application/json; charset=UTF-8'
-        },
-        contentType: 'application/json; charset=UTF-8',
-        url: url,
-        data: JSON.stringify(data)
-      }).done(function(data) {
-        if (data.resultCd !== '0000') {
-          LoginModule.data.setErrorMsg('이메일 또는 비밀번호가 일치 하지 않습니다.');
-          return false;
-        }
-        
-        location.href = '/';
-      }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.error(jqXHR);
-      });
-    },
-    
-    setErrorMsg: function(msg) {
-      var html = '';
-      html += '<ul class="list">';
-      html += ' <li> ' + msg + '</li>';
-      html += '</ul>';
-      
-      $('.ui.error.message').show();
-      $('.ui.error.message').html(html);
+      $('#form').submit();
     }
   };
   
   var event = {
     init: function() {
       $('#btnLogin').on('click', function(e) {
+        e.preventDefault();
+        LoginModule.data.submit();
+      });
+      
+      $('#btnFacebook').on('click', function(e) {
         e.preventDefault();
         LoginModule.data.submit();
       });
@@ -103,7 +81,6 @@ var LoginModule = LoginModule || (function($) {
     data: {
       init: data.init,
       validation: data.validation,
-      setErrorMsg: data.setErrorMsg,
       submit: data.submit
     },
     event: {

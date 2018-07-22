@@ -1,5 +1,6 @@
 package kr.co.pjm.diving.web.common.domain.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -34,8 +35,10 @@ import lombok.Setter;
  */
 @Getter @Setter
 @MappedSuperclass  
-public abstract class CommonEntity {
+public abstract class CommonEntity implements Serializable {
   
+  private static final long serialVersionUID = -8554163589797728671L;
+
   /* 등록일 */
   @Column(name = "reg_date", nullable = false, insertable = true, updatable = false)
   @Temporal(TemporalType.TIMESTAMP)
