@@ -22,11 +22,11 @@ public class SessionDestroyedEventHandler implements ApplicationListener<Session
 
   @Override
   public void onApplicationEvent(SessionDestroyedEvent event) {
-    if (log.isDebugEnabled()) {
-      log.debug(" ----------------------------------------------------  ");
-      log.debug(" SessionDestroyedEvent getId : {}", event.getId());
-      log.debug(" SessionDestroyedEvent getTimestamp : {}", event.getTimestamp());
-      log.debug(" ----------------------------------------------------  ");
+    if (log.isInfoEnabled()) {
+      log.info(" ----------------------------------------------------  ");
+      log.info(" SessionDestroyedEvent getId : {}", event.getId());
+      log.info(" SessionDestroyedEvent getTimestamp : {}", event.getTimestamp());
+      log.info(" ----------------------------------------------------  ");
     }
   }
 

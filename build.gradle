@@ -8,7 +8,7 @@ jar {
 dependencies {
     ext {
         springBootVersion = '1.5.2.RELEASE'
-        springSessionVersion = '1.0.2.RELEASE'
+        springSessionVersion = '1.3.1.RELEASE'
         springSocialVersion = '1.1.4.RELEASE'
         springSocialFacebookVersion = '2.0.3.RELEASE'
         queryDslVersion = '4.1.4'

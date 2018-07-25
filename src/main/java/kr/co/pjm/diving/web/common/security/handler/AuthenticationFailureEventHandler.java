@@ -23,16 +23,16 @@ public class AuthenticationFailureEventHandler implements ApplicationListener<Au
 
   @Override
   public void onApplicationEvent(AuthenticationFailureBadCredentialsEvent event) {
-    if (log.isDebugEnabled()) {
-      log.debug(" ----------------------------------------------------  ");
-      log.debug(" getTimestamp : {}", event.getTimestamp());                              // 로그인 실패시간
-      log.debug(" getException : {}", event.getException());                              // 로그인 에러내용
-      log.debug(" getCredentials : {}", event.getAuthentication().getCredentials());      // 로그인시 패스워드
-      log.debug(" getDetails : {}", event.getAuthentication().getDetails());              // 로그인실패 세션 아이디          
-      log.debug(" getPrincipal : {}", event.getAuthentication().getPrincipal());          // 로그인 아이디
-      log.debug(" getAuthorities : {}", event.getAuthentication().getAuthorities());      // 인증정보
-      log.debug(" getName : {}", event.getAuthentication().getName());                    // 로그인 아이디
-      log.debug(" ----------------------------------------------------  ");
+    if (log.isInfoEnabled()) {
+      log.info(" ----------------------------------------------------  ");
+      log.info(" getTimestamp : {}", event.getTimestamp());                              // 로그인 실패시간
+      log.info(" getException : {}", event.getException());                              // 로그인 에러내용
+      log.info(" getCredentials : {}", event.getAuthentication().getCredentials());      // 로그인시 패스워드
+      log.info(" getDetails : {}", event.getAuthentication().getDetails());              // 로그인실패 세션 아이디          
+      log.info(" getPrincipal : {}", event.getAuthentication().getPrincipal());          // 로그인 아이디
+      log.info(" getAuthorities : {}", event.getAuthentication().getAuthorities());      // 인증정보
+      log.info(" getName : {}", event.getAuthentication().getName());                    // 로그인 아이디
+      log.info(" ----------------------------------------------------  ");
     }
   }
 

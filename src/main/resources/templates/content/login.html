@@ -45,8 +45,8 @@
                             </div>
                         </div>
                         <button class="ui fluid large teal submit button" id="btnLogin">Login</button>
-                        <div class="ui error message">
-	                        <ul class="list" th:if="${error} == failure">
+                        <div class="ui error message" th:if="${error} == 'failure'">
+	                        <ul class="list">
                                 <li>이메일 또는 비밀번호가 일치하지 않습니다.</li>
 	                        </ul>
                         </div>
