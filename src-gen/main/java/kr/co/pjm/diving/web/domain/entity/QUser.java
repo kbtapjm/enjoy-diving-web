@@ -31,12 +31,14 @@ public class QUser extends EntityPathBase<User> {
     public final StringPath password = createString("password");
 
     //inherited
-    public final DatePath<java.util.Date> regDate = _super.regDate;
+    public final DateTimePath<java.util.Date> regDate = _super.regDate;
 
     //inherited
-    public final DatePath<java.util.Date> updateDate = _super.updateDate;
+    public final DateTimePath<java.util.Date> updateDate = _super.updateDate;
 
     public final QUserBasic userBasic;
+
+    public final QUserDive userDive;
 
     public final SetPath<UserRole, QUserRole> userRoles = this.<UserRole, QUserRole>createSet("userRoles", UserRole.class, QUserRole.class, PathInits.DIRECT2);
 
@@ -59,6 +61,7 @@ public class QUser extends EntityPathBase<User> {
     public QUser(Class<? extends User> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.userBasic = inits.isInitialized("userBasic") ? new QUserBasic(forProperty("userBasic"), inits.get("userBasic")) : null;
+        this.userDive = inits.isInitialized("userDive") ? new QUserDive(forProperty("userDive"), inits.get("userDive")) : null;
     }
 
 }

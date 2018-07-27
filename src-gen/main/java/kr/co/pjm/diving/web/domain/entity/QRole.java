@@ -25,14 +25,14 @@ public class QRole extends EntityPathBase<Role> {
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     //inherited
-    public final DatePath<java.util.Date> regDate = _super.regDate;
+    public final DateTimePath<java.util.Date> regDate = _super.regDate;
 
     public final EnumPath<kr.co.pjm.diving.common.domain.enumeration.RoleTypeEnum> role = createEnum("role", kr.co.pjm.diving.common.domain.enumeration.RoleTypeEnum.class);
 
     public final StringPath roleName = createString("roleName");
 
     //inherited
-    public final DatePath<java.util.Date> updateDate = _super.updateDate;
+    public final DateTimePath<java.util.Date> updateDate = _super.updateDate;
 
     public final SetPath<UserRole, QUserRole> userRoles = this.<UserRole, QUserRole>createSet("userRoles", UserRole.class, QUserRole.class, PathInits.DIRECT2);
 

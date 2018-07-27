@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -16,6 +17,8 @@ import com.querydsl.core.types.Path;
 public class QUserDive extends EntityPathBase<UserDive> {
 
     private static final long serialVersionUID = -1943795103L;
+
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QUserDive userDive = new QUserDive("userDive");
 
@@ -28,25 +31,36 @@ public class QUserDive extends EntityPathBase<UserDive> {
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     //inherited
-    public final DatePath<java.util.Date> regDate = _super.regDate;
+    public final DateTimePath<java.util.Date> regDate = _super.regDate;
 
     public final StringPath signature = createString("signature");
 
     public final StringPath team = createString("team");
 
     //inherited
-    public final DatePath<java.util.Date> updateDate = _super.updateDate;
+    public final DateTimePath<java.util.Date> updateDate = _super.updateDate;
+
+    public final QUser user;
 
     public QUserDive(String variable) {
-        super(UserDive.class, forVariable(variable));
+        this(UserDive.class, forVariable(variable), INITS);
     }
 
     public QUserDive(Path<? extends UserDive> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QUserDive(PathMetadata metadata) {
-        super(UserDive.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QUserDive(PathMetadata metadata, PathInits inits) {
+        this(UserDive.class, metadata, inits);
+    }
+
+    public QUserDive(Class<? extends UserDive> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.user = inits.isInitialized("user") ? new QUser(forProperty("user"), inits.get("user")) : null;
     }
 
 }

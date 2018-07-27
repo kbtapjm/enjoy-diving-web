@@ -9,8 +9,7 @@ $(document).ready(function() {
 var UserReadModule = UserReadModule || (function($) {
   'use strict'
   
-  var _form = $('#form')
-  , url = _form.attr('action');
+  var _form = $('#form');
 
   var init = function() {
     this.data.init();
@@ -66,7 +65,7 @@ var UserReadModule = UserReadModule || (function($) {
       });
     },
     
-    submit: function() {
+    update: function() {
       var data = _form.serializeObject();
       
       $.each(data, function (key, value) {
@@ -84,7 +83,7 @@ var UserReadModule = UserReadModule || (function($) {
           Accept: 'application/json; charset=UTF-8'
         },
         contentType: 'application/json; charset=UTF-8',
-        url: url,
+        url: '/my/updateProfile',
         data: JSON.stringify(data)
       }).done(function(data) {
         UiUtilModule.mask.close();
@@ -115,7 +114,7 @@ var UserReadModule = UserReadModule || (function($) {
                 Accept: 'application/json; charset=UTF-8'
               },
               contentType: 'application/json; charset=UTF-8',
-              url: url + '/' + $('#id').val(),
+              url: '/my/profile/' + $('#id').val(),
               data: JSON.stringify(data)
             }).done(function(data) {
               UiUtilModule.mask.close();
@@ -138,9 +137,9 @@ var UserReadModule = UserReadModule || (function($) {
       $('.ui.dropdown').dropdown();
       $('.ui.radio.checkbox').checkbox();
       
-      $('#submit').on('click', function(e) {
+      $('#update').on('click', function(e) {
         e.preventDefault();
-        UserReadModule.data.submit();
+        UserReadModule.data.update();
       });
       
       $('#remove').on('click', function(e) {
@@ -154,7 +153,7 @@ var UserReadModule = UserReadModule || (function($) {
     init: init,
     data: {
       init: data.init,
-      submit: data.submit,
+      update: data.update,
       remove: data.remove,
       validation: data.validation,
       login: data.login

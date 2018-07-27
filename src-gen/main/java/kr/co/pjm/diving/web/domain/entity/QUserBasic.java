@@ -32,7 +32,7 @@ public class QUserBasic extends EntityPathBase<UserBasic> {
 
     public final StringPath introduce = createString("introduce");
 
-    public final DatePath<java.util.Date> loginDate = createDate("loginDate", java.util.Date.class);
+    public final DateTimePath<java.util.Date> loginDate = createDateTime("loginDate", java.util.Date.class);
 
     public final StringPath name = createString("name");
 
@@ -41,12 +41,12 @@ public class QUserBasic extends EntityPathBase<UserBasic> {
     public final StringPath profile = createString("profile");
 
     //inherited
-    public final DatePath<java.util.Date> regDate = _super.regDate;
+    public final DateTimePath<java.util.Date> regDate = _super.regDate;
 
     public final EnumPath<kr.co.pjm.diving.common.domain.enumeration.UserStatusEnum> status = createEnum("status", kr.co.pjm.diving.common.domain.enumeration.UserStatusEnum.class);
 
     //inherited
-    public final DatePath<java.util.Date> updateDate = _super.updateDate;
+    public final DateTimePath<java.util.Date> updateDate = _super.updateDate;
 
     public final QUser user;
 

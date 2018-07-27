@@ -22,6 +22,8 @@ public class QUserRole extends EntityPathBase<UserRole> {
 
     public static final QUserRole userRole = new QUserRole("userRole");
 
+    public final DateTimePath<java.util.Date> regDate = createDateTime("regDate", java.util.Date.class);
+
     public final QRole role;
 
     public final QUser user;

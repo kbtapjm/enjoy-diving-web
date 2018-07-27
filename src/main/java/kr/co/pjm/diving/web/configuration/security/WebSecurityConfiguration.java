@@ -1,6 +1,7 @@
 package kr.co.pjm.diving.web.configuration.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.social.security.SpringSocialConfigurer;
@@ -25,16 +27,19 @@ import kr.co.pjm.diving.web.common.security.ExtensibleUserDetailsService;
 import kr.co.pjm.diving.web.common.security.handler.AuthenticationFailureEventHandler;
 import kr.co.pjm.diving.web.common.security.handler.AuthenticationSuccessEventHandler;
 import kr.co.pjm.diving.web.common.security.social.SocialUsersDetailService;
-import kr.co.pjm.diving.web.configuration.security.social.redis.EnableEmbeddedRedis;
-import kr.co.pjm.diving.web.configuration.security.social.redis.RedisServerPort;
 
 @Configuration
-@EnableEmbeddedRedis
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 10)
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 1800)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
   
+  @Value("${spring.redis.host}")
+  private String redisHost;
+  
+  @Value("${spring.redis.port}")
+  private int redisPort;
+
   @Autowired
   private ExtensibleUserDetailsService extensibleUserDetailsService;
   
@@ -57,6 +62,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/h2console/**"
             )
         .hasAnyAuthority("ADMIN")
+        .anyRequest().authenticated()
       .and()
         .headers()
         .addHeaderWriter(new StaticHeadersWriter("X-Content-Security-Policy","script-src 'self'"))
@@ -85,6 +91,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
       .maxSessionsPreventsLogin(false) 
       .expiredUrl("/login?error=expired")
       .sessionRegistry(sessionRegistry);*/
+   
+    http
+      .rememberMe()
+      .key("unique-and-secret")
+      .rememberMeCookieName("remember-me-cookie-name")
+      .tokenValiditySeconds(24 * 60 * 60);
     
     http
       .exceptionHandling()
@@ -132,10 +144,17 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
   }
   
   @Bean
-  public JedisConnectionFactory connectionFactory(@RedisServerPort int port) {
-    JedisConnectionFactory connection = new JedisConnectionFactory();
-    connection.setPort(port);
-    return connection;
+  public JedisConnectionFactory connectionFactory() {       
+    JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+    jedisConnectionFactory.setHostName(redisHost);
+    jedisConnectionFactory.setPort(redisPort);
+    jedisConnectionFactory.setUsePool(true);    
+    return jedisConnectionFactory;
+  }
+  
+  @Bean
+  public static ConfigureRedisAction configureRedisAction() {
+    return ConfigureRedisAction.NO_OP;
   }
   
   @Bean

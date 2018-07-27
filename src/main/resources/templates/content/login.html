@@ -44,6 +44,12 @@
                                 <input type="password" th:name="password" th:id="password" placeholder=""/>
                             </div>
                         </div>
+                        <div class="field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" id="remember-me" name="remember-me"/>
+                                <label for="remember-me">로그인 상태 유지</label>
+                            </div>
+                        </div>
                         <button class="ui fluid large teal submit button" id="btnLogin">Login</button>
                         <div class="ui error message" th:if="${error} == 'failure'">
 	                        <ul class="list">

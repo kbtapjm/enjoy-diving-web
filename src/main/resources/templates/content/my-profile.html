@@ -4,12 +4,11 @@
     <head>
         <title>프로필 - Enjoy Diving </title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        
     </head>
     <body>
         <th:block layout:fragment="content">
         <div class="ui form">
-            <form class="ui form attached fluid segment" th:action="@{/users}" th:id="form" th:object="${user}" onsubmit="return false;">
+            <form class="ui form attached fluid segment" th:id="form" th:object="${user}" onsubmit="return false;">
                 <input type="hidden" th:name="id" th:id="id" th:value="${user.id}" />
             
                 <h4 class="ui dividing header">기본 정보</h4>
@@ -88,13 +87,13 @@
                     <textarea rows="2" th:name="signature" th:id="signature" th:text="${user.UserDive.signature}"></textarea>
                 </div>
                 
-                <div class="ui blue submit button" id="submit">수정</div>
+                <div class="ui blue submit button" id="update">수정</div>
                 <div class="ui red submit button" id="remove">회원 탈퇴</div>
                 <div class="ui error message"><p id="update-message"></p></div>
             </form>
             </div>
             
-            <script src="js/content/user-read.js" data-th-src="@{/static/js/content/user-read.js}"></script>
+            <script src="js/content/my-profile.js" data-th-src="@{/static/js/content/my-profile.js}"></script>
         
         </th:block>
         
