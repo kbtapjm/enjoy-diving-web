@@ -143,6 +143,7 @@ public class UserServiceImpl implements UserService {
     userBasicRepository.delete(id);
     userDiveRepository.delete(id);
     userRepository.delete(id);
+    // TODO: USER CONNECTION 정보 삭제
   }
 
   @Override

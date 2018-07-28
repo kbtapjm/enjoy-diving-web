@@ -49,7 +49,7 @@ public class UserController {
   
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody 
-  //@ResponseStatus(HttpStatus.CREATED)
+  @ResponseStatus(HttpStatus.CREATED)
   public User create(@RequestBody UserDto userDto) throws Exception {
     return userService.set(userDto);
   }
