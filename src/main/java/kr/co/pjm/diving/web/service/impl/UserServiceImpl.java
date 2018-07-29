@@ -18,6 +18,7 @@ import kr.co.pjm.diving.web.domain.entity.UserDive;
 import kr.co.pjm.diving.web.domain.entity.UserRole;
 import kr.co.pjm.diving.web.repasitory.RoleRepository;
 import kr.co.pjm.diving.web.repasitory.UserBasicRepository;
+import kr.co.pjm.diving.web.repasitory.UserConnectionRepasitory;
 import kr.co.pjm.diving.web.repasitory.UserDiveRepository;
 import kr.co.pjm.diving.web.repasitory.UserRepository;
 import kr.co.pjm.diving.web.service.UserService;
@@ -50,6 +51,9 @@ public class UserServiceImpl implements UserService {
   
   @Autowired
   private RoleRepository roleRepository;
+
+  @Autowired
+  private UserConnectionRepasitory userConnectionRepasitory;
   
   @Autowired
   private PasswordEncoder passwordEncoder;
@@ -140,10 +144,12 @@ public class UserServiceImpl implements UserService {
   @Override
   @Transactional
   public void delete(Long id) {
+    User user = userRepository.findOne(id);
+    
     userBasicRepository.delete(id);
     userDiveRepository.delete(id);
     userRepository.delete(id);
-    // TODO: USER CONNECTION 정보 삭제
+    userConnectionRepasitory.deleteUserConnection(user.getEmail());
   }
 
   @Override
