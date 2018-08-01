@@ -29,6 +29,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserDto extends UserBasic {
   
+  private static final long serialVersionUID = 4567012528819692037L;
+
   /* 이메일 */
   private String email;
   
