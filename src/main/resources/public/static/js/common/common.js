@@ -30,3 +30,9 @@ jQuery.fn.serializeObject = function() {
   
   return obj;
 };
+
+function addZero(n) {
+	if(n === null) return '00'; 
+	
+	return n < 10 ? '0'.concat(n) : n;
+}

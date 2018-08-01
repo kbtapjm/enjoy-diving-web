@@ -38,7 +38,7 @@ public class DiveLog extends CommonEntity {
   @Temporal(TemporalType.TIMESTAMP)
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   @JsonFormat(pattern="yyyy-MM-dd")
-  private Date DiveDate;
+  private Date diveDate;
   
   /* 다이브 장소 */
   @Column(name = "dive_place", nullable = false, length = 200)
@@ -109,20 +109,36 @@ public class DiveLog extends CommonEntity {
   private Long divePlanEanx;
   
   /* 노출 보호(0:스킨, 1:웻슈트, 2:드라이슈트) */
-  @Column(name = "dive_exr_ptn", nullable = false, length = 1)
-  private String diveExrPtn;
+  @Column(name = "dive_plan_exr_ptn", length = 1)
+  private String divePlanExrPtn;
   
   /* 다이브 후드 여부 */
-  @Column(name = "dive_hood_yn", nullable = false, length = 1)
-  private String diveHoodYn;
+  @Column(name = "dive_plan_hood_yn", length = 1)
+  private String divePlanHoodYn;
   
   /* 다이브 장갑 여부 */
-  @Column(name = "dive_gloves_yn", nullable = false, length = 1)
-  private String diveGlovesYn;
+  @Column(name = "dive_plan_gloves_yn", length = 1)
+  private String divePlanGlovesYn;
   
   /* 다이브 부츠 여부 */
-  @Column(name = "dive_boots_yn", nullable = false, length = 1)
-  private String diveBootsYn;
+  @Column(name = "dive_plan_boots_yn", length = 1)
+  private String divePlanBootsYn;
+  
+  /* 다이브 라이트 여부 */
+  @Column(name = "dive_plan_light_yn", length = 1)
+  private String divePlanLightYn;
+  
+  /* 다이브 SMB 여부 */
+  @Column(name = "dive_plan_smb_yn", length = 1)
+  private String divePlanSmbYn;
+  
+  /* 다이브 나이프 여부 */
+  @Column(name = "dive_plan_knife_yn", length = 1)
+  private String divePlanKnifeYn;
+  
+  /* 다이브 카메라 여부 */
+  @Column(name = "dive_plan_camera_yn", length = 1)
+  private String divePlanCameraYn;
   
   /* 시야 */
   @Column(name = "visibility", nullable = false)
