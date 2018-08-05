@@ -8,10 +8,10 @@
     <body>
         <th:block layout:fragment="content">
             <form class="ui form segment" th:action="@{/log}" th:id="form" onsubmit="return false;">
-                <div class="two fields">
+                <div class="four fields">
                     <div class="required field">
                         <label>번호</label>
-                        <input type="text" th:name="diveNo" th:id="diveNo" style="width:70px;" />
+                        <input type="text" th:name="diveNo" th:id="diveNo" style="width:60px;" />
                     </div>
                     <div class="required field">
                         <label>날짜</label>
@@ -22,8 +22,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="two fields">
                     <div class="required field">
                         <label>다이브 장소</label>
                         <input type="text" th:name="divePlace" th:id="divePlace"  />
@@ -32,6 +30,9 @@
                         <label>다이브 포인트</label>
                         <input type="text" th:name="divePoint" th:id="divePoint"  />
                     </div>
+                </div>
+                <div class="two fields">
+                    
                 </div>
                 <div class="two fields">
                     <div class="required field">
@@ -98,7 +99,7 @@
                     <div class="required field">
                         <label>슈트</label>
                         <div class="ui selection dropdown">
-                            <input type="hidden" th:name="diveExrPtn" th:id="diveExrPtn"/>
+                            <input type="hidden" th:name="divePlanExrPtn" th:id="divePlanExrPtn"/>
                             <i class="dropdown icon"></i>
                             <div class="default text">노출 보호</div>
                             <div class="menu">
@@ -113,31 +114,31 @@
                     <div class="field">
                         <label>다이빙 플랜</label>
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="diveHoodYn" th:id="diveHoodYn"/>
-                            <label for="diveHoodYn">후드</label>
+                            <input type="checkbox" th:name="divePlanHoodYn" th:id="divePlanHoodYn" value="Y"/>
+                            <label for="divePlanHoodYn">후드</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="diveGlovesYn" id="diveGlovesYn"/>
-                            <label for="diveGlovesYn">장갑</label>
+                            <input type="checkbox" th:name="divePlanGlovesYn" id="divePlanGlovesYn" value="Y"/>
+                            <label for="divePlanGlovesYn">장갑</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="diveBootsYn" id="diveBootsYn"/>
-                            <label for="diveBootsYn">부츠</label>
+                            <input type="checkbox" th:name="divePlanBootsYn" id="divePlanBootsYn" value="Y"/>
+                            <label for="divePlanBootsYn">부츠</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanLightYn" id="divePlanLightYn"/>
+                            <input type="checkbox" th:name="divePlanLightYn" id="divePlanLightYn" value="Y"/>
                             <label for="divePlanLightYn">라이트</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanSmbYn" id="divePlanSmbYn"/>
+                            <input type="checkbox" th:name="divePlanSmbYn" id="divePlanSmbYn" value="Y"/>
                             <label for="divePlanSmbYn">SMB</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanKnifeYn" id="divePlanKnifeYn"/>
+                            <input type="checkbox" th:name="divePlanKnifeYn" id="divePlanKnifeYn" value="Y"/>
                             <label for="divePlanKnifeYn">나이프</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanCameraYn" id="divePlanCameraYn"/>
+                            <input type="checkbox" th:name="divePlanCameraYn" id="divePlanCameraYn" value="Y"/>
                             <label for="divePlanCameraYn">카메라</label>
                         </div>
                     </div>
@@ -147,10 +148,6 @@
                     </div>
                 </div>
                 <div class="two fields">
-                    <div class="required field">
-                        <label>시야</label>
-                        <input type="text" th:name="visibility" th:id="visibility" style="width:50px;" />m
-                    </div>
                     <div class="field">
                         <label>수온</label>
                         <input type="text" th:name="temperature" th:id="temperature" style="width:50px;" />m

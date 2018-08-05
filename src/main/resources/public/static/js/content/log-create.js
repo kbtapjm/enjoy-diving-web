@@ -9,7 +9,8 @@ $(document).ready(function() {
 var LogCreateModule = LogCreateModule || (function($) {
   'use strict'
   
-  var _form = $('#form');
+  var _form = $('#form')
+    , url = _form.attr('action');
 
   var init = function() {
     this.data.init();
@@ -25,12 +26,39 @@ var LogCreateModule = LogCreateModule || (function($) {
         $('#form')
         .form({
           fields: {
-            email: {
+            diveNo: {
               identifier: 'diveNo',
               rules: [
                 {
                   type   : 'empty',
                   prompt : '로그 번호를 입력하세요.'
+                }
+              ]
+            },
+            diveDate: {
+              identifier: 'diveDate',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : '로그 날짜를 입력하세요.'
+                }
+              ]
+            },
+            divePlace: {
+              identifier: 'divePlace',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : '다이브 장소를 입력하세요.'
+                }
+              ]
+            },
+            divePoint: {
+              identifier: 'divePoint',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : '다이브 포인트를 입력하세요.'
                 }
               ]
             }
@@ -59,7 +87,7 @@ var LogCreateModule = LogCreateModule || (function($) {
           url: url,
           data: JSON.stringify(data)
         }).done(function(data) {
-          
+          location.href = '/log';
         }).fail(function(jqXHR, textStatus, errorThrown) {
           UiUtilModule.mask.close();
           console.error(jqXHR);
