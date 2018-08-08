@@ -44,8 +44,5 @@ public class UserDiveRepositoryImpl extends QueryDslRepositorySupport implements
     
     return result;
   }
-  
-  
-  
 
 }

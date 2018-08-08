@@ -58,6 +58,4 @@ public class UserBasicRepositoryImpl extends QueryDslRepositorySupport implement
     return result;
   }
   
-  
-  
 }

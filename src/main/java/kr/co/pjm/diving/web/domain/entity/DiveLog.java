@@ -13,7 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import kr.co.pjm.diving.web.common.domain.entity.CommonEntity;
+import kr.co.pjm.diving.web.common.domain.entity.CommonSysEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor 
 @Entity(name = "dive_log")
-public class DiveLog extends CommonEntity {
+public class DiveLog extends CommonSysEntity {
   
   private static final long serialVersionUID = 7636566383016370649L;
   

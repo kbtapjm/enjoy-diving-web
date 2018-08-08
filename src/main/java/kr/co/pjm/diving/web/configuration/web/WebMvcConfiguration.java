@@ -4,12 +4,15 @@ import java.util.Locale;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
+import kr.co.pjm.diving.web.common.security.AuthAndDateAuditorAware;
 
 /**
  * <pre>
@@ -24,6 +27,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
  *
  */
 @Configuration
+@EnableJpaAuditing
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
   @Bean(name = "localeResolver")
@@ -44,8 +48,13 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
   public void addInterceptors(InterceptorRegistry registry) {
     registry.addInterceptor(localeChangeInterceptor());
   }
+  
+  @Bean
+  public AuthAndDateAuditorAware auditorAware() {
+    return new AuthAndDateAuditorAware();
+  }
 
-  /*@Override
+  @Override
   public void addCorsMappings(CorsRegistry registry) {
     registry
       .addMapping("/**")
@@ -54,6 +63,6 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
       .allowedHeaders("Access-Control-Allow-Headers", "Content-Type", "x-requested-with")
       .allowCredentials(false)
       .maxAge(1);
-  } */
+  }
   
 }

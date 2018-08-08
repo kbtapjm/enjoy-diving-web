@@ -19,7 +19,7 @@ public class QDiveLog extends EntityPathBase<DiveLog> {
 
     public static final QDiveLog diveLog = new QDiveLog("diveLog");
 
-    public final kr.co.pjm.diving.web.common.domain.entity.QCommonEntity _super = new kr.co.pjm.diving.web.common.domain.entity.QCommonEntity(this);
+    public final kr.co.pjm.diving.web.common.domain.entity.QCommonSysEntity _super = new kr.co.pjm.diving.web.common.domain.entity.QCommonSysEntity(this);
 
     public final NumberPath<Long> avgDepth = createNumber("avgDepth", Long.class);
 
@@ -92,10 +92,16 @@ public class QDiveLog extends EntityPathBase<DiveLog> {
     //inherited
     public final DateTimePath<java.util.Date> regDate = _super.regDate;
 
+    //inherited
+    public final StringPath regId = _super.regId;
+
     public final NumberPath<Long> temperature = createNumber("temperature", Long.class);
 
     //inherited
     public final DateTimePath<java.util.Date> updateDate = _super.updateDate;
+
+    //inherited
+    public final StringPath updateId = _super.updateId;
 
     public final NumberPath<Long> visibility = createNumber("visibility", Long.class);
 

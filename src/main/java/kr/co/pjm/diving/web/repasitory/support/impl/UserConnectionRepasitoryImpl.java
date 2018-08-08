@@ -9,7 +9,7 @@ import kr.co.pjm.diving.web.repasitory.support.UserConnectionRepasitorySupport;
 
 @Repository
 public class UserConnectionRepasitoryImpl extends QueryDslRepositorySupport implements UserConnectionRepasitorySupport {
-  
+
   public UserConnectionRepasitoryImpl() {
     super(UserConnection.class);
   }
@@ -17,11 +17,9 @@ public class UserConnectionRepasitoryImpl extends QueryDslRepositorySupport impl
   @Override
   public long deleteUserConnection(String userId) {
     QUserConnection qUserConnection = QUserConnection.userConnection;
-    
-    Long result = delete(qUserConnection)
-        .where(qUserConnection.userId.eq(userId))
-        .execute();
-    
+
+    Long result = delete(qUserConnection).where(qUserConnection.userId.eq(userId)).execute();
+
     return result;
   }
 
