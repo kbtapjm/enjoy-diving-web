@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
@@ -14,6 +16,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import kr.co.pjm.diving.web.common.domain.entity.CommonSysEntity;
+import kr.co.pjm.diving.web.common.domain.enumeration.DiveCurrentEnum;
+import kr.co.pjm.diving.web.common.domain.enumeration.DivePlanExrPtnEnum;
+import kr.co.pjm.diving.web.common.domain.enumeration.DivePlanToolEnum;
+import kr.co.pjm.diving.web.common.domain.enumeration.DiveTypeEnum;
+import kr.co.pjm.diving.web.common.domain.enumeration.DiveWaterEnum;
+import kr.co.pjm.diving.web.common.domain.enumeration.DiveWaveEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -49,120 +57,126 @@ public class DiveLog extends CommonSysEntity {
   private String divePoint;
   
   /* 다이브 입수 시간(시) */
-  @Column(name = "dive_in_hour", nullable = false)
+  @Column(name = "dive_in_hour", nullable = false, length = 10)
   private Long diveInHour;
   
   /* 다이브 입수 시간(분) */
-  @Column(name = "dive_in_minute", nullable = false)
+  @Column(name = "dive_in_minute", nullable = false, length = 10)
   private Long diveInMinute;
   
   /* 다이브 출수 시간(시) */
-  @Column(name = "dive_out_hour", nullable = false)
+  @Column(name = "dive_out_hour", nullable = false, length = 10)
   private Long diveOutHour;
   
   /* 다이브 출수 시간(분) */
-  @Column(name = "dive_out_minute", nullable = false)
+  @Column(name = "dive_out_minute", nullable = false, length = 10)
   private Long diveOutMinute;
   
   /* 탱크 압력 시작(bar) */
-  @Column(name = "dive_tank_start", nullable = false)
+  @Column(name = "dive_tank_start", nullable = false, length = 10)
   private Long diveTankStart;
   
   /* 탱크 압력 종료(bar) */
-  @Column(name = "dive_tank_end", nullable = false)
+  @Column(name = "dive_tank_end", nullable = false, length = 10)
   private Long diveTankEnd;
   
   /* 수면 휴식 시간(시) */
-  @Column(name = "ground_rest_hour", nullable = false)
-  private Long groundRestHour;
+  @Column(name = "ground_rest_hour", nullable = true, length = 10)
+  private String groundRestHour;
   
   /* 수면 휴식 시간(분) */
-  @Column(name = "ground_rest_minute", nullable = false)
-  private Long groundRestMinute;
+  @Column(name = "ground_rest_minute", nullable = true, length = 10)
+  private String groundRestMinute;
   
   /* 최대 수심 */
-  @Column(name = "max_depth", nullable = false)
-  private Long maxDepth;
+  @Column(name = "max_depth", nullable = false, length = 10)
+  private String maxDepth;
   
   /* 평균 수심 */
-  @Column(name = "avg_depth", nullable = false)
-  private Long avgDepth;
+  @Column(name = "avg_depth", nullable = false, length = 10)
+  private String avgDepth;
   
   /* 다이브 시간(min) */
-  @Column(name = "dive_time", nullable = false)
-  private Long diveTime;
+  @Column(name = "dive_time", nullable = false, length = 10)
+  private String diveTime;
   
   /* 안전정지 시간 */
-  @Column(name = "dive_safety_time", nullable = false)
-  private Long diveSafetyTime;
+  @Column(name = "dive_safety_time", nullable = false, length = 10)
+  private String diveSafetyTime;
   
-  /* 다이빙 계획 도구(0:컴퓨터, 1:테이블, 2:기타) */
-  @Column(name = "dive_plan_tool", nullable = false, length = 1)
-  private String divePlanTool;
+  /* 다이빙 계획 도구 */
+  @Column(name = "dive_plan_tool", nullable = false, length = 10)
+  @Enumerated(EnumType.ORDINAL)
+  private DivePlanToolEnum divePlanTool;
   
   /* 웨이트(Kg) */
-  @Column(name = "dive_plan_weight", nullable = false)
-  private Long divePlanWeight;
+  @Column(name = "dive_plan_weight", nullable = true, length = 10)
+  private String divePlanWeight;
   
   /* Eanx(나이트록스) */
-  @Column(name = "dive_plan_eanx")
-  private Long divePlanEanx;
+  @Column(name = "dive_plan_eanx", nullable = true, length = 10)
+  private String divePlanEanx;
   
-  /* 노출 보호(0:스킨, 1:웻슈트, 2:드라이슈트) */
-  @Column(name = "dive_plan_exr_ptn", length = 1)
-  private String divePlanExrPtn;
+  /* 노출 보호 */
+  @Column(name = "dive_plan_exr_ptn", nullable = false)
+  @Enumerated(EnumType.ORDINAL)
+  private DivePlanExrPtnEnum divePlanExrPtn;
   
   /* 다이브 후드 여부 */
-  @Column(name = "dive_plan_hood_yn", length = 1)
+  @Column(name = "dive_plan_hood_yn", nullable = true, length = 1)
   private String divePlanHoodYn;
   
   /* 다이브 장갑 여부 */
-  @Column(name = "dive_plan_gloves_yn", length = 1)
+  @Column(name = "dive_plan_gloves_yn", nullable = true, length = 1)
   private String divePlanGlovesYn;
   
   /* 다이브 부츠 여부 */
-  @Column(name = "dive_plan_boots_yn", length = 1)
+  @Column(name = "dive_plan_boots_yn", nullable = true, length = 1)
   private String divePlanBootsYn;
   
   /* 다이브 라이트 여부 */
-  @Column(name = "dive_plan_light_yn", length = 1)
+  @Column(name = "dive_plan_light_yn", nullable = true, length = 1)
   private String divePlanLightYn;
   
   /* 다이브 SMB 여부 */
-  @Column(name = "dive_plan_smb_yn", length = 1)
+  @Column(name = "dive_plan_smb_yn", nullable = true, length = 1)
   private String divePlanSmbYn;
   
   /* 다이브 나이프 여부 */
-  @Column(name = "dive_plan_knife_yn", length = 1)
+  @Column(name = "dive_plan_knife_yn", nullable = true, length = 1)
   private String divePlanKnifeYn;
   
   /* 다이브 카메라 여부 */
-  @Column(name = "dive_plan_camera_yn", length = 1)
+  @Column(name = "dive_plan_camera_yn", nullable = true, length = 1)
   private String divePlanCameraYn;
   
   /* 시야 */
-  @Column(name = "visibility", nullable = false)
-  private Long visibility;
+  @Column(name = "visibility", nullable = false, length = 10)
+  private String visibility;
   
   /* 수온 */
-  @Column(name = "temperature", nullable = false)
-  private Long temperature;
+  @Column(name = "temperature", nullable = false, length = 10)
+  private String temperature;
   
-  /* 다이브 유형(0:비치, 1:보트) */
+  /* 다이브 유형 */
   @Column(name = "dive_type", nullable = true, length = 1)
-  private String diveType;
+  @Enumerated(EnumType.ORDINAL)
+  private DiveTypeEnum diveType;
   
-  /* 다이브 워터(0:바다, 1:민물) */
+  /* 다이브 워터 */
   @Column(name = "dive_water", nullable = true, length = 1)
-  private String diveWater;
+  @Enumerated(EnumType.ORDINAL)
+  private DiveWaterEnum diveWater;
   
-  /* 다이브 파도 (0:없음, 1:보통, 2:강함) */
+  /* 다이브 파도 */
   @Column(name = "dive_wave", nullable = true, length = 1)
-  private String diveWave;
+  @Enumerated(EnumType.ORDINAL)
+  private DiveWaveEnum diveWave;
   
-  /* 다이브 조류 (0:없음, 1:보통, 2:강함) */
+  /* 다이브 조류  */
   @Column(name = "dive_current", nullable = true, length = 1)
-  private String diveCurrent;
+  @Enumerated(EnumType.ORDINAL)
+  private DiveCurrentEnum diveCurrent;
   
   /* 다이브 활동 */
   @Column(name = "dive_activity", nullable = true, length = 1000)
@@ -171,6 +185,5 @@ public class DiveLog extends CommonSysEntity {
   /* 다이브 노트 */
   @Column(name = "dive_note", nullable = true, length = 4000)
   private String diveNote;
-  
   
 }
