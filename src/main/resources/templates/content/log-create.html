@@ -5,30 +5,30 @@
         <title>로그 등록 - Enjoy Diving </title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     </head>
-    <body>
+    <body th:with="create=${content.resource.id == null or content.resource.id == -1 ? true : false}">
         <th:block layout:fragment="content">
-            <form class="ui form segment" th:action="@{/log}" th:id="form" onsubmit="return false;">
+            <form class="ui form segment" th:action="@{/log}" th:id="form" th:attr=" data-id=*{id}, data-create=${create}"  th:object="${content.resource}" onsubmit="return false;">
                 <div class="four fields">
                     <div class="required field">
                         <label>번호</label>
-                        <input type="text" th:name="diveNo" th:id="diveNo" style="width:60px;" />
+                        <input type="text" th:name="diveNo" th:id="diveNo" th:value="${content.resource.diveNo}" style="width:60px;" />
                     </div>
                     <div class="required field">
                         <label>날짜</label>
                         <div class="ui calendar" id="diveDateCalendar">
                             <div class="ui input left icon">
                                 <i class="calendar icon"></i>
-                                <input type="text" th:name="diveDate" th:id="diveDate" style="width:150px;" readonly="readonly"/>
+                                <input type="text" th:name="diveDate" th:id="diveDate" th:value="${content.resource.diveDate}" style="width:150px;" readonly="readonly"/>
                             </div>
                         </div>
                     </div>
                     <div class="required field">
                         <label>다이브 장소</label>
-                        <input type="text" th:name="divePlace" th:id="divePlace"  />
+                        <input type="text" th:name="divePlace" th:id="divePlace" th:value="${content.resource.divePlace}" />
                     </div>
                     <div class="required field">
                         <label>다이브 포인트</label>
-                        <input type="text" th:name="divePoint" th:id="divePoint"  />
+                        <input type="text" th:name="divePoint" th:id="divePoint" th:value="${content.resource.divePoint}" />
                     </div>
                 </div>
                 <div class="two fields">
@@ -37,75 +37,75 @@
                 <div class="two fields">
                     <div class="required field">
                         <label>다이브 입출수 시간</label>
-                        <input type="text" th:name="diveInHour" th:id="diveInHour" style="width:50px;" /> : 
-                        <input type="text" th:name="diveInMinute" th:id="diveInMinute" style="width:50px;" />
+                        <input type="text" th:name="diveInHour" th:id="diveInHour" style="width:50px;" th:value="${content.resource.diveInHour}" /> : 
+                        <input type="text" th:name="diveInMinute" th:id="diveInMinute" style="width:50px;" th:value="${content.resource.diveInMinute}" />
                         ~
-                        <input type="text" th:name="diveOutHour" th:id="diveOutHour" style="width:50px;" /> : 
-                        <input type="text" th:name="diveOutMinute" th:id="diveOutMinute" style="width:50px;" />
+                        <input type="text" th:name="diveOutHour" th:id="diveOutHour" style="width:50px;" th:value="${content.resource.diveOutHour}" /> : 
+                        <input type="text" th:name="diveOutMinute" th:id="diveOutMinute" style="width:50px;" th:value="${content.resource.diveOutMinute}" />
                     </div>
                     <div class="required field">
                         <label>탱크 압력</label>
-                        시작 : <input type="text" th:name="diveTankStart" th:id="diveTankStart" style="width:70px;" /> bar &nbsp;&nbsp;&nbsp;
-                        종료 : <input type="text" th:name="diveTankEnd" th:id="diveTankEnd" style="width:70px;" /> bar
+                        시작 : <input type="text" th:name="diveTankStart" th:id="diveTankStart" style="width:70px;" th:value="${content.resource.diveTankStart}" /> bar &nbsp;&nbsp;&nbsp;
+                        종료 : <input type="text" th:name="diveTankEnd" th:id="diveTankEnd" style="width:70px;" th:value="${content.resource.diveTankEnd}" /> bar
                     </div>
                 </div>
                 <h4 class="ui dividing header">다이빙 계획</h4>
                 <div class="two fields">
                     <div class="field">
                         <label>수면 휴식 시간</label>
-                        <input type="text" th:name="groundRestHour" th:id="groundRestHour" style="width:50px;" /> : 
-                        <input type="text" th:name="groundRestMinute" th:id="groundRestMinute" style="width:50px;" />
+                        <input type="text" th:name="groundRestHour" th:id="groundRestHour" style="width:50px;" th:value="${content.resource.groundRestHour}" /> : 
+                        <input type="text" th:name="groundRestMinute" th:id="groundRestMinute" style="width:50px;" th:value="${content.resource.groundRestMinute}" />
                     </div>
                     <div class="required field">
                         <label>수심</label>
-                        최대 수심 <input type="text" th:name="maxDepth" th:id="maxDepth" style="width:80px;" />m &nbsp;&nbsp;
-                        평균 수심 <input type="text" th:name="avgDepth" th:id="avgDepth" style="width:80px;" />m &nbsp;&nbsp;
+                        최대 수심 <input type="text" th:name="maxDepth" th:id="maxDepth" style="width:80px;" th:value="${content.resource.maxDepth}" />m &nbsp;&nbsp;
+                        평균 수심 <input type="text" th:name="avgDepth" th:id="avgDepth" style="width:80px;" th:value="${content.resource.avgDepth}" />m &nbsp;&nbsp;
                     </div>
                 </div>
                 <div class="two fields">
                     <div class="required field">
                         <label>다이브 시간</label>
-                        <input type="text" th:name="diveTime" th:id="diveTime" style="width:50px;" />min &nbsp;&nbsp;
+                        <input type="text" th:name="diveTime" th:id="diveTime" style="width:50px;" th:value="${content.resource.diveTime}" />min &nbsp;&nbsp;
                     </div>
                     <div class="required field">
                         <label>안전정지 시간</label>
-                        <input type="text" th:name="diveSafetyTime" th:id="diveSafetyTime" style="width:50px;" />min &nbsp;&nbsp;
+                        <input type="text" th:name="diveSafetyTime" th:id="diveSafetyTime" style="width:50px;" th:value="${content.resource.diveSafetyTime}" />min &nbsp;&nbsp;
                     </div>
                 </div>
                 <div class="two fields">
                     <div class="required field">
                         <label>계획 도구</label>
                         <div class="ui selection dropdown">
-                            <input type="hidden" th:name="divePlanTool" th:id="divePlanTool"/>
+                            <input type="hidden" th:name="divePlanTool" th:id="divePlanTool" th:value="${content.resource.divePlanTool}" />
                             <i class="dropdown icon"></i>
                             <div class="default text">계획 도구</div>
                             <div class="menu">
-                                <div class="item" data-value="0">컴퓨터</div>
-                                <div class="item" data-value="1">테이블</div>
-                                <div class="item" data-value="2">기타</div>
+                                <div class="item" data-value="COUMPUTER">컴퓨터</div>
+                                <div class="item" data-value="TABLE">테이블</div>
+                                <div class="item" data-value="ETC">기타</div>
                             </div>
                         </div>
                     </div>
                     <div class="field">
                         <label>웨이트</label>
-                        <input type="text" th:name="divePlanWeight" th:id="divePlanWeight" style="width:50px;" />Kg
+                        <input type="text" th:name="divePlanWeight" th:id="divePlanWeight" style="width:50px;" th:value="${content.resource.divePlanWeight}" />Kg
                     </div>
                 </div>
                 <div class="two fields">
                     <div class="field">
                         <label>Eanx(나이트록스)</label>
-                        <input type="text" th:name="divePlanEanx" th:id="divePlanEanx" style="width:50px;" />% 
+                        <input type="text" th:name="divePlanEanx" th:id="divePlanEanx" style="width:50px;" th:value="${content.resource.divePlanEanx}"  />% 
                     </div>
                     <div class="required field">
                         <label>노출 보호</label>
                         <div class="ui selection dropdown">
-                            <input type="hidden" th:name="divePlanExrPtn" th:id="divePlanExrPtn"/>
+                            <input type="hidden" th:name="divePlanExrPtn" th:id="divePlanExrPtn" th:value="${content.resource.divePlanExrPtn}" />
                             <i class="dropdown icon"></i>
                             <div class="default text">노출 보호</div>
                             <div class="menu">
-                                <div class="item" data-value="0">스킨</div>
-                                <div class="item" data-value="1">웻슈트</div>
-                                <div class="item" data-value="2">드라이슈트</div>
+                                <div class="item" data-value="SKIN">스킨</div>
+                                <div class="item" data-value="WETSUIT">웻슈트</div>
+                                <div class="item" data-value="DRYSUIT">드라이슈트</div>
                             </div>
                         </div>
                     </div>
@@ -114,67 +114,67 @@
                     <div class="field">
                         <label>다이빙 플랜</label>
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanHoodYn" th:id="divePlanHoodYn" value="Y"/>
+                            <input type="checkbox" th:name="divePlanHoodYn" th:id="divePlanHoodYn" th:checked="${content.resource.divePlanHoodYn == 'Y'}" value="Y"/>
                             <label for="divePlanHoodYn">후드</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanGlovesYn" id="divePlanGlovesYn" value="Y"/>
+                            <input type="checkbox" th:name="divePlanGlovesYn" id="divePlanGlovesYn" th:checked="${content.resource.divePlanGlovesYn == 'Y'}" value="Y"/>
                             <label for="divePlanGlovesYn">장갑</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanBootsYn" id="divePlanBootsYn" value="Y"/>
+                            <input type="checkbox" th:name="divePlanBootsYn" id="divePlanBootsYn" th:checked="${content.resource.divePlanBootsYn == 'Y'}" value="Y"/>
                             <label for="divePlanBootsYn">부츠</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanLightYn" id="divePlanLightYn" value="Y"/>
+                            <input type="checkbox" th:name="divePlanLightYn" id="divePlanLightYn" th:checked="${content.resource.divePlanLightYn == 'Y'}" value="Y"/>
                             <label for="divePlanLightYn">라이트</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanSmbYn" id="divePlanSmbYn" value="Y"/>
+                            <input type="checkbox" th:name="divePlanSmbYn" id="divePlanSmbYn" th:checked="${content.resource.divePlanSmbYn == 'Y'}" value="Y"/>
                             <label for="divePlanSmbYn">SMB</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanKnifeYn" id="divePlanKnifeYn" value="Y"/>
+                            <input type="checkbox" th:name="divePlanKnifeYn" id="divePlanKnifeYn" th:checked="${content.resource.divePlanKnifeYn == 'Y'}" value="Y"/>
                             <label for="divePlanKnifeYn">나이프</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanCameraYn" id="divePlanCameraYn" value="Y"/>
+                            <input type="checkbox" th:name="divePlanCameraYn" id="divePlanCameraYn" th:checked="${content.resource.divePlanCameraYn == 'Y'}" value="Y"/>
                             <label for="divePlanCameraYn">카메라</label>
                         </div>
                     </div>
                     <div class="required field">
                         <label>시야</label>
-                        <input type="text" th:name="visibility" th:id="visibility" style="width:70px;" />m
+                        <input type="text" th:name="visibility" th:id="visibility" style="width:70px;" th:value="${content.resource.visibility}" />m
                     </div>
                 </div>
                 <div class="two fields">
                     <div class="field">
                         <label>수온</label>
-                        <input type="text" th:name="temperature" th:id="temperature" style="width:70px;" />m
+                        <input type="text" th:name="temperature" th:id="temperature" style="width:70px;" th:value="${content.resource.temperature}" />'C
                     </div>
                 </div>
                 <div class="two fields">
                     <div class="field">
                         <label>다이브 유형</label>
                         <div class="ui selection dropdown">
-                            <input type="hidden" th:name="diveType" th:id="diveType"/>
+                            <input type="hidden" th:name="diveType" th:id="diveType" th:value="${content.resource.diveType}" />
                             <i class="dropdown icon"></i>
                             <div class="default text">다이브 유형</div>
                             <div class="menu">
-                                <div class="item" data-value="0">비치</div>
-                                <div class="item" data-value="1">보트</div>
+                                <div class="item" data-value="BEACH">비치</div>
+                                <div class="item" data-value="BOAT">보트</div>
                             </div>
                         </div>
                     </div>
                     <div class="field">
                         <label>다이브 워터</label>
                         <div class="ui selection dropdown">
-                            <input type="hidden" th:name="diveWater" th:id="diveWater"/>
+                            <input type="hidden" th:name="diveWater" th:id="diveWater" th:value="${content.resource.diveWater}" />
                             <i class="dropdown icon"></i>
                             <div class="default text">다이브 워터</div>
                             <div class="menu">
-                                <div class="item" data-value="0">바다</div>
-                                <div class="item" data-value="1">민물</div>
+                                <div class="item" data-value="SEA_WATER">바다</div>
+                                <div class="item" data-value="FRESH_WATER">민물</div>
                             </div>
                         </div>
                     </div>
@@ -183,24 +183,26 @@
                     <div class="field">
                         <label>다이브 파도</label>
                         <div class="ui selection dropdown">
-                            <input type="hidden" th:name="diveWave" th:id="diveWave"/>
+                            <input type="hidden" th:name="diveWave" th:id="diveWave" th:value="${content.resource.diveWave}" />
                             <i class="dropdown icon"></i>
                             <div class="default text">다이브 파도</div>
                             <div class="menu">
-                                <div class="item" data-value="0">보통</div>
-                                <div class="item" data-value="1">강함</div>
+                                <div class="item" data-value="NONE">없음</div>
+                                <div class="item" data-value="GENERALLY">보통</div>
+                                <div class="item" data-value="STRONG">강함</div>
                             </div>
                         </div>
                     </div>
                     <div class="field">
                         <label>다이브 조류</label>
                         <div class="ui selection dropdown">
-                            <input type="hidden" th:name="diveCurrent" th:id="diveCurrent"/>
+                            <input type="hidden" th:name="diveCurrent" th:id="diveCurrent" th:value="${content.resource.diveCurrent}" />
                             <i class="dropdown icon"></i>
                             <div class="default text">다이브 조류</div>
                             <div class="menu">
-                                <div class="item" data-value="0">보통</div>
-                                <div class="item" data-value="1">강함</div>
+                                <div class="item" data-value="NONE">없음</div>
+                                <div class="item" data-value="GENERALLY">보통</div>
+                                <div class="item" data-value="STRONG">강함</div>
                             </div>
                         </div>
                     </div>
@@ -208,17 +210,18 @@
                 <div class="two fields">
                     <div class="field">
                         <label>다이브 활동</label>
-                        <input type="text" th:name="diveActivity" th:id="diveActivity" />
+                        <input type="text" th:name="diveActivity" th:id="diveActivity" th:value="${content.resource.diveActivity}" />
                     </div>
                     <div class="field">
                         <label>노트</label>
-                        <textarea rows="5" th:name="diveNote" th:id="diveNote"></textarea>
+                        <textarea rows="5" th:name="diveNote" th:id="diveNote" th:text="${content.resource.diveNote}" ></textarea>
                     </div>
                 </div>
                 
                 <div class="ui error message"></div>
-                <div class="ui red button" id="cancel">취소</div>
-                <div class="ui blue submit button" id="submit">등록</div>
+                <div class="ui red button" id="cancel">목록</div>
+                <div class="ui blue submit button" th:text="${create ? '저장' : '수정'}" id="submit" th:attr="data-done='저장 되었습니다'">등록</div>
+                <div class="ui red submit button" id="remove" th:if="${create == false}" th:attr="data-remove='삭제 되었습니다'">삭제</div>
             </form>
             
             <script src="js/content/log-create.js" data-th-src="@{/static/js/content/log-create.js}"></script>

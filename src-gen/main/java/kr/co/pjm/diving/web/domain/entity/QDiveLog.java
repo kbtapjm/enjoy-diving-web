@@ -25,7 +25,7 @@ public class QDiveLog extends EntityPathBase<DiveLog> {
 
     public final StringPath diveActivity = createString("diveActivity");
 
-    public final StringPath diveCurrent = createString("diveCurrent");
+    public final EnumPath<kr.co.pjm.diving.common.domain.enumeration.DiveCurrentEnum> diveCurrent = createEnum("diveCurrent", kr.co.pjm.diving.common.domain.enumeration.DiveCurrentEnum.class);
 
     public final DateTimePath<java.util.Date> diveDate = createDateTime("diveDate", java.util.Date.class);
 
@@ -49,7 +49,7 @@ public class QDiveLog extends EntityPathBase<DiveLog> {
 
     public final StringPath divePlanEanx = createString("divePlanEanx");
 
-    public final EnumPath<kr.co.pjm.diving.web.common.domain.enumeration.DivePlanExrPtnEnum> divePlanExrPtn = createEnum("divePlanExrPtn", kr.co.pjm.diving.web.common.domain.enumeration.DivePlanExrPtnEnum.class);
+    public final EnumPath<kr.co.pjm.diving.common.domain.enumeration.DivePlanExrPtnEnum> divePlanExrPtn = createEnum("divePlanExrPtn", kr.co.pjm.diving.common.domain.enumeration.DivePlanExrPtnEnum.class);
 
     public final StringPath divePlanGlovesYn = createString("divePlanGlovesYn");
 
@@ -61,7 +61,7 @@ public class QDiveLog extends EntityPathBase<DiveLog> {
 
     public final StringPath divePlanSmbYn = createString("divePlanSmbYn");
 
-    public final EnumPath<kr.co.pjm.diving.web.common.domain.enumeration.DivePlanToolEnum> divePlanTool = createEnum("divePlanTool", kr.co.pjm.diving.web.common.domain.enumeration.DivePlanToolEnum.class);
+    public final EnumPath<kr.co.pjm.diving.common.domain.enumeration.DivePlanToolEnum> divePlanTool = createEnum("divePlanTool", kr.co.pjm.diving.common.domain.enumeration.DivePlanToolEnum.class);
 
     public final StringPath divePlanWeight = createString("divePlanWeight");
 
@@ -75,11 +75,11 @@ public class QDiveLog extends EntityPathBase<DiveLog> {
 
     public final StringPath diveTime = createString("diveTime");
 
-    public final StringPath diveType = createString("diveType");
+    public final EnumPath<kr.co.pjm.diving.common.domain.enumeration.DiveTypeEnum> diveType = createEnum("diveType", kr.co.pjm.diving.common.domain.enumeration.DiveTypeEnum.class);
 
-    public final StringPath diveWater = createString("diveWater");
+    public final EnumPath<kr.co.pjm.diving.common.domain.enumeration.DiveWaterEnum> diveWater = createEnum("diveWater", kr.co.pjm.diving.common.domain.enumeration.DiveWaterEnum.class);
 
-    public final StringPath diveWave = createString("diveWave");
+    public final EnumPath<kr.co.pjm.diving.common.domain.enumeration.DiveWaveEnum> diveWave = createEnum("diveWave", kr.co.pjm.diving.common.domain.enumeration.DiveWaveEnum.class);
 
     public final StringPath groundRestHour = createString("groundRestHour");
 

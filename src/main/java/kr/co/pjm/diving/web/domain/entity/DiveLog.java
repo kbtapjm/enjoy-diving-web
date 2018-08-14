@@ -8,6 +8,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -15,13 +16,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import kr.co.pjm.diving.common.domain.enumeration.DiveCurrentEnum;
+import kr.co.pjm.diving.common.domain.enumeration.DivePlanExrPtnEnum;
+import kr.co.pjm.diving.common.domain.enumeration.DivePlanToolEnum;
+import kr.co.pjm.diving.common.domain.enumeration.DiveTypeEnum;
+import kr.co.pjm.diving.common.domain.enumeration.DiveWaterEnum;
+import kr.co.pjm.diving.common.domain.enumeration.DiveWaveEnum;
 import kr.co.pjm.diving.web.common.domain.entity.CommonSysEntity;
-import kr.co.pjm.diving.web.common.domain.enumeration.DiveCurrentEnum;
-import kr.co.pjm.diving.web.common.domain.enumeration.DivePlanExrPtnEnum;
-import kr.co.pjm.diving.web.common.domain.enumeration.DivePlanToolEnum;
-import kr.co.pjm.diving.web.common.domain.enumeration.DiveTypeEnum;
-import kr.co.pjm.diving.web.common.domain.enumeration.DiveWaterEnum;
-import kr.co.pjm.diving.web.common.domain.enumeration.DiveWaveEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -58,27 +59,27 @@ public class DiveLog extends CommonSysEntity {
   
   /* 다이브 입수 시간(시) */
   @Column(name = "dive_in_hour", nullable = false, length = 10)
-  private Long diveInHour;
+  private String diveInHour;
   
   /* 다이브 입수 시간(분) */
   @Column(name = "dive_in_minute", nullable = false, length = 10)
-  private Long diveInMinute;
+  private String diveInMinute;
   
   /* 다이브 출수 시간(시) */
   @Column(name = "dive_out_hour", nullable = false, length = 10)
-  private Long diveOutHour;
+  private String diveOutHour;
   
   /* 다이브 출수 시간(분) */
   @Column(name = "dive_out_minute", nullable = false, length = 10)
-  private Long diveOutMinute;
+  private String diveOutMinute;
   
   /* 탱크 압력 시작(bar) */
   @Column(name = "dive_tank_start", nullable = false, length = 10)
-  private Long diveTankStart;
+  private String diveTankStart;
   
   /* 탱크 압력 종료(bar) */
   @Column(name = "dive_tank_end", nullable = false, length = 10)
-  private Long diveTankEnd;
+  private String diveTankEnd;
   
   /* 수면 휴식 시간(시) */
   @Column(name = "ground_rest_hour", nullable = true, length = 10)
@@ -105,8 +106,8 @@ public class DiveLog extends CommonSysEntity {
   private String diveSafetyTime;
   
   /* 다이빙 계획 도구 */
-  @Column(name = "dive_plan_tool", nullable = false, length = 10)
-  @Enumerated(EnumType.ORDINAL)
+  @Column(name = "dive_plan_tool", nullable = false)
+  @Enumerated(EnumType.STRING)
   private DivePlanToolEnum divePlanTool;
   
   /* 웨이트(Kg) */
@@ -119,7 +120,7 @@ public class DiveLog extends CommonSysEntity {
   
   /* 노출 보호 */
   @Column(name = "dive_plan_exr_ptn", nullable = false)
-  @Enumerated(EnumType.ORDINAL)
+  @Enumerated(EnumType.STRING)
   private DivePlanExrPtnEnum divePlanExrPtn;
   
   /* 다이브 후드 여부 */
@@ -159,23 +160,23 @@ public class DiveLog extends CommonSysEntity {
   private String temperature;
   
   /* 다이브 유형 */
-  @Column(name = "dive_type", nullable = true, length = 1)
-  @Enumerated(EnumType.ORDINAL)
+  @Column(name = "dive_type", nullable = true)
+  @Enumerated(EnumType.STRING)
   private DiveTypeEnum diveType;
   
   /* 다이브 워터 */
-  @Column(name = "dive_water", nullable = true, length = 1)
-  @Enumerated(EnumType.ORDINAL)
+  @Column(name = "dive_water", nullable = true)
+  @Enumerated(EnumType.STRING)
   private DiveWaterEnum diveWater;
   
   /* 다이브 파도 */
-  @Column(name = "dive_wave", nullable = true, length = 1)
-  @Enumerated(EnumType.ORDINAL)
+  @Column(name = "dive_wave", nullable = true)
+  @Enumerated(EnumType.STRING)
   private DiveWaveEnum diveWave;
   
   /* 다이브 조류  */
-  @Column(name = "dive_current", nullable = true, length = 1)
-  @Enumerated(EnumType.ORDINAL)
+  @Column(name = "dive_current", nullable = true)
+  @Enumerated(EnumType.STRING)
   private DiveCurrentEnum diveCurrent;
   
   /* 다이브 활동 */
@@ -185,5 +186,16 @@ public class DiveLog extends CommonSysEntity {
   /* 다이브 노트 */
   @Column(name = "dive_note", nullable = true, length = 4000)
   private String diveNote;
+  
+  @PrePersist
+  public void prePersist() {
+      this.divePlanHoodYn = this.divePlanHoodYn != null ? this.divePlanHoodYn : "N";
+      this.divePlanGlovesYn = this.divePlanGlovesYn != null ? this.divePlanGlovesYn : "N";
+      this.divePlanBootsYn = this.divePlanBootsYn != null ? this.divePlanBootsYn : "N";
+      this.divePlanLightYn = this.divePlanLightYn != null ? this.divePlanLightYn : "N";
+      this.divePlanSmbYn = this.divePlanSmbYn != null ? this.divePlanSmbYn : "N";
+      this.divePlanKnifeYn = this.divePlanKnifeYn != null ? this.divePlanKnifeYn : "N";
+      this.divePlanCameraYn = this.divePlanCameraYn != null ? this.divePlanCameraYn : "N";
+  }
   
 }

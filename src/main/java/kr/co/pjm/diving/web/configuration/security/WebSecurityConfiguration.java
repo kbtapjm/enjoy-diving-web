@@ -14,12 +14,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.session.ExpiringSession;
+import org.springframework.session.FindByIndexNameSessionRepository;
+import org.springframework.session.Session;
 import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.social.security.SpringSocialConfigurer;
 
@@ -85,12 +90,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
       .and()
         .apply(new SpringSocialConfigurer());
     
-    /*http
+    http
       .sessionManagement()
       .maximumSessions(1)
       .maxSessionsPreventsLogin(false) 
       .expiredUrl("/login?error=expired")
-      .sessionRegistry(sessionRegistry);*/
+      .sessionRegistry(sessionRegistry(null));
    
     http
       .rememberMe()
@@ -150,6 +155,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     jedisConnectionFactory.setPort(redisPort);
     jedisConnectionFactory.setUsePool(true);    
     return jedisConnectionFactory;
+  }
+  
+  @SuppressWarnings("unchecked")
+  @Bean
+  public <S extends Session> SessionRegistry sessionRegistry(FindByIndexNameSessionRepository<S> sessionRepository) {
+    return new SpringSessionBackedSessionRegistry((FindByIndexNameSessionRepository<ExpiringSession>) sessionRepository);
   }
   
   @Bean

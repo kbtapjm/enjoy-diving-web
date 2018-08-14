@@ -7,10 +7,21 @@
     </head>
     <body>
         <th:block layout:fragment="content">
-            <button class="ui right floated button" onclick="location.href='/log/create'">등록</button>
+            <button class="ui right floated button" onclick="location.href='/log/create'">등록</button> <br/>
             <div class="ui relaxed divided selection list">
-                <div class="item">
-                    <!-- <i class="middle aligned icon"></i> -->
+                <th:block th:each="resource, i : ${content.resources}">
+	                <div class="item" th:onclick="'LogListModule.data.logDetail(\'' + ${resource.id} + '\');'">
+	                    <img src="images/avatar/rachel.png" data-th-src="@{/static/images/avatar/rachel.png}" class="ui avatar image" />
+	                    <div class="content">
+	                        <a class="header" th:text="|Dive No. ${resource.diveNo}|">Dive No. 4</a>
+	                        <div class="description"><span th:text="${resource.divePlace}">Raja Ampat</span> - <a th:text="${resource.divePoint}"><b>View Point</b></a></div>
+	                        <div class="description" th:text="${#calendars.format(resource.diveDate,'yyyy-MM-dd')}">2018-03-10</div>
+	                    </div>
+	                </div>
+                </th:block>
+            
+                <!-- <div class="item">
+                    <i class="middle aligned icon"></i>
                     <img src="images/avatar/rachel.png" data-th-src="@{/static/images/avatar/rachel.png}" class="ui avatar image" />
                     <div class="content">
                         <a class="header">Dive No. 5</a>
@@ -49,8 +60,10 @@
                         <div class="description">Raja Ampat - <a><b>Magic Mountain</b></a></div>
                         <div class="description">2018-03-13</div>
                     </div>
-                </div>
+                </div> -->
 			</div>
+			
+			<!-- paging area 
 			<table class="ui center celled table">
                 <tr align="center">
                     <th>
@@ -68,6 +81,9 @@
 				    </th>
 			     </tr>
 			</table>
+			-->
+			
+			<script src="js/content/log-list.js" data-th-src="@{/static/js/content/log-list.js}"></script>
 			
         </th:block>
     </body>

@@ -10,7 +10,9 @@ var LogCreateModule = LogCreateModule || (function($) {
   'use strict'
   
   var _form = $('#form')
-    , url = _form.attr('action');
+    , url = _form.attr('action')
+  	, create = _form.data('create')
+  	, id = _form.data('id');
 
   var init = function() {
     this.data.init();
@@ -194,6 +196,7 @@ var LogCreateModule = LogCreateModule || (function($) {
       
       submit: function() {
         var data = _form.serializeObject();
+        delete data._csrf;
         
         $.each(data, function (key, value) {
           data[key] = $.trim(value);
@@ -203,21 +206,56 @@ var LogCreateModule = LogCreateModule || (function($) {
           return false;
         }
         
+        if (!create) {
+          data.id = id;
+        }
+        
         UiUtilModule.mask.open();
         $.ajax({
-          method: 'POST',
+          method: (create ? 'POST' : 'PUT'),
           headers: { 
             Accept: 'application/json; charset=UTF-8'
           },
           contentType: 'application/json; charset=UTF-8',
-          url: url,
+          url: (create ? url : url + '/' + id),
           data: JSON.stringify(data)
         }).done(function(data) {
-          location.href = '/log';
+          alert($('#submit').data('done'));
+          $(location).attr('href', (create ? url : url + '/' + id));
         }).fail(function(jqXHR, textStatus, errorThrown) {
           UiUtilModule.mask.close();
           console.error(jqXHR);
         });
+      },
+      
+      remove: function() {
+		  var opt ={
+	        title: '삭제',
+	        msg: '로그를 삭제 하시겠습니까?',
+	        actions: {
+	          'yes': function() {
+	            UiUtilModule.mask.open();
+	            $.ajax({
+	              method: 'DELETE',
+	              headers: { 
+	                Accept: 'application/json; charset=UTF-8'
+	              },
+	              contentType: 'application/json; charset=UTF-8',
+	              url: url + '/' + id,
+	              data: JSON.stringify(data)
+	            }).done(function(data) {
+	            	alert($('#remove').data('remove'));
+	                $(location).attr('href', url);
+	            }).fail(function(jqXHR, textStatus, errorThrown) {
+	              UiUtilModule.mask.close();
+	              console.error(jqXHR);
+	            });
+	          },
+	          'no': function() {}
+	        }
+	      }
+	      
+	      UiUtilModule.modal.confirm(opt);
       }
   };
   
@@ -226,9 +264,18 @@ var LogCreateModule = LogCreateModule || (function($) {
       $('.ui.dropdown').dropdown();
       $('.ui.radio.checkbox').checkbox();
       
+      $('#cancel').on('click', function(e) {
+    	location.href = '/log';
+      });
+      
       $('#submit').on('click', function(e) {
+    	  e.preventDefault();
+    	  LogCreateModule.data.submit();
+      });
+      
+      $('#remove').on('click', function(e) {
           e.preventDefault();
-          LogCreateModule.data.submit();
+          LogCreateModule.data.remove();
         });
       
       $('#diveDateCalendar').calendar({
@@ -253,6 +300,7 @@ var LogCreateModule = LogCreateModule || (function($) {
     data: {
       init: data.init,
       submit: data.submit,
+      remove: data.remove,
       validation: data.validation
     },
     event: {

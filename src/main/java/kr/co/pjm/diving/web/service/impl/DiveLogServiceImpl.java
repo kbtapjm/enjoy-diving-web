@@ -1,8 +1,11 @@
 package kr.co.pjm.diving.web.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.pjm.diving.common.domain.dto.ResourcesDto;
 import kr.co.pjm.diving.web.domain.entity.DiveLog;
 import kr.co.pjm.diving.web.repasitory.DiveLogRepository;
 import kr.co.pjm.diving.web.service.DiveLogService;
@@ -21,12 +24,22 @@ public class DiveLogServiceImpl implements DiveLogService {
   }
 
   @Override
-  public DiveLog getById(Long id) {
+  public ResourcesDto getById(Long id) {
     if (log.isInfoEnabled()) {
       log.info("id : {}", id);
     }
+    DiveLog diveLog = diveLogRepository.findOne(id);
     
-    return diveLogRepository.findOne(id);
+    return new ResourcesDto(diveLog);
+  }
+  
+  @Override
+  public ResourcesDto getAll() {
+    List<DiveLog> list = diveLogRepository.findAll();
+    
+    // TODO querDsl paging
+    
+    return new ResourcesDto(list);
   }
 
   @Override
@@ -38,7 +51,5 @@ public class DiveLogServiceImpl implements DiveLogService {
   public void delete(Long id) {
     diveLogRepository.delete(id);
   }
-  
-  
   
 }
