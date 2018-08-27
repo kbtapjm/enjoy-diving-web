@@ -51,9 +51,10 @@
                             </div>
                         </div>
                         <button class="ui fluid large teal submit button" id="btnLogin">Login</button>
-                        <div class="ui error message" th:if="${error} == 'failure'">
-	                        <ul class="list">
-                                <li>이메일 또는 비밀번호가 일치하지 않습니다.</li>
+                        <div class="ui error message" th:if="${error == 'failure' or error == 'expired'}">
+	                        <ul class="list" th:switch="${error}">
+                                <li th:case="failure">이메일 또는 비밀번호가 일치하지 않습니다.</li>
+                                <li th:case="expired">다른 장치에서 이중로그인이 되어 세션이 만료되었습니다.</li>
 	                        </ul>
                         </div>
                     </div>

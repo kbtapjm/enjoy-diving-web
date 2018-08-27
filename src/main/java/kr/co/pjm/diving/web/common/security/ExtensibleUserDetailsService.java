@@ -58,8 +58,8 @@ public class ExtensibleUserDetailsService implements UserDetailsService {
       throw new UsernameNotFoundException("Not found username: " + username);
     }
     
-    /* role set */
-    List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+    /* role set (스프링 소셜 로그인은 기본적으로 ROLE_USER로 설정함) */
+    /*List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
     
     Iterator<UserRole> itr = user.getUserRoles().iterator();
     while (itr.hasNext()) {
@@ -68,7 +68,7 @@ public class ExtensibleUserDetailsService implements UserDetailsService {
       authorities.add(new SimpleGrantedAuthority(userRole.getRole().toString()));
     }
     
-    /*UserDetails userDetails = (UserDetails) new org.springframework.security.core.userdetails.User(
+    UserDetails userDetails = (UserDetails) new org.springframework.security.core.userdetails.User(
         user.getEmail(), user.getPassword(), this.getAuthorities(authorities));*/
     
     SocialUserDetail socialUserDetail = new SocialUserDetail(user);

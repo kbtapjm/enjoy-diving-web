@@ -29,8 +29,6 @@ import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 import kr.co.pjm.diving.web.common.security.ExtensibleUserDetailsService;
-import kr.co.pjm.diving.web.common.security.handler.AuthenticationFailureEventHandler;
-import kr.co.pjm.diving.web.common.security.handler.AuthenticationSuccessEventHandler;
 import kr.co.pjm.diving.web.common.security.social.SocialUsersDetailService;
 
 @Configuration
@@ -173,7 +171,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     return new ServletListenerRegistrationBean<HttpSessionEventPublisher>(new HttpSessionEventPublisher());
   }
   
-  @Bean
+  /*@Bean
   public AuthenticationSuccessEventHandler authenticationSuccessEventHandler() {
     return new AuthenticationSuccessEventHandler();
   }
@@ -183,7 +181,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     return new AuthenticationFailureEventHandler();
   }
   
-  /*@Bean
+  @Bean
   public SessionDestroyedEventHandler sessionDestroyedEventHandler() {
     return new SessionDestroyedEventHandler();
   }*/
