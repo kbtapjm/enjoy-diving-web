@@ -3,8 +3,6 @@ server:
   port: 8080
   tomcat:
     uri-encoding: UTF-8
-#  session:
-#    timeout: 1800
   error:
     whitelabel:
       enabled: false 
@@ -101,9 +99,9 @@ spring:
 spring:
   profiles: mysqlDB
   datasource:
-    url: jdbc:mysql://localhost:3306/diving
-    username: root
-    password: 1234
+    url: ENC(JhbAOrO9c0MhlBJkcBhM15vkfabBJgxc4dxv+S93sxLPAcCMCjlXIfJFEBvXMNLr)
+    username: ENC(jauxnix93NIxNidJQpxZGQ==)
+    password: ENC(Jbk2+ry3C3T9suJEsBqWow==)
     driver-class-name: com.mysql.jdbc.Driver
     sql-script-encoding: UTF-8
     #schema: classpath:database/sql/ddl-*.sql
