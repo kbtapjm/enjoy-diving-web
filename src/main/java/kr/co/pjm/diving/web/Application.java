@@ -66,6 +66,7 @@ public class Application extends SpringBootServletInitializer implements Command
         container.setCompression(compression);
         
         container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/error/notFound"));
+        container.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/error/serverError"));
       }
     };
   }

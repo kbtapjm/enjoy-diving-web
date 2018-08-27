@@ -26,15 +26,6 @@ public class ErrorController {
   static final String RESOURCE_PATH = "/error";
   
   /**
-   * 401 unauthorized
-   * @return
-   */
-  @GetMapping(value = "/unauthorized")
-  public String unauthorized() {
-      return "common/error/unauthorized";
-  }
-  
-  /**
    * 403 access denied
    * @return
    */
