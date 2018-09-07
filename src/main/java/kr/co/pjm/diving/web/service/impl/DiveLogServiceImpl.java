@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.pjm.diving.common.domain.dto.ResourcesDto;
-import kr.co.pjm.diving.web.domain.entity.DiveLog;
-import kr.co.pjm.diving.web.repasitory.DiveLogRepository;
+import kr.co.pjm.diving.common.domain.entity.DiveLog;
+import kr.co.pjm.diving.common.repository.DiveLogRepository;
 import kr.co.pjm.diving.web.service.DiveLogService;
 import lombok.extern.slf4j.Slf4j;
 

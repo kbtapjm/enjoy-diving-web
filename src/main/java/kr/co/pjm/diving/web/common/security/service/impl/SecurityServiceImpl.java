@@ -14,10 +14,10 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import kr.co.pjm.diving.common.domain.dto.LoginDto;
+import kr.co.pjm.diving.common.domain.entity.UserRole;
+import kr.co.pjm.diving.common.repository.UserRepository;
 import kr.co.pjm.diving.web.common.security.service.SecurityService;
-import kr.co.pjm.diving.web.domain.dto.LoginDto;
-import kr.co.pjm.diving.web.domain.entity.UserRole;
-import kr.co.pjm.diving.web.repasitory.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -46,7 +46,7 @@ public class SecurityServiceImpl implements SecurityService {
   public UserDetails login(LoginDto loginDto) {
     
     /* User select */
-    kr.co.pjm.diving.web.domain.entity.User user = userRepository.findByEmail(loginDto.getEmail());
+    kr.co.pjm.diving.common.domain.entity.User user = userRepository.findByEmail(loginDto.getEmail());
     
     /* ROLE set */
     List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();

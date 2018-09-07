@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import kr.co.pjm.diving.web.domain.dto.UserDto;
-import kr.co.pjm.diving.web.domain.entity.User;
+import kr.co.pjm.diving.common.domain.dto.UserDto;
+import kr.co.pjm.diving.common.domain.entity.User;
 import kr.co.pjm.diving.web.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 

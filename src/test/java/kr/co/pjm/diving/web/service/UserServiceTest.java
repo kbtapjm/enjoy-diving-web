@@ -16,13 +16,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.pjm.diving.common.domain.dto.LoginDto;
+import kr.co.pjm.diving.common.domain.dto.UserDto;
+import kr.co.pjm.diving.common.domain.entity.User;
+import kr.co.pjm.diving.common.domain.entity.UserRole;
 import kr.co.pjm.diving.common.domain.enumeration.GenderEnum;
-import kr.co.pjm.diving.common.domain.enumeration.UserStatusEnum;
 import kr.co.pjm.diving.web.common.security.service.SecurityService;
-import kr.co.pjm.diving.web.domain.dto.LoginDto;
-import kr.co.pjm.diving.web.domain.dto.UserDto;
-import kr.co.pjm.diving.web.domain.entity.User;
-import kr.co.pjm.diving.web.domain.entity.UserRole;
 import lombok.extern.slf4j.Slf4j;
 
 /**

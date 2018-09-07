@@ -1,7 +1,7 @@
 package kr.co.pjm.diving.web.service;
 
 import kr.co.pjm.diving.common.domain.dto.ResourcesDto;
-import kr.co.pjm.diving.web.domain.entity.DiveLog;
+import kr.co.pjm.diving.common.domain.entity.DiveLog;
 
 public interface DiveLogService {
   

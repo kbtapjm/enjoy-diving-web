@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import kr.co.pjm.diving.common.domain.dto.LoginDto;
 import kr.co.pjm.diving.web.common.security.service.SecurityService;
-import kr.co.pjm.diving.web.domain.dto.LoginDto;
 import lombok.extern.slf4j.Slf4j;
 
 /**

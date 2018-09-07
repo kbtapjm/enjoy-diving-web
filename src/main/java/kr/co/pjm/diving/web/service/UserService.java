@@ -1,8 +1,8 @@
 package kr.co.pjm.diving.web.service;
 
-import kr.co.pjm.diving.web.domain.dto.UserBasicDto;
-import kr.co.pjm.diving.web.domain.dto.UserDto;
-import kr.co.pjm.diving.web.domain.entity.User;
+import kr.co.pjm.diving.common.domain.dto.UserBasicDto;
+import kr.co.pjm.diving.common.domain.dto.UserDto;
+import kr.co.pjm.diving.common.domain.entity.User;
 
 /**
  * <pre>

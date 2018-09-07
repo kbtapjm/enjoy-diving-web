@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.social.security.SocialUserDetails;
 
-import kr.co.pjm.diving.web.domain.entity.User;
+import kr.co.pjm.diving.common.domain.entity.User;
 
 public class SocialUserDetail implements SocialUserDetails {
   

@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.embedded.Compression;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
@@ -15,6 +16,7 @@ import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -34,6 +36,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
  *
  */
 @SpringBootApplication(scanBasePackages = {"kr.co.pjm.diving.web", "kr.co.pjm.diving.common"})
+@EnableJpaRepositories(basePackages = {"kr.co.pjm.diving.common.repository"})
+@EntityScan( basePackages = {"kr.co.pjm.diving.common.domain"} )
 public class Application extends SpringBootServletInitializer implements CommandLineRunner {
   
   public static void main(String[] args) throws Exception {

@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 
-import kr.co.pjm.diving.web.domain.dto.UserBasicDto;
-import kr.co.pjm.diving.web.domain.entity.User;
+import kr.co.pjm.diving.common.domain.dto.UserBasicDto;
+import kr.co.pjm.diving.common.domain.entity.User;
 import kr.co.pjm.diving.web.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 

@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import kr.co.pjm.diving.common.domain.dto.DiveLogDto;
 import kr.co.pjm.diving.common.domain.dto.ResourcesDto;
+import kr.co.pjm.diving.common.domain.entity.DiveLog;
 import kr.co.pjm.diving.common.util.NumberUtil;
-import kr.co.pjm.diving.web.domain.dto.DiveLogDto;
-import kr.co.pjm.diving.web.domain.entity.DiveLog;
 import kr.co.pjm.diving.web.service.DiveLogService;
 import lombok.extern.slf4j.Slf4j;
 

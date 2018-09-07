@@ -1,24 +1,14 @@
 package kr.co.pjm.diving.web.common.security;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.pjm.diving.common.domain.entity.User;
+import kr.co.pjm.diving.common.repository.UserRepository;
 import kr.co.pjm.diving.web.common.security.social.SocialUserDetail;
-import kr.co.pjm.diving.web.domain.entity.User;
-import kr.co.pjm.diving.web.domain.entity.UserRole;
-import kr.co.pjm.diving.web.repasitory.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -58,26 +48,10 @@ public class ExtensibleUserDetailsService implements UserDetailsService {
       throw new UsernameNotFoundException("Not found username: " + username);
     }
     
-    /* role set (스프링 소셜 로그인은 기본적으로 ROLE_USER로 설정함) */
-    /*List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-    
-    Iterator<UserRole> itr = user.getUserRoles().iterator();
-    while (itr.hasNext()) {
-      UserRole userRole = itr.next();
-      
-      authorities.add(new SimpleGrantedAuthority(userRole.getRole().toString()));
-    }
-    
-    UserDetails userDetails = (UserDetails) new org.springframework.security.core.userdetails.User(
-        user.getEmail(), user.getPassword(), this.getAuthorities(authorities));*/
-    
     SocialUserDetail socialUserDetail = new SocialUserDetail(user);
     
     return socialUserDetail;
   }
-  
-  public Collection<? extends GrantedAuthority> getAuthorities(List<GrantedAuthority> authorities) {
-    return Collections.unmodifiableList(authorities);
-  }
+
 
 }

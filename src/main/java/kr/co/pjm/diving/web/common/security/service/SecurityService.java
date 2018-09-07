@@ -2,7 +2,7 @@ package kr.co.pjm.diving.web.common.security.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
-import kr.co.pjm.diving.web.domain.dto.LoginDto;
+import kr.co.pjm.diving.common.domain.dto.LoginDto;
 
 /**
  * <pre>
