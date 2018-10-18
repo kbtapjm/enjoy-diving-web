@@ -220,6 +220,12 @@ var LogCreateModule = LogCreateModule || (function($) {
           url: (create ? url : url + '/' + id),
           data: JSON.stringify(data)
         }).done(function(data) {
+        	if (data.resultCd !== constants.result.SUCCESS) {
+        	  alert(data.resultMsg);
+        	  UiUtilModule.mask.close();
+        	  return false;
+        	}
+        	
           alert($('#submit').data('done'));
           $(location).attr('href', (create ? url : url + '/' + id));
         }).fail(function(jqXHR, textStatus, errorThrown) {
@@ -244,8 +250,13 @@ var LogCreateModule = LogCreateModule || (function($) {
 	              url: url + '/' + id,
 	              data: JSON.stringify(data)
 	            }).done(function(data) {
+	              if (data.resultCd !== constants.result.SUCCESS) {
+	                alert(data.resultMsg);
+	                return false;
+	              }
+	              
 	            	alert($('#remove').data('remove'));
-	                $(location).attr('href', url);
+	            	$(location).attr('href', url);
 	            }).fail(function(jqXHR, textStatus, errorThrown) {
 	              UiUtilModule.mask.close();
 	              console.error(jqXHR);

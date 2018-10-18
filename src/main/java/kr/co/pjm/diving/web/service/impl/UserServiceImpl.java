@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.pjm.diving.common.domain.dto.UserBasicDto;
 import kr.co.pjm.diving.common.domain.dto.UserDiveDto;
-import kr.co.pjm.diving.common.domain.dto.UserDto;
 import kr.co.pjm.diving.common.domain.entity.Role;
 import kr.co.pjm.diving.common.domain.entity.User;
 import kr.co.pjm.diving.common.domain.entity.UserBasic;
@@ -21,6 +20,7 @@ import kr.co.pjm.diving.common.repository.UserBasicRepository;
 import kr.co.pjm.diving.common.repository.UserConnectionRepasitory;
 import kr.co.pjm.diving.common.repository.UserDiveRepository;
 import kr.co.pjm.diving.common.repository.UserRepository;
+import kr.co.pjm.diving.web.domain.dto.UserDto;
 import kr.co.pjm.diving.web.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 

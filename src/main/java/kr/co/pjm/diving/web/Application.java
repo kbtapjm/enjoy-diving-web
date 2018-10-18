@@ -23,18 +23,6 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-/**
- * <pre>
- * @Package Name : kr.co.pjm.diving.web
- * @Class Name : Application.java
- * </pre>
- * 
- * @author : jmpark
- * @Date : 2017. 5. 3.
- * @Version : 1.0
- * @Description : Spring Boot Application
- *
- */
 @SpringBootApplication(scanBasePackages = {"kr.co.pjm.diving.web", "kr.co.pjm.diving.common"})
 @EnableJpaRepositories(basePackages = {"kr.co.pjm.diving.common.repository"})
 @EntityScan( basePackages = {"kr.co.pjm.diving.common.domain"} )

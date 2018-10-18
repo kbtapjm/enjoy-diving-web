@@ -1,18 +1,18 @@
 package kr.co.pjm.diving.web.service;
 
 import kr.co.pjm.diving.common.domain.dto.ResourcesDto;
-import kr.co.pjm.diving.common.domain.entity.DiveLog;
+import kr.co.pjm.diving.web.domain.dto.DiveLogDto;
 
 public interface DiveLogService {
   
-  DiveLog set(DiveLog diveLog);
+  ResourcesDto getAll() throws Exception;
   
-  ResourcesDto getById(Long id);
+  void set(DiveLogDto diveLogDto) throws Exception;
   
-  ResourcesDto getAll();
+  ResourcesDto getById(Long id) throws Exception;
   
-  void update(DiveLog diveLog);
+  void update(Long id, DiveLogDto diveLogDto) throws Exception;
   
-  void delete(Long id);
+  void delete(Long id) throws Exception;
   
 }

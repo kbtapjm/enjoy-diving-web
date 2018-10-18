@@ -2,7 +2,9 @@ package kr.co.pjm.diving.web.common.security.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
-import kr.co.pjm.diving.common.domain.dto.LoginDto;
+import kr.co.pjm.diving.common.domain.entity.User;
+import kr.co.pjm.diving.web.common.security.social.SocialUserDetail;
+import kr.co.pjm.diving.web.domain.dto.LoginDto;
 
 /**
  * <pre>
@@ -21,4 +23,8 @@ public interface SecurityService {
   UserDetails login(LoginDto loginDto);
   
   String getLoginUser();
+  
+  SocialUserDetail getSocialUserDetailUser();
+  
+  User getUser();
 }

@@ -36,3 +36,11 @@ function addZero(n) {
 	
 	return n < 10 ? '0'.concat(n) : n;
 }
+
+//constants
+var constants = {
+  result: {
+    SUCCESS: '0000',
+    ERROR: '9999'
+  }
+}

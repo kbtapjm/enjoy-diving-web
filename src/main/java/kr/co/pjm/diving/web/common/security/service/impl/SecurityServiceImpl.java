@@ -14,10 +14,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import kr.co.pjm.diving.common.domain.dto.LoginDto;
 import kr.co.pjm.diving.common.domain.entity.UserRole;
 import kr.co.pjm.diving.common.repository.UserRepository;
 import kr.co.pjm.diving.web.common.security.service.SecurityService;
+import kr.co.pjm.diving.web.common.security.social.SocialUserDetail;
+import kr.co.pjm.diving.web.domain.dto.LoginDto;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -83,5 +84,21 @@ public class SecurityServiceImpl implements SecurityService {
     
     return null;
   }
+
+  @Override
+  public SocialUserDetail getSocialUserDetailUser() {
+    SocialUserDetail socialUserDetail = (SocialUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    
+    return socialUserDetail;
+  }
+
+  @Override
+  public kr.co.pjm.diving.common.domain.entity.User getUser() {
+    SocialUserDetail socialUserDetail = (SocialUserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    
+    return socialUserDetail.getUser();
+  }
+  
+  
 
 }

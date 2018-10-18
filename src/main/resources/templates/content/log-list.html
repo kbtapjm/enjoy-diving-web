@@ -15,7 +15,7 @@
 	                    <div class="content">
 	                        <a class="header" th:text="|Dive No. ${resource.diveNo}|">Dive No. 4</a>
 	                        <div class="description"><span th:text="${resource.divePlace}">Raja Ampat</span> - <a th:text="${resource.divePoint}"><b>View Point</b></a></div>
-	                        <div class="description" th:text="${#calendars.format(resource.diveDate,'yyyy-MM-dd')}">2018-03-10</div>
+	                        <div class="description" th:text="${resource.diveDate}">2018-03-10</div>
 	                    </div>
 	                </div>
                 </th:block>
