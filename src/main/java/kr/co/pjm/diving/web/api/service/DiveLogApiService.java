@@ -9,7 +9,7 @@ public interface DiveLogApiService {
   
   ApiReponseDto createDiveLog(DiveLogDto diveLogDto);
   
-  ApiReponseDto getDive(Long id);
+  ApiReponseDto getDiveLog(Long id);
   
   ApiReponseDto updateDiveLog(Long id, DiveLogDto diveLogDto);
   

@@ -22,7 +22,7 @@ import org.springframework.social.security.AuthenticationNameUserIdSource;
 @Configuration
 @EnableSocial
 public class SocialConfiguration extends SocialConfigurerAdapter {
-  
+
   @Autowired
   private DataSource dataSource;
 
@@ -38,18 +38,21 @@ public class SocialConfiguration extends SocialConfigurerAdapter {
 
   @Override
   public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-      JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
-      return repository;
+    JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator,
+        Encryptors.noOpText());
+    return repository;
   }
 
   @Bean
-  public ConnectController connectController(ConnectionFactoryLocator connectionFactoryLocator, ConnectionRepository connectionRepository) {
-      return new ConnectController(connectionFactoryLocator, connectionRepository);
+  public ConnectController connectController(ConnectionFactoryLocator connectionFactoryLocator,
+      ConnectionRepository connectionRepository) {
+    return new ConnectController(connectionFactoryLocator, connectionRepository);
   }
 
   @Bean
-  public ProviderSignInUtils providerSignInUtils(ConnectionFactoryLocator connectionFactoryLocator, UsersConnectionRepository usersConnectionRepository) {
-      return new ProviderSignInUtils(connectionFactoryLocator, usersConnectionRepository);
+  public ProviderSignInUtils providerSignInUtils(ConnectionFactoryLocator connectionFactoryLocator,
+      UsersConnectionRepository usersConnectionRepository) {
+    return new ProviderSignInUtils(connectionFactoryLocator, usersConnectionRepository);
   }
 
 }

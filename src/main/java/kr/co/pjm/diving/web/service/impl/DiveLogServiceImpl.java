@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import kr.co.pjm.diving.common.domain.dto.PagingDto;
 import kr.co.pjm.diving.common.domain.dto.ResourcesDto;
+import kr.co.pjm.diving.common.domain.dto.SearchDto;
 import kr.co.pjm.diving.web.api.dto.ApiReponseDto;
 import kr.co.pjm.diving.web.api.service.DiveLogApiService;
 import kr.co.pjm.diving.web.common.exception.EnjoyDivingWebException;
@@ -25,7 +27,8 @@ public class DiveLogServiceImpl implements DiveLogService {
   private SecurityService securityService;
   
   @Override
-  public ResourcesDto getAll() throws Exception {
+  public ResourcesDto getAll(SearchDto searchDto, PagingDto pagingDto) throws Exception {
+    // TODO : paging, search
     String sorts = StringUtils.EMPTY;
     String q = StringUtils.EMPTY;
     
@@ -39,8 +42,7 @@ public class DiveLogServiceImpl implements DiveLogService {
 
   @Override
   public void set(DiveLogDto diveLogDto) throws Exception {
-    //diveLogDto.setDiveNo(null);
-    diveLogDto.setRegId(String.valueOf(securityService.getUser().getId()));
+    diveLogDto.setRegId(securityService.getId());
     
     ApiReponseDto apiReponseDto = diveLogApiService.createDiveLog(diveLogDto);
     if (apiReponseDto.getStatus() != HttpStatus.CREATED.value()) {
@@ -54,7 +56,7 @@ public class DiveLogServiceImpl implements DiveLogService {
       log.info("id : {}", id);
     }
     
-    ApiReponseDto apiReponseDto = diveLogApiService.getDive(id);
+    ApiReponseDto apiReponseDto = diveLogApiService.getDiveLog(id);
     if (apiReponseDto.getStatus() != HttpStatus.OK.value()) {
       throw new EnjoyDivingWebException(apiReponseDto.getData());
     };
@@ -64,6 +66,8 @@ public class DiveLogServiceImpl implements DiveLogService {
   
   @Override
   public void update(Long id, DiveLogDto diveLogDto) throws Exception {
+    diveLogDto.setUpdateId(securityService.getId());
+    
     ApiReponseDto apiReponseDto = diveLogApiService.updateDiveLog(id, diveLogDto);
     if (apiReponseDto.getStatus() != HttpStatus.OK.value()) {
       throw new EnjoyDivingWebException(apiReponseDto.getData());

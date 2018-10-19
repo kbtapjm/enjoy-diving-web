@@ -98,7 +98,12 @@ public class SecurityServiceImpl implements SecurityService {
     
     return socialUserDetail.getUser();
   }
-  
-  
+
+  @Override
+  public String getId() {
+    kr.co.pjm.diving.common.domain.entity.User user = this.getUser();
+    
+    return String.valueOf(user.getId());
+  }
 
 }

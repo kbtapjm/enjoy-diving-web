@@ -27,4 +27,6 @@ public interface SecurityService {
   SocialUserDetail getSocialUserDetailUser();
   
   User getUser();
+  
+  String getId();
 }

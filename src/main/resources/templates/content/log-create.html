@@ -114,31 +114,31 @@
                     <div class="field">
                         <label>다이빙 플랜</label>
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanHoodYn" th:id="divePlanHoodYn" th:checked="${content.resource.divePlanHoodYn == 'Y'}" value="Y"/>
+                            <input type="checkbox" th:name="divePlanHoodYn" th:id="divePlanHoodYn" th:checked="${content.resource.divePlanHoodYn != null and content.resource.divePlanHoodYn.name() == 'Y'}" value="Y"/>
                             <label for="divePlanHoodYn">후드</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanGlovesYn" id="divePlanGlovesYn" th:checked="${content.resource.divePlanGlovesYn == 'Y'}" value="Y"/>
+                            <input type="checkbox" th:name="divePlanGlovesYn" id="divePlanGlovesYn" th:checked="${content.resource.divePlanGlovesYn != null and content.resource.divePlanGlovesYn.name() == 'Y'}" value="Y"/>
                             <label for="divePlanGlovesYn">장갑</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanBootsYn" id="divePlanBootsYn" th:checked="${content.resource.divePlanBootsYn == 'Y'}" value="Y"/>
+                            <input type="checkbox" th:name="divePlanBootsYn" id="divePlanBootsYn" th:checked="${content.resource.divePlanBootsYn != null and content.resource.divePlanBootsYn.name() == 'Y'}" value="Y"/>
                             <label for="divePlanBootsYn">부츠</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanLightYn" id="divePlanLightYn" th:checked="${content.resource.divePlanLightYn == 'Y'}" value="Y"/>
+                            <input type="checkbox" th:name="divePlanLightYn" id="divePlanLightYn" th:checked="${content.resource.divePlanLightYn != null and content.resource.divePlanLightYn.name() == 'Y'}" value="Y"/>
                             <label for="divePlanLightYn">라이트</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanSmbYn" id="divePlanSmbYn" th:checked="${content.resource.divePlanSmbYn == 'Y'}" value="Y"/>
+                            <input type="checkbox" th:name="divePlanSmbYn" id="divePlanSmbYn" th:checked="${content.resource.divePlanSmbYn != null and content.resource.divePlanSmbYn.name() == 'Y'}" value="Y"/>
                             <label for="divePlanSmbYn">SMB</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanKnifeYn" id="divePlanKnifeYn" th:checked="${content.resource.divePlanKnifeYn == 'Y'}" value="Y"/>
+                            <input type="checkbox" th:name="divePlanKnifeYn" id="divePlanKnifeYn" th:checked="${content.resource.divePlanKnifeYn != null and content.resource.divePlanKnifeYn.name() == 'Y'}" value="Y"/>
                             <label for="divePlanKnifeYn">나이프</label>
                         </div>&nbsp;
                         <div class="ui checkbox">
-                            <input type="checkbox" th:name="divePlanCameraYn" id="divePlanCameraYn" th:checked="${content.resource.divePlanCameraYn == 'Y'}" value="Y"/>
+                            <input type="checkbox" th:name="divePlanCameraYn" id="divePlanCameraYn" th:checked="${content.resource.divePlanCameraYn != null and content.resource.divePlanCameraYn.name() == 'Y'}" value="Y"/>
                             <label for="divePlanCameraYn">카메라</label>
                         </div>
                     </div>

@@ -14,10 +14,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kr.co.pjm.diving.common.domain.dto.ErrorDto;
 import kr.co.pjm.diving.common.domain.dto.ResourcesDto;
 import kr.co.pjm.diving.common.domain.entity.DiveLog;
 import kr.co.pjm.diving.web.api.dto.ApiReponseDto;
-import kr.co.pjm.diving.web.api.dto.ErrorDto;
 import kr.co.pjm.diving.web.api.service.DiveLogApiService;
 import kr.co.pjm.diving.web.domain.dto.DiveLogDto;
 import lombok.extern.slf4j.Slf4j;
@@ -100,7 +100,7 @@ public class DiveLogApiServiceImpl implements DiveLogApiService {
   }
 
   @Override
-  public ApiReponseDto getDive(Long id) {
+  public ApiReponseDto getDiveLog(Long id) {
     ApiReponseDto apiReponseDto = new ApiReponseDto();
     
     try {

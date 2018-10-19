@@ -1,11 +1,13 @@
 package kr.co.pjm.diving.web.service;
 
+import kr.co.pjm.diving.common.domain.dto.PagingDto;
 import kr.co.pjm.diving.common.domain.dto.ResourcesDto;
+import kr.co.pjm.diving.common.domain.dto.SearchDto;
 import kr.co.pjm.diving.web.domain.dto.DiveLogDto;
 
 public interface DiveLogService {
   
-  ResourcesDto getAll() throws Exception;
+  ResourcesDto getAll(SearchDto searchDto, PagingDto pagingDto) throws Exception;
   
   void set(DiveLogDto diveLogDto) throws Exception;
   

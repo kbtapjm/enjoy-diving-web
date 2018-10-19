@@ -2,7 +2,7 @@ package kr.co.pjm.diving.web.common.exception;
 
 import org.apache.commons.lang3.StringUtils;
 
-import kr.co.pjm.diving.web.api.dto.ErrorDto;
+import kr.co.pjm.diving.common.domain.dto.ErrorDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import kr.co.pjm.diving.common.domain.dto.PagingDto;
 import kr.co.pjm.diving.common.domain.dto.ResourcesDto;
+import kr.co.pjm.diving.common.domain.dto.SearchDto;
 import kr.co.pjm.diving.common.util.NumberUtil;
 import kr.co.pjm.diving.web.common.enumeration.Result;
 import kr.co.pjm.diving.web.common.exception.EnjoyDivingWebException;
@@ -39,8 +42,8 @@ public class DiveLogController {
   private DiveLogService diveLogService;
   
   @GetMapping(consumes = MediaType.ALL_VALUE, produces = MediaType.TEXT_HTML_VALUE)
-  public String list(Model model) throws Exception {
-    ResourcesDto resourcesDto = diveLogService.getAll();
+  public String list(@ModelAttribute SearchDto searchDto, @ModelAttribute PagingDto pagingDto, Model model) throws Exception {
+    ResourcesDto resourcesDto = diveLogService.getAll(searchDto, pagingDto);
     
     model.addAllAttributes(resourcesDto.getMap());
     
@@ -49,8 +52,11 @@ public class DiveLogController {
   
   @GetMapping(value = "{id}", consumes = MediaType.ALL_VALUE, produces = MediaType.TEXT_HTML_VALUE)
   public String create(@PathVariable("id") String id, Model model) throws Exception {
-    ResourcesDto resourcesDto = null;
+    if (log.isDebugEnabled()) {
+      log.debug("id : {}", id);
+    }
     
+    ResourcesDto resourcesDto = null;
     if (StringUtils.equals(LOG_CREATE_PAGE_NAME, id)) {
       resourcesDto = new ResourcesDto(new DiveLogDto());
     } else {

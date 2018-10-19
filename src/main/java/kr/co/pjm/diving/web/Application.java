@@ -23,11 +23,11 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-@SpringBootApplication(scanBasePackages = {"kr.co.pjm.diving.web", "kr.co.pjm.diving.common"})
-@EnableJpaRepositories(basePackages = {"kr.co.pjm.diving.common.repository"})
-@EntityScan( basePackages = {"kr.co.pjm.diving.common.domain"} )
+@SpringBootApplication(scanBasePackages = { "kr.co.pjm.diving.web", "kr.co.pjm.diving.common" })
+@EnableJpaRepositories(basePackages = { "kr.co.pjm.diving.common.repository" })
+@EntityScan(basePackages = { "kr.co.pjm.diving.common.domain" })
 public class Application extends SpringBootServletInitializer implements CommandLineRunner {
-  
+
   public static void main(String[] args) throws Exception {
     SpringApplication.run(Application.class, args);
   }
@@ -40,7 +40,7 @@ public class Application extends SpringBootServletInitializer implements Command
     builder.sources(Application.class);
     return builder;
   }
-  
+
   /**
    * Enable HTTP response compression(HTTP 응답 압축 사용)
    * https://docs.spring.io/spring-boot/docs/current/reference/html/howto-embedded-servlet-containers.html
@@ -54,20 +54,20 @@ public class Application extends SpringBootServletInitializer implements Command
       if (container instanceof TomcatEmbeddedServletContainerFactory) {
         Compression compression = new Compression();
         compression.setEnabled(true);
-        compression.setMinResponseSize(2048);   // 최소 2048
+        compression.setMinResponseSize(2048); // 최소 2048
         container.setCompression(compression);
-        
+
         container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/error/notFound"));
         container.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/error/serverError"));
       }
     };
   }
-  
+
   @Bean
   public HttpMessageConverter<String> responseBodyConverter() {
     return new StringHttpMessageConverter(Charset.forName("UTF-8"));
   }
-  
+
   @Bean
   public FilterRegistrationBean filterRegistrationBean() {
     FilterRegistrationBean registrationBean = new FilterRegistrationBean();
