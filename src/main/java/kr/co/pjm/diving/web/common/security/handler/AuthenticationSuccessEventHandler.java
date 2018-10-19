@@ -9,18 +9,6 @@ import kr.co.pjm.diving.common.domain.entity.User;
 import kr.co.pjm.diving.web.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * <pre>
- * @Package Name : kr.co.pjm.diving.web.common.security.handler
- * @Class Name : AuthenticationSuccessEventHandler.java
- * </pre>
- * 
- * @author : jmpark
- * @Date : 2017. 12. 26.
- * @Version : 1.0
- * @Description : 로그인 성공 이벤트 핸들러
- *
- */
 @Slf4j
 public class AuthenticationSuccessEventHandler implements ApplicationListener<AuthenticationSuccessEvent> {
   
@@ -29,15 +17,15 @@ public class AuthenticationSuccessEventHandler implements ApplicationListener<Au
 
   @Override
   public void onApplicationEvent(AuthenticationSuccessEvent event) {
-    if (log.isInfoEnabled()) {
-      log.info(" ----------------------------------------------------  ");
-      log.info(" getTimestamp : {}", event.getTimestamp());                              // 로그인 시간
+    if (log.isDebugEnabled()) {
+      log.debug(" ----------------------------------------------------  ");
+      log.debug(" getTimestamp : {}", event.getTimestamp());                              // 로그인 시간
       log.info(" getCredentials : {}", event.getAuthentication().getCredentials());      // 로그인시 패스워드
-      log.info(" getDetails : {}", event.getAuthentication().getDetails());              // 로그인 세션 아이디          
-      log.info(" getPrincipal : {}", event.getAuthentication().getPrincipal());          // 로그인 아이디
-      log.info(" getAuthorities : {}", event.getAuthentication().getAuthorities());      // 인증정보
-      log.info(" getName : {}", event.getAuthentication().getName());                    // 로그인 아이디
-      log.info(" ----------------------------------------------------  ");
+      log.debug(" getDetails : {}", event.getAuthentication().getDetails());              // 로그인 세션 아이디          
+      log.debug(" getPrincipal : {}", event.getAuthentication().getPrincipal());          // 로그인 아이디
+      log.debug(" getAuthorities : {}", event.getAuthentication().getAuthorities());      // 인증정보
+      log.debug(" getName : {}", event.getAuthentication().getName());                    // 로그인 아이디
+      log.debug(" ----------------------------------------------------  ");
     }
     
     /* 로그인 일자 업데이트 */

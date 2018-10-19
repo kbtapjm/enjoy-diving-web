@@ -11,22 +11,6 @@ import kr.co.pjm.diving.common.repository.UserRepository;
 import kr.co.pjm.diving.web.common.security.social.SocialUserDetail;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * <pre>
- * @Package Name : kr.co.pjm.diving.web.common.security
- * @Class Name : ExtensibleUserDetailsService.java
- * </pre>
- * 
- * @author : jmpark
- * @Date : 2017. 5. 6.
- * @Version : 1.0
- * @Description : 스프링 시큐리티 인증 처리
- * 
- * <Reference>
- * http://www.baeldung.com/role-and-privilege-for-spring-security-registration
- * https://hellokoding.com/registration-and-login-example-with-spring-xml-configuration-maven-jsp-and-mysql/
- * http://libqa.com/wiki/731
- */
 @Slf4j
 @Component
 public class ExtensibleUserDetailsService implements UserDetailsService {
@@ -43,10 +27,11 @@ public class ExtensibleUserDetailsService implements UserDetailsService {
     
     /* find by user */
     User user = userRepository.findByEmail(username);
-    
     if (null == user) {
       throw new UsernameNotFoundException("Not found username: " + username);
     }
+    
+    // TODO: 로그인 일자 업데이트
     
     SocialUserDetail socialUserDetail = new SocialUserDetail(user);
     
