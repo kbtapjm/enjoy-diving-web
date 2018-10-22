@@ -1,5 +1,7 @@
 package kr.co.pjm.diving.web.api.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,7 +17,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.co.pjm.diving.common.domain.dto.ErrorDto;
-import kr.co.pjm.diving.common.domain.entity.DiveLog;
+import kr.co.pjm.diving.common.domain.entity.User;
 import kr.co.pjm.diving.web.api.dto.ApiReponseDto;
 import kr.co.pjm.diving.web.api.service.UserApiService;
 import kr.co.pjm.diving.web.domain.dto.UserDto;
@@ -29,6 +31,38 @@ private String apiBaseUrl = "http://api.enjoydiving.io:8081";
   
   @Autowired
   private RestTemplate restTemplate;
+  
+  @Override
+  public ApiReponseDto getUsers(String sorts, String q) {
+    ApiReponseDto apiReponseDto = new ApiReponseDto();
+    
+    try {
+      String url = UriComponentsBuilder.fromUriString(apiBaseUrl)
+          .path("/v1/users")
+          .queryParam("sorts", sorts)
+          .queryParam("q", q)
+          .queryParam("offset", "0")
+          .queryParam("limit", "10")
+          .buildAndExpand()
+          .toString();
+      log.info("===> Request Url : {}", url);
+      
+      HttpHeaders headers = new HttpHeaders();
+      HttpEntity<String> requestEntity = new HttpEntity<String>(headers); 
+      
+      ResponseEntity<List> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, List.class);
+      log.info("===> Response http status : {}", responseEntity.getStatusCodeValue());
+      log.info("===> Response getBody : {}", responseEntity.getBody());
+      
+      apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
+      apiReponseDto.setData(responseEntity.getBody());
+    } catch (RestClientException e) {
+      e.printStackTrace();
+      log.error("Error : {}", e.getMessage());
+    }
+    
+    return apiReponseDto;
+  }
 
   @Override
   public ApiReponseDto createUser(UserDto userDto) {
@@ -80,7 +114,7 @@ private String apiBaseUrl = "http://api.enjoydiving.io:8081";
       HttpHeaders headers = new HttpHeaders();
       HttpEntity<String> requestEntity = new HttpEntity<String>(headers); 
       
-      ResponseEntity<DiveLog> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, DiveLog.class);
+      ResponseEntity<User> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, User.class);
       log.info("===> Response http status : {}", responseEntity.getStatusCodeValue());
       log.info("===> Response getBody : {}", responseEntity.getBody());
       

@@ -50,8 +50,8 @@ public class UserController {
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody 
   @ResponseStatus(HttpStatus.CREATED)
-  public User create(@RequestBody UserDto userDto) throws Exception {
-    return userService.set(userDto);
+  public void create(@RequestBody UserDto userDto) throws Exception {
+    userService.set(userDto);
   }
   
   @RequestMapping(value = "{id}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE, produces = MediaType.TEXT_HTML_VALUE)
@@ -66,14 +66,14 @@ public class UserController {
   @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody 
   @ResponseStatus(HttpStatus.OK)
-  public void update(@RequestBody UserDto userDto) throws Exception {
-    userService.update(userDto);
+  public void update(@PathVariable("id") Long id, @RequestBody UserDto userDto) throws Exception {
+    userService.update(id, userDto);
   }
   
   @RequestMapping(value = "{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody 
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void delete(@PathVariable("id") long id) {
+  public void delete(@PathVariable("id") long id) throws Exception {
     userService.delete(id);
   }
   

@@ -5,6 +5,8 @@ import kr.co.pjm.diving.web.domain.dto.UserDto;
 
 public interface UserApiService {
   
+  ApiReponseDto getUsers(String sorts, String q);
+  
   ApiReponseDto createUser(UserDto userDto);
   
   ApiReponseDto getUser(Long id);

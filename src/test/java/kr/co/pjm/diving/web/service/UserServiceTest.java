@@ -64,10 +64,7 @@ public class UserServiceTest {
     userDto.setLoginDate(new Date());
     userDto.setIntroduce("반가워요");
     
-    User user = userService.set(userDto);
-    log.debug("user : {}", user.toString());
-    
-    assertNotNull(user);
+    userService.set(userDto);
   }
   
   @Test
@@ -124,7 +121,7 @@ public class UserServiceTest {
     userDto.setGender(GenderEnum.FEMALE);
     userDto.setIntroduce("반가워요 222");
     
-    userService.update(userDto);
+    userService.update(id, userDto);
   }
   
   @Test

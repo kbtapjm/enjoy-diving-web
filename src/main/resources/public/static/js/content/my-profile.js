@@ -83,10 +83,16 @@ var UserReadModule = UserReadModule || (function($) {
           Accept: 'application/json; charset=UTF-8'
         },
         contentType: 'application/json; charset=UTF-8',
-        url: '/my/updateProfile',
+        url: '/my/profile/' + $('#id').val(),
         data: JSON.stringify(data)
       }).done(function(data) {
         UiUtilModule.mask.close();
+        
+        if (data.resultCd !== constants.result.SUCCESS) {
+          alert(data.resultMsg);
+          return false;
+        }
+        
         UiUtilModule.modal.alert({
           msg: '정상처리되었습니다.',
           actions: {
@@ -118,6 +124,12 @@ var UserReadModule = UserReadModule || (function($) {
               data: JSON.stringify(data)
             }).done(function(data) {
               UiUtilModule.mask.close();
+              
+              if (data.resultCd !== constants.result.SUCCESS) {
+                alert(data.resultMsg);
+                return false;
+              }
+              
               location.href = '/signOut';
             }).fail(function(jqXHR, textStatus, errorThrown) {
               UiUtilModule.mask.close();

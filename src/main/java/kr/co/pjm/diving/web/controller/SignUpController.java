@@ -53,7 +53,11 @@ public class SignUpController {
   @PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
   public void registrationUserAndLogin(@RequestBody UserDto userDto, WebRequest request) throws Exception {
-    User user = userService.set(userDto);
+    
+    userService.set(userDto);
+    
+    User user = userService.getByEmail(userDto.getEmail());
+    
     providerSignInUtils.doPostSignUp(user.getEmail(), request);
     
     SocialUserDetail socialUserDetail = new SocialUserDetail(user);

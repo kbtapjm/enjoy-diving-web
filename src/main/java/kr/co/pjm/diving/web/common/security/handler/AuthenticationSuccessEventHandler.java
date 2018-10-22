@@ -29,12 +29,23 @@ public class AuthenticationSuccessEventHandler implements ApplicationListener<Au
     }
     
     /* 로그인 일자 업데이트 */
-    User user = userService.getByEmail(event.getAuthentication().getName());
+    User user = null;
+    try {
+      user = userService.getByEmail(event.getAuthentication().getName());
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     
     UserBasicDto userBasicDto = new UserBasicDto();
     userBasicDto.setId(user.getId());
     
-    userService.updateLoginDate(userBasicDto);
+    try {
+      userService.updateLoginDate(userBasicDto);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     
     // TODO: 로그인 이력 등록 하기(몽고 DB NOSQL 적용)
   }

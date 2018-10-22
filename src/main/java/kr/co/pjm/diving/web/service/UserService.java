@@ -4,30 +4,18 @@ import kr.co.pjm.diving.common.domain.dto.UserBasicDto;
 import kr.co.pjm.diving.common.domain.entity.User;
 import kr.co.pjm.diving.web.domain.dto.UserDto;
 
-/**
- * <pre>
- * @Package Name : kr.co.pjm.diving.web.service
- * @Class Name : UserService.java
- * </pre>
- * 
- * @author : jmpark
- * @Date : 2017. 5. 5.
- * @Version : 1.0
- * @Description : 유저 서비스 인터페이스
- *
- */
 public interface UserService {
   
-  User set(UserDto userDto);
+  void set(UserDto userDto) throws Exception;
   
-  User getById(Long id);
+  User getById(Long id) throws Exception;
   
-  User getByEmail(String email);
+  User getByEmail(String email) throws Exception;
   
-  void update(UserDto userDto);
+  void update(Long id, UserDto userDto) throws Exception;
   
-  void delete(Long id);
+  void delete(Long id) throws Exception;
   
-  void updateLoginDate(UserBasicDto userBasicDto);
+  void updateLoginDate(UserBasicDto userBasicDto) throws Exception;
   
 }
