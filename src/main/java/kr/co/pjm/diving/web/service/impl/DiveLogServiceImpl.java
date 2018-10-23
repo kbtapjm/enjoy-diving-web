@@ -11,7 +11,7 @@ import kr.co.pjm.diving.common.domain.dto.SearchDto;
 import kr.co.pjm.diving.web.api.dto.ApiReponseDto;
 import kr.co.pjm.diving.web.api.service.DiveLogApiService;
 import kr.co.pjm.diving.web.common.exception.EnjoyDivingWebException;
-import kr.co.pjm.diving.web.common.security.service.CertificationService;
+import kr.co.pjm.diving.web.common.security.component.CertificationUser;
 import kr.co.pjm.diving.web.domain.dto.DiveLogDto;
 import kr.co.pjm.diving.web.service.DiveLogService;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +39,7 @@ public class DiveLogServiceImpl implements DiveLogService {
 
   @Override
   public void set(DiveLogDto diveLogDto) throws Exception {
-    diveLogDto.setRegId(CertificationService.getId());
+    diveLogDto.setRegId(CertificationUser.getId());
     
     ApiReponseDto apiReponseDto = diveLogApiService.createDiveLog(diveLogDto);
     if (apiReponseDto.getStatus() != HttpStatus.CREATED.value()) {
@@ -63,7 +63,7 @@ public class DiveLogServiceImpl implements DiveLogService {
   
   @Override
   public void update(Long id, DiveLogDto diveLogDto) throws Exception {
-    diveLogDto.setUpdateId(CertificationService.getId());
+    diveLogDto.setUpdateId(CertificationUser.getId());
     
     ApiReponseDto apiReponseDto = diveLogApiService.updateDiveLog(id, diveLogDto);
     if (apiReponseDto.getStatus() != HttpStatus.OK.value()) {

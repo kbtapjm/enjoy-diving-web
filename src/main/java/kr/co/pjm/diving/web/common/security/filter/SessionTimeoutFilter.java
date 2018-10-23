@@ -16,18 +16,6 @@ import org.springframework.security.core.AuthenticationException;
 
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * <pre>
- * @Package Name : kr.co.pjm.diving.web.common.security.filter
- * @Class Name : SessionTimeoutFilter.java
- * </pre>
- * 
- * @author : jmpark
- * @Date : 2017. 12. 28.
- * @Version : 1.0
- * @Description : 
- *
- */
 @Slf4j
 public class SessionTimeoutFilter implements Filter {
 
@@ -40,10 +28,9 @@ public class SessionTimeoutFilter implements Filter {
 
     HttpServletRequest req = (HttpServletRequest) request;
     HttpServletResponse res = (HttpServletResponse) response;
-
-    // ajax 요청 구분값
+    
     if (log.isDebugEnabled()) {
-      log.debug("*** req ajax check : {}", req.getHeader("X-Requested-With"));
+      log.debug("*** req ajax check : {}", isAjaxRequest(req));
     }
 
     if (isAjaxRequest(req)) {

@@ -1,21 +1,19 @@
-package kr.co.pjm.diving.web.common.security.service;
+package kr.co.pjm.diving.web.common.security.component;
 
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 
 import kr.co.pjm.diving.web.common.security.social.SocialUserDetail;
 
-@Component
-public class CertificationService {
-  
+public class CertificationUser {
+
   public static String getId() {
-    kr.co.pjm.diving.common.domain.entity.User user = CertificationService.getUser();
+    kr.co.pjm.diving.common.domain.entity.User user = CertificationUser.getUser();
     
     return String.valueOf(user.getId());
   }
   
   public static String getEmail() {
-    kr.co.pjm.diving.common.domain.entity.User user = CertificationService.getUser();
+    kr.co.pjm.diving.common.domain.entity.User user = CertificationUser.getUser();
     
     return user.getEmail();
   }
@@ -25,5 +23,5 @@ public class CertificationService {
     
     return socialUserDetail.getUser();
   }
-
+  
 }

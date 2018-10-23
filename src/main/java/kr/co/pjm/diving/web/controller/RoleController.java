@@ -6,22 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import lombok.extern.slf4j.Slf4j;
-
-/**
- * 
- * <pre>
- * @Package Name : kr.co.pjm.diving.web.controller
- * @Class Name : RoleController.java
- * </pre>
- * 
- * @author : jmpark
- * @Date : 2017. 12. 19.
- * @Version : 1.0
- * @Description : 권한관리 컨트롤러
- *
- */
-@Slf4j
 @Controller
 @RequestMapping(value = RoleController.RESOURCE_PATH)
 public class RoleController {

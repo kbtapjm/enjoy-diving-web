@@ -6,21 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import lombok.extern.slf4j.Slf4j;
-
-/**
- * <pre>
- * @Package Name : kr.co.pjm.diving.web.controller
- * @Class Name : TourController.java
- * </pre>
- * 
- * @author : jmpark
- * @Date : 2017. 11. 27.
- * @Version : 1.0
- * @Description : 다이빙 투어 컨트롤러 
- *
- */
-@Slf4j
 @Controller
 @RequestMapping(value = TourController.RESOURCE_PATH)
 public class TourController {

@@ -29,14 +29,12 @@ public class ExtensibleUserDetailsService implements UserDetailsService {
       log.debug("==> username : {}", username);
     }
     
-    /* find by user */
     User user = userRepository.findByEmail(username);
     if (null == user) {
       throw new UsernameNotFoundException("Not found username: " + username);
     }
     
-    /* update login date*/
-    userApiService.updateUserLoginDate(user.getId());
+    //userApiService.updateUserLoginDate(user.getId());
     
     SocialUserDetail socialUserDetail = new SocialUserDetail(user);
     

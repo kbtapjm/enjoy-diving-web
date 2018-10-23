@@ -54,7 +54,7 @@ security:
     enabled: false 
     
 ---
-# local profile(개발자 환경)
+
 spring:
   profiles: local
   profiles.include: mysqlDB
@@ -75,7 +75,7 @@ logging:
 #      path: ${upload.path}
   
 ---
-# h2database profile
+
 spring:
   profiles: h2database
   h2:
@@ -95,7 +95,7 @@ spring:
     data: classpath:database/sql/dml-*.sql
     
 ---
-# maria db profile
+
 spring:
   profiles: mysqlDB
   datasource:

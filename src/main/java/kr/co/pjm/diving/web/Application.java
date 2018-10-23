@@ -32,29 +32,19 @@ public class Application extends SpringBootServletInitializer implements Command
     SpringApplication.run(Application.class, args);
   }
 
-  /**
-   * Create a deployable war file
-   */
   @Override
   protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
     builder.sources(Application.class);
     return builder;
   }
 
-  /**
-   * Enable HTTP response compression(HTTP 응답 압축 사용)
-   * https://docs.spring.io/spring-boot/docs/current/reference/html/howto-embedded-servlet-containers.html
-   * 
-   * @return
-   * @throws Exception
-   */
   @Bean
   public EmbeddedServletContainerCustomizer containerCustomizer() throws Exception {
     return (ConfigurableEmbeddedServletContainer container) -> {
       if (container instanceof TomcatEmbeddedServletContainerFactory) {
         Compression compression = new Compression();
         compression.setEnabled(true);
-        compression.setMinResponseSize(2048); // 최소 2048
+        compression.setMinResponseSize(2048);
         container.setCompression(compression);
 
         container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/error/notFound"));

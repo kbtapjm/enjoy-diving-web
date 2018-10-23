@@ -47,17 +47,21 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
-    registry.addMapping("/**").allowedOrigins("*").allowedMethods("POST", "GET", "PUT", "DELETE")
-        .allowedHeaders("Access-Control-Allow-Headers", "Content-Type", "x-requested-with").allowCredentials(false)
-        .maxAge(1);
+    registry
+      .addMapping("/**")
+      .allowedOrigins("*")
+      .allowedMethods("POST", "GET", "PUT", "DELETE")
+      .allowedHeaders("Access-Control-Allow-Headers", "Content-Type", "x-requested-with")
+      .allowCredentials(false)
+      .maxAge(1);
   }
 
   @Bean("jasyptStringEncryptor")
   public StringEncryptor stringEncryptor() {
     PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
     SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-    config.setPassword("test"); // 암호화에 사용할 키 -> 중요
-    config.setAlgorithm("PBEWithMD5AndDES"); // 사용할 알고리즘
+    config.setPassword("test");
+    config.setAlgorithm("PBEWithMD5AndDES");
     config.setKeyObtentionIterations("1000");
     config.setPoolSize("1");
     config.setProviderName("SunJCE");

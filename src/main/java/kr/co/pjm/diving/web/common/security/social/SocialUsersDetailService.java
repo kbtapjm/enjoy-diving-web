@@ -21,7 +21,7 @@ public class SocialUsersDetailService implements SocialUserDetailsService {
   public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
     UserDetails userDetails = userDetailsService.loadUserByUsername(userId);
     
-    log.debug("==> 555555555555 : {}", userDetails);
+    log.debug("==> userDetails : {}", userDetails);
     
     return (SocialUserDetail) userDetails;
   }
