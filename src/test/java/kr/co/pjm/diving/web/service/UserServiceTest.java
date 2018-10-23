@@ -19,23 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.pjm.diving.common.domain.entity.User;
 import kr.co.pjm.diving.common.domain.entity.UserRole;
 import kr.co.pjm.diving.common.domain.enumeration.GenderEnum;
-import kr.co.pjm.diving.web.common.security.service.SecurityService;
-import kr.co.pjm.diving.web.domain.dto.LoginDto;
 import kr.co.pjm.diving.web.domain.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * <pre>
- * @Package Name : kr.co.pjm.diving.web.service
- * @Class Name : UserServiceTest.java
- * </pre>
- * 
- * @author : jmpark
- * @Date : 2017. 5. 9.
- * @Version : 1.0
- * @Description : 유저 서비스 테스트
- *
- */
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -44,9 +30,6 @@ public class UserServiceTest {
   
   @Autowired
   private UserService userService;
-  
-  @Autowired
-  private SecurityService securityService;
   
   @Autowired
   private PasswordEncoder passwordEncoder;
@@ -65,19 +48,6 @@ public class UserServiceTest {
     userDto.setIntroduce("반가워요");
     
     userService.set(userDto);
-  }
-  
-  @Test
-  @Ignore
-  public void testLogin() throws Exception {
-    LoginDto loginDto = new LoginDto();
-    loginDto.setEmail("kbtapjm@gmail.com");
-    loginDto.setPassword("1234");
-    
-    securityService.login(loginDto);
-    
-    String loginUser = securityService.getLoginUser();
-    log.debug("loginUser : {}", loginUser);
   }
   
   @Test

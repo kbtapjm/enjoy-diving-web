@@ -6,16 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import kr.co.pjm.diving.common.domain.dto.ResourcesDto;
-import kr.co.pjm.diving.common.domain.dto.UserBasicDto;
 import kr.co.pjm.diving.common.domain.entity.User;
-import kr.co.pjm.diving.common.repository.UserBasicRepository;
-import kr.co.pjm.diving.common.repository.UserRepository;
 import kr.co.pjm.diving.web.api.dto.ApiReponseDto;
 import kr.co.pjm.diving.web.api.service.UserApiService;
 import kr.co.pjm.diving.web.common.exception.EnjoyDivingWebException;
@@ -26,12 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class UserServiceImpl implements UserService {
-  
-  @Autowired
-  private UserRepository userRepository;
-  
-  @Autowired
-  private UserBasicRepository userBasicRepository;
   
   @Autowired
   private UserApiService userApiService;
@@ -58,6 +44,7 @@ public class UserServiceImpl implements UserService {
     return (User) apiReponseDto.getData();
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public User getByEmail(String email) throws Exception {
     // TODO : paging, search
@@ -69,11 +56,9 @@ public class UserServiceImpl implements UserService {
       throw new EnjoyDivingWebException(apiReponseDto.getData());
     };
     
-    List<User> users = new ObjectMapper().convertValue(apiReponseDto.getData(), new TypeReference<List<User>>() {});
+    List<User> users = (List<User>) apiReponseDto.getData();
     
-    log.debug("users : {}", users);
-    
-    return userRepository.findByEmail(email);
+    return users.get(0);
   }
 
   @Override
@@ -93,9 +78,11 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  @Transactional
-  public void updateLoginDate(UserBasicDto userBasicDto) throws Exception {
-    userBasicRepository.updateLoginDate(userBasicDto);
+  public void updateLoginDate(Long id) throws Exception {
+    ApiReponseDto apiReponseDto = userApiService.updateUserLoginDate(id);
+    if (apiReponseDto.getStatus() != HttpStatus.OK.value()) {
+      throw new EnjoyDivingWebException(apiReponseDto.getData());
+    };
   }
 
 }

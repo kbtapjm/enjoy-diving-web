@@ -15,4 +15,6 @@ public interface UserApiService {
   
   ApiReponseDto deleteUser(Long id);
   
+  ApiReponseDto updateUserLoginDate(Long id);
+  
 }

@@ -1,6 +1,5 @@
 package kr.co.pjm.diving.web.service;
 
-import kr.co.pjm.diving.common.domain.dto.UserBasicDto;
 import kr.co.pjm.diving.common.domain.entity.User;
 import kr.co.pjm.diving.web.domain.dto.UserDto;
 
@@ -16,6 +15,6 @@ public interface UserService {
   
   void delete(Long id) throws Exception;
   
-  void updateLoginDate(UserBasicDto userBasicDto) throws Exception;
+  void updateLoginDate(Long id) throws Exception;
   
 }

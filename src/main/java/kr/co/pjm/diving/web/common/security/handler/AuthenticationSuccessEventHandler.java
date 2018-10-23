@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 
-import kr.co.pjm.diving.common.domain.dto.UserBasicDto;
 import kr.co.pjm.diving.common.domain.entity.User;
 import kr.co.pjm.diving.web.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,22 +27,11 @@ public class AuthenticationSuccessEventHandler implements ApplicationListener<Au
       log.debug(" ----------------------------------------------------  ");
     }
     
-    /* 로그인 일자 업데이트 */
-    User user = null;
     try {
-      user = userService.getByEmail(event.getAuthentication().getName());
+      User user = userService.getByEmail(event.getAuthentication().getName());
+      
+      userService.updateLoginDate(user.getId());
     } catch (Exception e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    
-    UserBasicDto userBasicDto = new UserBasicDto();
-    userBasicDto.setId(user.getId());
-    
-    try {
-      userService.updateLoginDate(userBasicDto);
-    } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     

@@ -1,4 +1,4 @@
-package kr.co.pjm.diving.web.common.security;
+package kr.co.pjm.diving.web.common.security.support;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;

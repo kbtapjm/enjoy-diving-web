@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.co.pjm.diving.common.domain.dto.ErrorDto;
@@ -32,6 +33,7 @@ private String apiBaseUrl = "http://api.enjoydiving.io:8081";
   @Autowired
   private RestTemplate restTemplate;
   
+  @SuppressWarnings("rawtypes")
   @Override
   public ApiReponseDto getUsers(String sorts, String q) {
     ApiReponseDto apiReponseDto = new ApiReponseDto();
@@ -54,8 +56,10 @@ private String apiBaseUrl = "http://api.enjoydiving.io:8081";
       log.info("===> Response http status : {}", responseEntity.getStatusCodeValue());
       log.info("===> Response getBody : {}", responseEntity.getBody());
       
+      List<User> users = new ObjectMapper().convertValue(responseEntity.getBody(), new TypeReference<List<User>>() {});
+      
       apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
-      apiReponseDto.setData(responseEntity.getBody());
+      apiReponseDto.setData(users);
     } catch (RestClientException e) {
       e.printStackTrace();
       log.error("Error : {}", e.getMessage());
@@ -190,6 +194,42 @@ private String apiBaseUrl = "http://api.enjoydiving.io:8081";
       log.error("Error : {}", e.getMessage());
     }
     
+    return apiReponseDto;
+  }
+
+  @Override
+  public ApiReponseDto updateUserLoginDate(Long id) {
+    ApiReponseDto apiReponseDto = new ApiReponseDto();
+    
+    try {
+      String url = UriComponentsBuilder.fromUriString(apiBaseUrl)
+          .path("/v1/users/{id}/loginDate")
+          .buildAndExpand(id)
+          .toString();
+      log.info("===> Request Url : {}", url);
+      
+      String requestBody = new ObjectMapper().writeValueAsString(null);
+      log.info("===> Request body : {}", requestBody);
+      
+      HttpHeaders headers = new HttpHeaders();
+      headers.setContentType(MediaType.APPLICATION_JSON);
+      
+      HttpEntity<String> requestEntity = new HttpEntity<String>(requestBody, headers);
+      
+      ResponseEntity<ErrorDto> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, ErrorDto.class);
+      log.info("===> Response http status : {}", responseEntity.getStatusCodeValue());
+      log.info("===> Response getBody : {}", responseEntity.getBody());
+      
+      apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
+      apiReponseDto.setData(responseEntity.getBody());
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+      log.error("Error : {}", e.getMessage());
+    } catch (RestClientException e) {
+      e.printStackTrace();
+      log.error("Error : {}", e.getMessage());
+    }
+
     return apiReponseDto;
   }
 

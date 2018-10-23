@@ -15,20 +15,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import kr.co.pjm.diving.web.common.security.AuthAndDateAuditorAware;
+import kr.co.pjm.diving.web.common.security.support.AuthAndDateAuditorAware;
 
-/**
- * <pre>
- * &#64;Package Name : kr.co.pjm.diving.web.configuration.web
- * &#64;Class Name : WebMvcConfiguration.java
- * </pre>
- * 
- * @author : jmpark
- * @Date : 2017. 5. 4.
- * @Version : 1.0
- * @Description : WEB MVC 설정
- *
- */
 @Configuration
 @EnableJpaAuditing
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
