@@ -1,6 +1,5 @@
 package kr.co.pjm.diving.web.service.impl;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -25,9 +24,8 @@ public class DiveLogServiceImpl implements DiveLogService {
   
   @Override
   public ResourcesDto getAll(SearchDto searchDto, PagingDto pagingDto) throws Exception {
-    // TODO : paging, search
-    String sorts = StringUtils.EMPTY;
-    String q = StringUtils.EMPTY;
+    String sorts = "-diveNo";
+    String q = "regId=".concat(CertificationUser.getId());
     
     ApiReponseDto apiReponseDto = diveLogApiService.getDiveLogs(sorts, q);
     if (apiReponseDto.getStatus() != HttpStatus.OK.value()) {
