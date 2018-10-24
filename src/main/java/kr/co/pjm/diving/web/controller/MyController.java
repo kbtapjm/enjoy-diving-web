@@ -34,7 +34,6 @@ static final String RESOURCE_PATH = "/my";
   
   @GetMapping(value = "/profile", consumes = MediaType.ALL_VALUE, produces = MediaType.TEXT_HTML_VALUE)
   public String readPage(Model model, Principal principal) throws Exception {
-    
     User user = userService.getByEmail(principal.getName());
     model.addAttribute("user", user);
     

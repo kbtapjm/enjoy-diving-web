@@ -1,9 +1,15 @@
 package kr.co.pjm.diving.web.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.UserProfile;
@@ -18,7 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 import kr.co.pjm.diving.common.domain.entity.User;
-import kr.co.pjm.diving.web.common.security.social.SocialUserDetail;
+import kr.co.pjm.diving.common.domain.entity.UserRole;
+import kr.co.pjm.diving.web.common.security.model.SocialUserDetail;
 import kr.co.pjm.diving.web.domain.dto.UserDto;
 import kr.co.pjm.diving.web.service.UserService;
 
@@ -50,15 +57,27 @@ public class SignUpController {
   
   @PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
-  public void registrationUserAndLogin(@RequestBody UserDto userDto, WebRequest request) throws Exception {
-    
+  public void signupAndLogin(@RequestBody UserDto userDto, WebRequest request) throws Exception {
+    /** user create */
     userService.set(userDto);
     
+    /** get user */
     User user = userService.getByEmail(userDto.getEmail());
     
+    /** social signUp */
     providerSignInUtils.doPostSignUp(user.getEmail(), request);
     
+    List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+    Iterator<UserRole> itr = user.getUserRoles().iterator();
+    while (itr.hasNext()) {
+      UserRole userRole = itr.next();
+      
+      authorities.add(new SimpleGrantedAuthority(userRole.getRole().getRole().name()));
+    }
+    
+    /** social signIn */
     SocialUserDetail socialUserDetail = new SocialUserDetail(user);
+    socialUserDetail.setAuthorities(authorities);
     
     Authentication authentication = new UsernamePasswordAuthenticationToken(socialUserDetail, null, socialUserDetail.getAuthorities());
     SecurityContextHolder.getContext().setAuthentication(authentication);

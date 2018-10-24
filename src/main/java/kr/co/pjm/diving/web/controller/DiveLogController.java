@@ -28,9 +28,7 @@ import kr.co.pjm.diving.web.common.enumeration.Result;
 import kr.co.pjm.diving.web.common.exception.EnjoyDivingWebException;
 import kr.co.pjm.diving.web.domain.dto.DiveLogDto;
 import kr.co.pjm.diving.web.service.DiveLogService;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
 @RequestMapping(value = DiveLogController.RESOURCE_PATH)
 public class DiveLogController {
@@ -52,10 +50,6 @@ public class DiveLogController {
   
   @GetMapping(value = "{id}", consumes = MediaType.ALL_VALUE, produces = MediaType.TEXT_HTML_VALUE)
   public String create(@PathVariable("id") String id, Model model) throws Exception {
-    if (log.isDebugEnabled()) {
-      log.debug("id : {}", id);
-    }
-    
     ResourcesDto resourcesDto = null;
     if (StringUtils.equals(LOG_CREATE_PAGE_NAME, id)) {
       resourcesDto = new ResourcesDto(new DiveLogDto());

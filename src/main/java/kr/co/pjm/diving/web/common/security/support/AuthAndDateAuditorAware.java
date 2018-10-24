@@ -4,7 +4,7 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import kr.co.pjm.diving.web.common.security.social.SocialUserDetail;
+import kr.co.pjm.diving.web.common.security.model.SocialUserDetail;
 
 public class AuthAndDateAuditorAware implements AuditorAware<String> {
 

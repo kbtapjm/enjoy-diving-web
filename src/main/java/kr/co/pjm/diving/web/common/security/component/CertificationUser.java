@@ -2,7 +2,7 @@ package kr.co.pjm.diving.web.common.security.component;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import kr.co.pjm.diving.web.common.security.social.SocialUserDetail;
+import kr.co.pjm.diving.web.common.security.model.SocialUserDetail;
 
 public class CertificationUser {
 

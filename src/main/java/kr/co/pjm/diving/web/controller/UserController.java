@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import kr.co.pjm.diving.web.domain.dto.UserDto;
 import kr.co.pjm.diving.web.service.UserService;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
 @RequestMapping(value = UserController.RESOURCE_PATH)
 public class UserController {
@@ -43,10 +41,6 @@ public class UserController {
   
   @RequestMapping(value = "{id}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE, produces = MediaType.TEXT_HTML_VALUE)
   public String createPage(@PathVariable("id") String id, Model model, Principal principal) {
-    if (log.isDebugEnabled()) {
-      log.debug("id : {}", id);
-    }
-    
     return "content/user-create";
   }
   

@@ -28,10 +28,10 @@ import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.social.security.SpringSocialConfigurer;
 
-import kr.co.pjm.diving.web.common.security.ExtensibleUserDetailsService;
 import kr.co.pjm.diving.web.common.security.handler.AuthenticationFailureEventHandler;
 import kr.co.pjm.diving.web.common.security.handler.AuthenticationSuccessEventHandler;
-import kr.co.pjm.diving.web.common.security.social.SocialUsersDetailService;
+import kr.co.pjm.diving.web.common.security.service.SocialUsersDetailServiceImpl;
+import kr.co.pjm.diving.web.common.security.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -46,7 +46,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
   private int redisPort;
 
   @Autowired
-  private ExtensibleUserDetailsService extensibleUserDetailsService;
+  private UserDetailsServiceImpl userDetailsServiceImpl;
   
   @Override
   protected void configure(HttpSecurity http) throws Exception {
@@ -64,6 +64,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         .permitAll()
         .antMatchers(
             "/users/**",
+            "/role/**",
+            "/user-role/**",
+            "/login-history/**",
             "/h2console/**"
             )
         .hasAnyAuthority("ADMIN")
@@ -110,7 +113,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
   
   @Bean
   public SocialUserDetailsService socialUsersDetailService() {
-    return new SocialUsersDetailService(extensibleUserDetailsService);
+    return new SocialUsersDetailServiceImpl(userDetailsServiceImpl);
   }
   
   @Bean
@@ -122,7 +125,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
   @Bean
   public DaoAuthenticationProvider daoAuthenticationProvider() {
     DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-    daoAuthenticationProvider.setUserDetailsService(extensibleUserDetailsService);
+    daoAuthenticationProvider.setUserDetailsService(userDetailsServiceImpl);
     daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
     daoAuthenticationProvider.setHideUserNotFoundExceptions(false);
     return daoAuthenticationProvider;
@@ -144,8 +147,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
   }
 
   @Override
-  protected ExtensibleUserDetailsService userDetailsService() {
-    return extensibleUserDetailsService;
+  protected UserDetailsServiceImpl userDetailsService() {
+    return userDetailsServiceImpl;
   }
   
   @Bean
