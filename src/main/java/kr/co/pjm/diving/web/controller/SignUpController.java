@@ -44,9 +44,14 @@ public class SignUpController {
     if (!StringUtils.isEmpty(connection)) {
       UserProfile userProfile = connection.fetchUserProfile();
       
-      /* TODO: 이메일로 가입된 회원인지 중복 체크 로직 필요 */
-
-      UserDto userDto = UserDto.fromSocialUserProfile(userProfile);
+      /* TODO: Members need duplicate check (email) */
+      
+      String email = !StringUtils.isEmpty(userProfile.getEmail()) ? userProfile.getEmail() : "";
+      String firstName = !StringUtils.isEmpty(userProfile.getFirstName()) ? userProfile.getFirstName() : "";
+      String lastName = !StringUtils.isEmpty(userProfile.getLastName()) ? userProfile.getLastName() : "";
+      
+      UserDto userDto = UserDto.builder().email(email).name(firstName + lastName).build(); 
+      
       model.addAttribute("user", userDto);  
     } else {
       model.addAttribute("user", new UserDto());
