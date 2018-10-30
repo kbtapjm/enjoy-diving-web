@@ -52,13 +52,11 @@ public class EnjoyDivingWebException extends Exception {
       EnjoyDivingWebException exception = (EnjoyDivingWebException) e;
 
       errCd = !StringUtils.isEmpty(exception.getErrCd()) ? " [".concat(exception.getErrCd()) + "]" : "";
-      errMsg = exception.getErrMsg(); // TODO: 에러코드에 따른 메세지 처리
+      errMsg = exception.getErrMsg(); // TODO: http status에 따른 메세지 처리
     } else {
       errCd = "[500]";
       errMsg = DEFAULT_ERROR_MESSAGE;
     }
-    
-    System.out.println("getExceptionMsg : " + errCd.concat(errMsg));
 
     return errCd.concat(errMsg);
   }

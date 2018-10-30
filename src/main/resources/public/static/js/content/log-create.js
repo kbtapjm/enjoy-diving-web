@@ -226,8 +226,14 @@ var LogCreateModule = LogCreateModule || (function($) {
         	  return false;
         	}
         	
-          alert($('#submit').data('done'));
-          $(location).attr('href', (create ? url : url + '/' + id));
+        	UiUtilModule.modal.alert({
+            msg: $('#submit').data('done'),
+            actions: {
+              'yes': function() {
+                $(location).attr('href', (create ? url : url + '/' + id));
+              }
+            }
+          });
         }).fail(function(jqXHR, textStatus, errorThrown) {
           UiUtilModule.mask.close();
           console.error(jqXHR);
@@ -255,8 +261,14 @@ var LogCreateModule = LogCreateModule || (function($) {
 	                return false;
 	              }
 	              
-	            	alert($('#remove').data('remove'));
-	            	$(location).attr('href', url);
+	              UiUtilModule.modal.alert({
+	                msg: $('#remove').data('remove'),
+	                actions: {
+	                  'yes': function() {
+	                    $(location).attr('href', url);
+	                  }
+	                }
+	              });
 	            }).fail(function(jqXHR, textStatus, errorThrown) {
 	              UiUtilModule.mask.close();
 	              console.error(jqXHR);
