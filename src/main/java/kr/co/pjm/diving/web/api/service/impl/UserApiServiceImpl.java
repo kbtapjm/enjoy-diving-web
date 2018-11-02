@@ -3,6 +3,7 @@ package kr.co.pjm.diving.web.api.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -28,7 +29,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class UserApiServiceImpl implements UserApiService {
   
-private String apiBaseUrl = "http://api.enjoydiving.io:8081";
+  @Value("${props.apiBaseUrl}")
+  private String apiBaseUrl;
   
   @Autowired
   private RestTemplate restTemplate;
