@@ -37,11 +37,12 @@ public class DiveLogServiceImpl implements DiveLogService {
 
   @Override
   public void set(DiveLogDto diveLogDto) throws Exception {
-    diveLogDto.setRegId(CertificationUser.getId());
+    //diveLogDto.setRegId(CertificationUser.getId());
+    diveLogDto.setDiveNo(null);
     
     ApiReponseDto apiReponseDto = diveLogApiService.createDiveLog(diveLogDto);
     if (apiReponseDto.getStatus() != HttpStatus.CREATED.value()) {
-      throw new EnjoyDivingWebException(apiReponseDto.getData());
+      throw new EnjoyDivingWebException(apiReponseDto);
     }
   }
 

@@ -1,8 +1,15 @@
 package kr.co.pjm.diving.web.common.exception;
 
+import java.io.IOException;
+
 import org.apache.commons.lang3.StringUtils;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import kr.co.pjm.diving.common.domain.dto.ErrorDto;
+import kr.co.pjm.diving.web.api.dto.ApiReponseDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +33,25 @@ public class EnjoyDivingWebException extends Exception {
     super(cause);
   }
 
+  public EnjoyDivingWebException(ApiReponseDto apiReponseDto) {
+    this.errCd = String.valueOf(apiReponseDto.getStatus());
+    
+    if (apiReponseDto.getData() != null) {
+      ErrorDto errorDto = null;
+      try {
+        errorDto = new ObjectMapper().readValue((String)apiReponseDto.getData(), ErrorDto.class);
+      } catch (JsonParseException e) {
+        e.printStackTrace();
+      } catch (JsonMappingException e) {
+        e.printStackTrace();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      
+      this.errMsg = errorDto.getMessage();
+    }
+  }
+  
   public EnjoyDivingWebException(String errCd, String errMsg) {
     this.errCd = errCd;
     this.errMsg = errMsg;
@@ -52,7 +78,20 @@ public class EnjoyDivingWebException extends Exception {
       EnjoyDivingWebException exception = (EnjoyDivingWebException) e;
 
       errCd = !StringUtils.isEmpty(exception.getErrCd()) ? " [".concat(exception.getErrCd()) + "]" : "";
-      errMsg = exception.getErrMsg(); // TODO: http status에 따른 메세지 처리
+      
+      switch (exception.getErrCd()) {
+        case "400":
+          errMsg = "요청이 잘못되었습니다. 다시 확인 하세요.";
+          break;
+        case "404":
+          errMsg = "정보를 찾을 수 없습니다. 다시 확인 하세요.";
+          break;
+        case "500":
+          errMsg = DEFAULT_ERROR_MESSAGE;
+          break;
+        default:
+          errMsg = exception.getErrMsg();    
+      }
     } else {
       errCd = "[500]";
       errMsg = DEFAULT_ERROR_MESSAGE;
