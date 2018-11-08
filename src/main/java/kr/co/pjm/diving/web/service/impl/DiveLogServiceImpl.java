@@ -29,7 +29,7 @@ public class DiveLogServiceImpl implements DiveLogService {
     
     ApiReponseDto apiReponseDto = diveLogApiService.getDiveLogs(sorts, q);
     if (apiReponseDto.getStatus() != HttpStatus.OK.value()) {
-      throw new EnjoyDivingWebException(apiReponseDto.getData());
+      throw new EnjoyDivingWebException(apiReponseDto);
     };
     
     return (ResourcesDto) apiReponseDto.getData();
@@ -37,8 +37,7 @@ public class DiveLogServiceImpl implements DiveLogService {
 
   @Override
   public void set(DiveLogDto diveLogDto) throws Exception {
-    //diveLogDto.setRegId(CertificationUser.getId());
-    diveLogDto.setDiveNo(null);
+    diveLogDto.setRegId(CertificationUser.getId());
     
     ApiReponseDto apiReponseDto = diveLogApiService.createDiveLog(diveLogDto);
     if (apiReponseDto.getStatus() != HttpStatus.CREATED.value()) {
@@ -54,7 +53,7 @@ public class DiveLogServiceImpl implements DiveLogService {
     
     ApiReponseDto apiReponseDto = diveLogApiService.getDiveLog(id);
     if (apiReponseDto.getStatus() != HttpStatus.OK.value()) {
-      throw new EnjoyDivingWebException(apiReponseDto.getData());
+      throw new EnjoyDivingWebException(apiReponseDto);
     };
     
     return new ResourcesDto(apiReponseDto.getData());
@@ -66,7 +65,7 @@ public class DiveLogServiceImpl implements DiveLogService {
     
     ApiReponseDto apiReponseDto = diveLogApiService.updateDiveLog(id, diveLogDto);
     if (apiReponseDto.getStatus() != HttpStatus.OK.value()) {
-      throw new EnjoyDivingWebException(apiReponseDto.getData());
+      throw new EnjoyDivingWebException(apiReponseDto);
     };
   }
 
@@ -74,7 +73,7 @@ public class DiveLogServiceImpl implements DiveLogService {
   public void delete(Long id) throws Exception {
     ApiReponseDto apiReponseDto = diveLogApiService.deleteDiveLog(id);
     if (apiReponseDto.getStatus() != HttpStatus.NO_CONTENT.value()) {
-      throw new EnjoyDivingWebException(apiReponseDto.getData());
+      throw new EnjoyDivingWebException(apiReponseDto);
     }
   }
   

@@ -23,7 +23,7 @@ public class ExceptionControllerAdvice {
       }
       
       ModelAndView modelAndView = new ModelAndView();
-      modelAndView.addObject("msg", e.getMessage());
+      modelAndView.addObject("msg", EnjoyDivingWebException.getExceptionMsg(e));
       modelAndView.setViewName("common/error/serverError");
       
       return modelAndView;

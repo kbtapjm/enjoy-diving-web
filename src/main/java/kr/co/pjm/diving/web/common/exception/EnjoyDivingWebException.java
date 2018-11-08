@@ -3,6 +3,7 @@ package kr.co.pjm.diving.web.common.exception;
 import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -81,16 +82,17 @@ public class EnjoyDivingWebException extends Exception {
       
       switch (exception.getErrCd()) {
         case "400":
-          errMsg = "요청이 잘못되었습니다. 다시 확인 하세요.";
+          errMsg = "잘못된 요청입니다.";
           break;
         case "404":
-          errMsg = "정보를 찾을 수 없습니다. 다시 확인 하세요.";
+          errMsg = "정보를 찾을 수 없습니다.";
           break;
         case "500":
           errMsg = DEFAULT_ERROR_MESSAGE;
           break;
         default:
-          errMsg = exception.getErrMsg();    
+          //errMsg = exception.getErrMsg();    
+          errMsg = DEFAULT_ERROR_MESSAGE;    
       }
     } else {
       errCd = "[500]";

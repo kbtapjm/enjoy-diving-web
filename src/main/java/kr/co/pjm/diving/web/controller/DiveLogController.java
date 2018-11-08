@@ -96,7 +96,7 @@ public class DiveLogController {
       e.printStackTrace();
       
       resultMap.put("resultCd", Result.FAIL.getCd());
-      resultMap.put("resultMsg", e.getMessage());
+      resultMap.put("resultMsg", EnjoyDivingWebException.getExceptionMsg(e));
     }
     
     return resultMap;
@@ -116,7 +116,7 @@ public class DiveLogController {
       e.printStackTrace();
       
       resultMap.put("resultCd", Result.FAIL.getCd());
-      resultMap.put("resultMsg", e.getMessage());
+      resultMap.put("resultMsg", EnjoyDivingWebException.getExceptionMsg(e));
     }
     
     return resultMap;

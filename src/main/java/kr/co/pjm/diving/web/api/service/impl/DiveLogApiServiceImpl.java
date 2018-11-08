@@ -10,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -59,9 +58,11 @@ public class DiveLogApiServiceImpl implements DiveLogApiService {
       
       apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
       apiReponseDto.setData(responseEntity.getBody());
-    } catch (RestClientException e) {
-      e.printStackTrace();
-      log.error("Error : {}", e.getMessage());
+    } catch (HttpStatusCodeException e) {
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(e.getRawStatusCode());
+      apiReponseDto.setData(e.getResponseBodyAsString());
     }
     
     return apiReponseDto;
@@ -111,20 +112,19 @@ public class DiveLogApiServiceImpl implements DiveLogApiService {
           .path("/v1/divelogs/{id}")
           .buildAndExpand(id)
           .toString();
-      log.info("===> Request Url : {}", url);
       
       HttpHeaders headers = new HttpHeaders();
       HttpEntity<String> requestEntity = new HttpEntity<String>(headers); 
       
       ResponseEntity<DiveLog> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, DiveLog.class);
-      log.info("===> Response http status : {}", responseEntity.getStatusCodeValue());
-      log.info("===> Response getBody : {}", responseEntity.getBody());
       
       apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
       apiReponseDto.setData(responseEntity.getBody());
     } catch (HttpStatusCodeException e) {
-      e.printStackTrace();
       log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(e.getRawStatusCode());
+      apiReponseDto.setData(e.getResponseBodyAsString());
     }
     
     return apiReponseDto;
@@ -139,10 +139,8 @@ public class DiveLogApiServiceImpl implements DiveLogApiService {
           .path("/v1/divelogs/{id}")
           .buildAndExpand(id)
           .toString();
-      log.info("===> Request Url : {}", url);
       
       String requestBody = new ObjectMapper().writeValueAsString(diveLogDto);
-      log.info("===> Request body : {}", requestBody);
       
       HttpHeaders headers = new HttpHeaders();
       headers.setContentType(MediaType.APPLICATION_JSON);
@@ -150,17 +148,19 @@ public class DiveLogApiServiceImpl implements DiveLogApiService {
       HttpEntity<String> requestEntity = new HttpEntity<String>(requestBody, headers);
       
       ResponseEntity<ErrorDto> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, ErrorDto.class);
-      log.info("===> Response http status : {}", responseEntity.getStatusCodeValue());
-      log.info("===> Response getBody : {}", responseEntity.getBody());
       
       apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
       apiReponseDto.setData(responseEntity.getBody());
     } catch (JsonProcessingException e) {
-      e.printStackTrace();
-      log.error("Error : {}", e.getMessage());
-    } catch (RestClientException e) {
-      e.printStackTrace();
-      log.error("Error : {}", e.getMessage());
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+      apiReponseDto.setData(e.getMessage());
+    } catch (HttpStatusCodeException e) {
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(e.getRawStatusCode());
+      apiReponseDto.setData(e.getResponseBodyAsString());
     }
 
     return apiReponseDto;
@@ -175,20 +175,19 @@ public class DiveLogApiServiceImpl implements DiveLogApiService {
           .path("/v1/divelogs/{id}")
           .buildAndExpand(id)
           .toString();
-      log.info("===> Request Url : {}", url);
       
       HttpHeaders headers = new HttpHeaders();
       HttpEntity<String> requestEntity = new HttpEntity<String>(headers); 
       
       ResponseEntity<ErrorDto> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, ErrorDto.class);
-      log.info("===> Response http status : {}", responseEntity.getStatusCodeValue());
-      log.info("===> Response getBody : {}", responseEntity.getBody());
       
       apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
       apiReponseDto.setData(responseEntity.getBody());
-    } catch (RestClientException e) {
-      e.printStackTrace();
-      log.error("Error : {}", e.getMessage());
+    } catch (HttpStatusCodeException e) {
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(e.getRawStatusCode());
+      apiReponseDto.setData(e.getResponseBodyAsString());
     }
     
     return apiReponseDto;
