@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -49,22 +50,21 @@ public class UserApiServiceImpl implements UserApiService {
           .queryParam("limit", "10")
           .buildAndExpand()
           .toString();
-      log.info("===> Request Url : {}", url);
       
       HttpHeaders headers = new HttpHeaders();
       HttpEntity<String> requestEntity = new HttpEntity<String>(headers); 
       
       ResponseEntity<List> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, List.class);
-      log.info("===> Response http status : {}", responseEntity.getStatusCodeValue());
-      log.info("===> Response getBody : {}", responseEntity.getBody());
       
       List<User> users = new ObjectMapper().convertValue(responseEntity.getBody(), new TypeReference<List<User>>() {});
       
       apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
       apiReponseDto.setData(users);
-    } catch (RestClientException e) {
-      e.printStackTrace();
-      log.error("Error : {}", e.getMessage());
+    } catch (HttpStatusCodeException e) {
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(e.getRawStatusCode());
+      apiReponseDto.setData(e.getResponseBodyAsString());
     }
     
     return apiReponseDto;
@@ -79,10 +79,8 @@ public class UserApiServiceImpl implements UserApiService {
           .path("/v1/users")
           .buildAndExpand()
           .toString();
-      log.info("===> Request Url : {}", url);
       
       String requestBody = new ObjectMapper().writeValueAsString(userDto);
-      log.info("===> Request body : {}", requestBody);
       
       HttpHeaders headers = new HttpHeaders();
       headers.setContentType(MediaType.APPLICATION_JSON);
@@ -90,17 +88,19 @@ public class UserApiServiceImpl implements UserApiService {
       HttpEntity<String> requestEntity = new HttpEntity<String>(requestBody, headers);
       
       ResponseEntity<ErrorDto> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, ErrorDto.class);
-      log.info("===> Response http status : {}", responseEntity.getStatusCodeValue());
-      log.info("===> Response getBody : {}", responseEntity.getBody());
       
       apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
       apiReponseDto.setData(responseEntity.getBody());
     } catch (JsonProcessingException e) {
-      e.printStackTrace();
-      log.error("Error : {}", e.getMessage());
-    } catch (RestClientException e) {
-      e.printStackTrace();
-      log.error("Error : {}", e.getMessage());
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+      apiReponseDto.setData(e.getMessage());
+    } catch (HttpStatusCodeException e) {
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(e.getRawStatusCode());
+      apiReponseDto.setData(e.getResponseBodyAsString());
     }
 
     return apiReponseDto;
@@ -115,20 +115,19 @@ public class UserApiServiceImpl implements UserApiService {
           .path("/v1/users/{id}")
           .buildAndExpand(id)
           .toString();
-      log.info("===> Request Url : {}", url);
       
       HttpHeaders headers = new HttpHeaders();
       HttpEntity<String> requestEntity = new HttpEntity<String>(headers); 
       
       ResponseEntity<User> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, User.class);
-      log.info("===> Response http status : {}", responseEntity.getStatusCodeValue());
-      log.info("===> Response getBody : {}", responseEntity.getBody());
       
       apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
       apiReponseDto.setData(responseEntity.getBody());
-    } catch (RestClientException e) {
-      e.printStackTrace();
-      log.error("Error : {}", e.getMessage());
+    } catch (HttpStatusCodeException e) {
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(e.getRawStatusCode());
+      apiReponseDto.setData(e.getResponseBodyAsString());
     }
     
     return apiReponseDto;
@@ -144,10 +143,8 @@ public class UserApiServiceImpl implements UserApiService {
           .path("/v1/users/{id}")
           .buildAndExpand(id)
           .toString();
-      log.info("===> Request Url : {}", url);
       
       String requestBody = new ObjectMapper().writeValueAsString(userDto);
-      log.info("===> Request body : {}", requestBody);
       
       HttpHeaders headers = new HttpHeaders();
       headers.setContentType(MediaType.APPLICATION_JSON);
@@ -155,17 +152,19 @@ public class UserApiServiceImpl implements UserApiService {
       HttpEntity<String> requestEntity = new HttpEntity<String>(requestBody, headers);
       
       ResponseEntity<ErrorDto> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, ErrorDto.class);
-      log.info("===> Response http status : {}", responseEntity.getStatusCodeValue());
-      log.info("===> Response getBody : {}", responseEntity.getBody());
       
       apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
       apiReponseDto.setData(responseEntity.getBody());
     } catch (JsonProcessingException e) {
-      e.printStackTrace();
-      log.error("Error : {}", e.getMessage());
-    } catch (RestClientException e) {
-      e.printStackTrace();
-      log.error("Error : {}", e.getMessage());
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+      apiReponseDto.setData(e.getMessage());
+    } catch (HttpStatusCodeException e) {
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(e.getRawStatusCode());
+      apiReponseDto.setData(e.getResponseBodyAsString());
     }
 
     return apiReponseDto;
@@ -180,20 +179,19 @@ public class UserApiServiceImpl implements UserApiService {
           .path("/v1/users/{id}")
           .buildAndExpand(id)
           .toString();
-      log.info("===> Request Url : {}", url);
       
       HttpHeaders headers = new HttpHeaders();
       HttpEntity<String> requestEntity = new HttpEntity<String>(headers); 
       
       ResponseEntity<ErrorDto> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, ErrorDto.class);
-      log.info("===> Response http status : {}", responseEntity.getStatusCodeValue());
-      log.info("===> Response getBody : {}", responseEntity.getBody());
       
       apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
       apiReponseDto.setData(responseEntity.getBody());
-    } catch (RestClientException e) {
-      e.printStackTrace();
-      log.error("Error : {}", e.getMessage());
+    } catch (HttpStatusCodeException e) {
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(e.getRawStatusCode());
+      apiReponseDto.setData(e.getResponseBodyAsString());
     }
     
     return apiReponseDto;
@@ -208,10 +206,8 @@ public class UserApiServiceImpl implements UserApiService {
           .path("/v1/users/{id}/loginDate")
           .buildAndExpand(id)
           .toString();
-      log.info("===> Request Url : {}", url);
       
       String requestBody = new ObjectMapper().writeValueAsString(null);
-      log.info("===> Request body : {}", requestBody);
       
       HttpHeaders headers = new HttpHeaders();
       headers.setContentType(MediaType.APPLICATION_JSON);
@@ -219,17 +215,19 @@ public class UserApiServiceImpl implements UserApiService {
       HttpEntity<String> requestEntity = new HttpEntity<String>(requestBody, headers);
       
       ResponseEntity<ErrorDto> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, ErrorDto.class);
-      log.info("===> Response http status : {}", responseEntity.getStatusCodeValue());
-      log.info("===> Response getBody : {}", responseEntity.getBody());
       
       apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
       apiReponseDto.setData(responseEntity.getBody());
     } catch (JsonProcessingException e) {
-      e.printStackTrace();
-      log.error("Error : {}", e.getMessage());
-    } catch (RestClientException e) {
-      e.printStackTrace();
-      log.error("Error : {}", e.getMessage());
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+      apiReponseDto.setData(e.getMessage());
+    } catch (HttpStatusCodeException e) {
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(e.getRawStatusCode());
+      apiReponseDto.setData(e.getResponseBodyAsString());
     }
 
     return apiReponseDto;

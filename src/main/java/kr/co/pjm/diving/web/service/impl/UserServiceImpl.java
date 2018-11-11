@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
   public void set(UserDto userDto) throws Exception {
     ApiReponseDto apiReponseDto = userApiService.createUser(userDto);
     if (apiReponseDto.getStatus() != HttpStatus.CREATED.value()) {
-      throw new EnjoyDivingWebException(apiReponseDto.getData());
+      throw new EnjoyDivingWebException(apiReponseDto);
     }
   }
 
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     
     ApiReponseDto apiReponseDto = userApiService.getUser(id);
     if (apiReponseDto.getStatus() != HttpStatus.OK.value()) {
-      throw new EnjoyDivingWebException(apiReponseDto.getData());
+      throw new EnjoyDivingWebException(apiReponseDto);
     };
     
     return (User) apiReponseDto.getData();
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     
     ApiReponseDto apiReponseDto = userApiService.getUsers(sorts, q);
     if (apiReponseDto.getStatus() != HttpStatus.OK.value()) {
-      throw new EnjoyDivingWebException(apiReponseDto.getData());
+      throw new EnjoyDivingWebException(apiReponseDto);
     };
     
     List<User> users = (List<User>) apiReponseDto.getData();
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
   public void update(Long id, UserDto userDto) throws Exception {
     ApiReponseDto apiReponseDto = userApiService.updateUser(id, userDto);
     if (apiReponseDto.getStatus() != HttpStatus.OK.value()) {
-      throw new EnjoyDivingWebException(apiReponseDto.getData());
+      throw new EnjoyDivingWebException(apiReponseDto);
     };
   }
 
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
   public void delete(Long id) throws Exception{
     ApiReponseDto apiReponseDto = userApiService.deleteUser(id);
     if (apiReponseDto.getStatus() != HttpStatus.NO_CONTENT.value()) {
-      throw new EnjoyDivingWebException(apiReponseDto.getData());
+      throw new EnjoyDivingWebException(apiReponseDto);
     }
   }
 
@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
   public void updateLoginDate(Long id) throws Exception {
     ApiReponseDto apiReponseDto = userApiService.updateUserLoginDate(id);
     if (apiReponseDto.getStatus() != HttpStatus.OK.value()) {
-      throw new EnjoyDivingWebException(apiReponseDto.getData());
+      throw new EnjoyDivingWebException(apiReponseDto);
     };
   }
 

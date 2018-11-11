@@ -47,14 +47,11 @@ public class DiveLogApiServiceImpl implements DiveLogApiService {
           .queryParam("limit", "10")
           .buildAndExpand()
           .toString();
-      log.info("===> Request Url : {}", url);
       
       HttpHeaders headers = new HttpHeaders();
       HttpEntity<String> requestEntity = new HttpEntity<String>(headers); 
       
       ResponseEntity<ResourcesDto> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, ResourcesDto.class);
-      log.info("===> Response http status : {}", responseEntity.getStatusCodeValue());
-      log.info("===> Response getBody : {}", responseEntity.getBody());
       
       apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
       apiReponseDto.setData(responseEntity.getBody());

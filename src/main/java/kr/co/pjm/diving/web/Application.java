@@ -1,6 +1,7 @@
 package kr.co.pjm.diving.web;
 
 import java.nio.charset.Charset;
+import java.util.Collections;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,6 +23,8 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.CharacterEncodingFilter;
+
+import kr.co.pjm.diving.web.configuration.web.interceptor.LoggingClientHttpRequestInterceptor;
 
 @SpringBootApplication(scanBasePackages = { "kr.co.pjm.diving.web", "kr.co.pjm.diving.common" })
 @EnableJpaRepositories(basePackages = { "kr.co.pjm.diving.common.repository" })
@@ -72,7 +75,14 @@ public class Application extends SpringBootServletInitializer implements Command
 
   @Bean
   public RestTemplate restTemplate(RestTemplateBuilder builder) {
-    return builder.build();
+    RestTemplate restTemplate = builder
+        .setConnectTimeout(8 * 1000)
+        .setReadTimeout(8 * 1000)
+        .build();
+    
+    restTemplate.setInterceptors(Collections.singletonList(new LoggingClientHttpRequestInterceptor()));
+    
+    return restTemplate;
   }
 
   @Override
