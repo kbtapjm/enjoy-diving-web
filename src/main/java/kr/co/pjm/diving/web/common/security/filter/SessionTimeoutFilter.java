@@ -30,15 +30,18 @@ public class SessionTimeoutFilter implements Filter {
     HttpServletResponse res = (HttpServletResponse) response;
     
     if (log.isDebugEnabled()) {
-      log.debug("*** req ajax check : {}", isAjaxRequest(req));
+      log.debug("*** req ajax check : {}, {}", isAjaxRequest(req), req.getHeader("X-Requested-With"));
     }
 
     if (isAjaxRequest(req)) {
       try {
+        log.debug("getMessage qqqqqqqqqqqqqqqqqqqqqqqqqq");
         chain.doFilter(req, res);
       } catch (AccessDeniedException e) {
+        log.debug("getMessage : {}", e.getMessage());
         res.sendError(HttpServletResponse.SC_FORBIDDEN);
       } catch (AuthenticationException e) {
+        log.debug("getMessage : {}", e.getMessage());
         res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
       }
     } else {
@@ -51,7 +54,7 @@ public class SessionTimeoutFilter implements Filter {
   public void destroy() {}
 
   private boolean isAjaxRequest(HttpServletRequest req) {
-    return req.getHeader("X-Requested-With") != null && req.getHeader("X-Requested-With").equals(Boolean.TRUE.toString());
+    return req.getHeader("X-Requested-With") != null && req.getHeader("X-Requested-With").equals("XMLHttpRequest");
   }
 
 }

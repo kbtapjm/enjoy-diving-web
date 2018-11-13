@@ -30,6 +30,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
 
 import kr.co.pjm.diving.web.common.security.handler.AuthenticationFailureEventHandler;
 import kr.co.pjm.diving.web.common.security.handler.AuthenticationSuccessEventHandler;
+import kr.co.pjm.diving.web.common.security.service.AuthenticationEntryPointImpl;
 import kr.co.pjm.diving.web.common.security.service.SocialUsersDetailServiceImpl;
 import kr.co.pjm.diving.web.common.security.service.UserDetailsServiceImpl;
 
@@ -108,7 +109,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     
     http
       .exceptionHandling()
-      .accessDeniedPage("/error/accessDenied");
+      .accessDeniedPage("/error/accessDenied")
+      .authenticationEntryPoint(new AuthenticationEntryPointImpl());
   }
   
   @Bean

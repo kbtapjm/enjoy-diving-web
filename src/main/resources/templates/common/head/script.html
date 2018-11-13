@@ -29,10 +29,12 @@
       if (jqxhr.status === 401) {
         if (typeof jqxhr.responseJSON === 'object') {
           alert(jqxhr.responseJSON.message);
+          $(location).attr('href', contextPath + '/login');
           return;
         }
 
         alert(errorUnauthorized);
+        $(location).attr('href', contextPath + '/login');
         return;
       }
 
