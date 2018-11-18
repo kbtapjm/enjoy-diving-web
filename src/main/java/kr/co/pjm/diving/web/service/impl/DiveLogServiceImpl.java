@@ -72,6 +72,7 @@ public class DiveLogServiceImpl implements DiveLogService {
   @Override
   public void delete(Long id) throws Exception {
     ApiReponseDto apiReponseDto = diveLogApiService.deleteDiveLog(id);
+    
     if (apiReponseDto.getStatus() != HttpStatus.NO_CONTENT.value()) {
       throw new EnjoyDivingWebException(apiReponseDto);
     }

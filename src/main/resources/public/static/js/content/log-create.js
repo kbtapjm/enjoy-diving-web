@@ -241,7 +241,7 @@ var LogCreateModule = LogCreateModule || (function($) {
       },
       
       remove: function() {
-		  var opt ={
+        var opt ={
 	        title: '삭제',
 	        msg: '로그를 삭제 하시겠습니까?',
 	        actions: {
@@ -261,14 +261,7 @@ var LogCreateModule = LogCreateModule || (function($) {
 	                return false;
 	              }
 	              
-	              UiUtilModule.modal.alert({
-	                msg: $('#remove').data('remove'),
-	                actions: {
-	                  'yes': function() {
-	                    $(location).attr('href', url);
-	                  }
-	                }
-	              });
+	              $(location).attr('href', url);
 	            }).fail(function(jqXHR, textStatus, errorThrown) {
 	              UiUtilModule.mask.close();
 	              console.error(jqXHR);

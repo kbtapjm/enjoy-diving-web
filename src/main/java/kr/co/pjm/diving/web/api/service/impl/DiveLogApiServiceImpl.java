@@ -75,7 +75,7 @@ public class DiveLogApiServiceImpl implements DiveLogApiService {
           .buildAndExpand()
           .toString();
       
-      String requestBody = new ObjectMapper().writeValueAsString(diveLogDto);
+      String requestBody = new ObjectMapper().findAndRegisterModules().writeValueAsString(diveLogDto);
       
       HttpHeaders headers = new HttpHeaders();
       headers.setContentType(MediaType.APPLICATION_JSON);
@@ -137,7 +137,7 @@ public class DiveLogApiServiceImpl implements DiveLogApiService {
           .buildAndExpand(id)
           .toString();
       
-      String requestBody = new ObjectMapper().writeValueAsString(diveLogDto);
+      String requestBody = new ObjectMapper().findAndRegisterModules().writeValueAsString(diveLogDto);
       
       HttpHeaders headers = new HttpHeaders();
       headers.setContentType(MediaType.APPLICATION_JSON);

@@ -21,8 +21,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.filter.CharacterEncodingFilter;
+
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import kr.co.pjm.diving.web.configuration.web.interceptor.LoggingClientHttpRequestInterceptor;
 
@@ -30,7 +33,7 @@ import kr.co.pjm.diving.web.configuration.web.interceptor.LoggingClientHttpReque
 @EnableJpaRepositories(basePackages = { "kr.co.pjm.diving.common.repository" })
 @EntityScan(basePackages = { "kr.co.pjm.diving.common.domain" })
 public class Application extends SpringBootServletInitializer implements CommandLineRunner {
-
+  
   public static void main(String[] args) throws Exception {
     SpringApplication.run(Application.class, args);
   }
@@ -83,6 +86,12 @@ public class Application extends SpringBootServletInitializer implements Command
     restTemplate.setInterceptors(Collections.singletonList(new LoggingClientHttpRequestInterceptor()));
     
     return restTemplate;
+  }
+  
+  @Bean 
+  public Jackson2ObjectMapperBuilder objectMapperBuilder() { 
+   Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder(); 
+   return builder.modulesToInstall(new JavaTimeModule()); 
   }
 
   @Override
