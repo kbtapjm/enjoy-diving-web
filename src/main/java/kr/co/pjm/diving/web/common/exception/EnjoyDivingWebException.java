@@ -3,7 +3,6 @@ package kr.co.pjm.diving.web.common.exception;
 import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;

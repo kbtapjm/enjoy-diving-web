@@ -2,7 +2,6 @@ package kr.co.pjm.diving.web.service;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Date;
 import java.util.Iterator;
 
 import org.junit.Ignore;
@@ -44,7 +43,6 @@ public class UserServiceTest {
     userDto.setName("박재명");
     userDto.setNickname("코비");
     userDto.setGender(GenderEnum.MALE);
-    userDto.setLoginDate(new Date());
     userDto.setIntroduce("반가워요");
     
     userService.set(userDto);
