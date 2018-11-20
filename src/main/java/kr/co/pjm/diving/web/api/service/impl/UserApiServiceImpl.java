@@ -56,7 +56,7 @@ public class UserApiServiceImpl implements UserApiService {
       
       ResponseEntity<List> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, List.class);
       
-      List<User> users = new ObjectMapper().convertValue(responseEntity.getBody(), new TypeReference<List<User>>() {});
+      List<User> users = new ObjectMapper().findAndRegisterModules().convertValue(responseEntity.getBody(), new TypeReference<List<User>>() {});
       
       apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
       apiReponseDto.setData(users);
