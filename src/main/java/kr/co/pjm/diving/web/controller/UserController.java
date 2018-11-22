@@ -2,7 +2,6 @@ package kr.co.pjm.diving.web.controller;
 
 import java.security.Principal;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -17,14 +16,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import kr.co.pjm.diving.web.domain.dto.UserDto;
 import kr.co.pjm.diving.web.service.UserService;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 @Controller
 @RequestMapping(value = UserController.RESOURCE_PATH)
 public class UserController {
   
   static final String RESOURCE_PATH = "/users";
   
-  @Autowired
   private UserService userService;
   
   @GetMapping(consumes = MediaType.ALL_VALUE, produces = MediaType.TEXT_HTML_VALUE)

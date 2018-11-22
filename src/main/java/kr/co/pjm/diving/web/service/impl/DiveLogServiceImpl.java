@@ -1,6 +1,5 @@
 package kr.co.pjm.diving.web.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +12,14 @@ import kr.co.pjm.diving.web.common.exception.EnjoyDivingWebException;
 import kr.co.pjm.diving.web.common.security.component.CertificationUser;
 import kr.co.pjm.diving.web.domain.dto.DiveLogDto;
 import kr.co.pjm.diving.web.service.DiveLogService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@AllArgsConstructor
 @Service
 public class DiveLogServiceImpl implements DiveLogService {
   
-  @Autowired
   private DiveLogApiService diveLogApiService;
   
   @Override

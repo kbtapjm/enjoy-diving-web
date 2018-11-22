@@ -3,7 +3,6 @@ package kr.co.pjm.diving.web.service.impl;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +12,14 @@ import kr.co.pjm.diving.web.api.service.UserApiService;
 import kr.co.pjm.diving.web.common.exception.EnjoyDivingWebException;
 import kr.co.pjm.diving.web.domain.dto.UserDto;
 import kr.co.pjm.diving.web.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@AllArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
   
-  @Autowired
   private UserApiService userApiService;
 
   @Override

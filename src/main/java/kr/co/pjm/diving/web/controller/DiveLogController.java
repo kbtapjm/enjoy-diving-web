@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -28,7 +27,9 @@ import kr.co.pjm.diving.web.common.enumeration.Result;
 import kr.co.pjm.diving.web.common.exception.EnjoyDivingWebException;
 import kr.co.pjm.diving.web.domain.dto.DiveLogDto;
 import kr.co.pjm.diving.web.service.DiveLogService;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 @Controller
 @RequestMapping(value = DiveLogController.RESOURCE_PATH)
 public class DiveLogController {
@@ -36,7 +37,6 @@ public class DiveLogController {
   static final String RESOURCE_PATH = "/log";
   static final String LOG_CREATE_PAGE_NAME = "create";
   
-  @Autowired
   private DiveLogService diveLogService;
   
   @GetMapping(consumes = MediaType.ALL_VALUE, produces = MediaType.TEXT_HTML_VALUE)

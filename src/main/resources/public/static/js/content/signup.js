@@ -135,32 +135,6 @@ var signupModule = signupModule || (function($) {
         url: url,
         data: JSON.stringify(data)
       }).done(function(data) {
-        //signupModule.data.login();
-        location.href = '/';
-      }).fail(function(jqXHR, textStatus, errorThrown) {
-        UiUtilModule.mask.close();
-        console.error(jqXHR);
-      });
-    },
-    
-    login: function() {
-      var data = {
-        email: $('#email').val(),
-        password: $('#password').val()
-      }
-      
-      $.ajax({
-        method: 'POST',
-        headers: { 
-          Accept: 'application/json; charset=UTF-8'
-        },
-        contentType: 'application/json; charset=UTF-8',
-        url: '/login',
-        data: JSON.stringify(data)
-      }).done(function(data) {
-        console.log(data);
-        
-        // main redirect
         location.href = '/';
       }).fail(function(jqXHR, textStatus, errorThrown) {
         UiUtilModule.mask.close();
@@ -191,8 +165,7 @@ var signupModule = signupModule || (function($) {
     data: {
       init: data.init,
       submit: data.submit,
-      validation: data.validation,
-      login: data.login
+      validation: data.validation
     },
     event: {
       init: event.init

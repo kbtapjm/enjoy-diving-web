@@ -37,24 +37,24 @@
                 <div class="two fields">
                     <div class="required field">
                         <label>다이브 입출수 시간</label>
-                        <input type="text" th:name="diveInHour" th:id="diveInHour" style="width:50px;" th:value="${content.resource.diveInHour}" /> : 
-                        <input type="text" th:name="diveInMinute" th:id="diveInMinute" style="width:50px;" th:value="${content.resource.diveInMinute}" />
+                        <input type="text" th:name="diveInHour" th:id="diveInHour" style="width:50px;" th:value="${content.resource.diveInHour}" maxlength="2" /> : 
+                        <input type="text" th:name="diveInMinute" th:id="diveInMinute" style="width:50px;" th:value="${content.resource.diveInMinute}" maxlength="2" />
                         ~
-                        <input type="text" th:name="diveOutHour" th:id="diveOutHour" style="width:50px;" th:value="${content.resource.diveOutHour}" /> : 
-                        <input type="text" th:name="diveOutMinute" th:id="diveOutMinute" style="width:50px;" th:value="${content.resource.diveOutMinute}" />
+                        <input type="text" th:name="diveOutHour" th:id="diveOutHour" style="width:50px;" th:value="${content.resource.diveOutHour}" maxlength="2" /> : 
+                        <input type="text" th:name="diveOutMinute" th:id="diveOutMinute" style="width:50px;" th:value="${content.resource.diveOutMinute}" maxlength="2" />
                     </div>
                     <div class="required field">
                         <label>탱크 압력</label>
-                        시작 : <input type="text" th:name="diveTankStart" th:id="diveTankStart" style="width:70px;" th:value="${content.resource.diveTankStart}" /> bar &nbsp;&nbsp;&nbsp;
-                        종료 : <input type="text" th:name="diveTankEnd" th:id="diveTankEnd" style="width:70px;" th:value="${content.resource.diveTankEnd}" /> bar
+                        시작 : <input type="text" th:name="diveTankStart" th:id="diveTankStart" style="width:70px;" th:value="${content.resource.diveTankStart}" maxlength="3" /> bar &nbsp;&nbsp;&nbsp;
+                        종료 : <input type="text" th:name="diveTankEnd" th:id="diveTankEnd" style="width:70px;" th:value="${content.resource.diveTankEnd}" maxlength="3" /> bar
                     </div>
                 </div>
                 <h4 class="ui dividing header">다이빙 계획</h4>
                 <div class="two fields">
                     <div class="field">
                         <label>수면 휴식 시간</label>
-                        <input type="text" th:name="groundRestHour" th:id="groundRestHour" style="width:50px;" th:value="${content.resource.groundRestHour}" /> : 
-                        <input type="text" th:name="groundRestMinute" th:id="groundRestMinute" style="width:50px;" th:value="${content.resource.groundRestMinute}" />
+                        <input type="text" th:name="groundRestHour" th:id="groundRestHour" style="width:50px;" th:value="${content.resource.groundRestHour}" maxlength="2" /> : 
+                        <input type="text" th:name="groundRestMinute" th:id="groundRestMinute" style="width:50px;" th:value="${content.resource.groundRestMinute}" maxlength="2" />
                     </div>
                     <div class="required field">
                         <label>수심</label>
@@ -65,11 +65,11 @@
                 <div class="two fields">
                     <div class="required field">
                         <label>다이브 시간</label>
-                        <input type="text" th:name="diveTime" th:id="diveTime" style="width:50px;" th:value="${content.resource.diveTime}" />min &nbsp;&nbsp;
+                        <input type="text" th:name="diveTime" th:id="diveTime" style="width:50px;" th:value="${content.resource.diveTime}" maxlength="2" />min &nbsp;&nbsp;
                     </div>
                     <div class="required field">
                         <label>안전정지 시간</label>
-                        <input type="text" th:name="diveSafetyTime" th:id="diveSafetyTime" style="width:50px;" th:value="${content.resource.diveSafetyTime}" />min &nbsp;&nbsp;
+                        <input type="text" th:name="diveSafetyTime" th:id="diveSafetyTime" style="width:50px;" th:value="${content.resource.diveSafetyTime}" maxlength="2" />min &nbsp;&nbsp;
                     </div>
                 </div>
                 <div class="two fields">
@@ -88,13 +88,13 @@
                     </div>
                     <div class="field">
                         <label>웨이트</label>
-                        <input type="text" th:name="divePlanWeight" th:id="divePlanWeight" style="width:50px;" th:value="${content.resource.divePlanWeight}" />Kg
+                        <input type="text" th:name="divePlanWeight" th:id="divePlanWeight" style="width:50px;" th:value="${content.resource.divePlanWeight}" maxlength="2"/>Kg
                     </div>
                 </div>
                 <div class="two fields">
                     <div class="field">
                         <label>Eanx(나이트록스)</label>
-                        <input type="text" th:name="divePlanEanx" th:id="divePlanEanx" style="width:50px;" th:value="${content.resource.divePlanEanx}"  />% 
+                        <input type="text" th:name="divePlanEanx" th:id="divePlanEanx" style="width:50px;" th:value="${content.resource.divePlanEanx}" />% 
                     </div>
                     <div class="required field">
                         <label>노출 보호</label>
@@ -148,7 +148,7 @@
                     </div>
                 </div>
                 <div class="two fields">
-                    <div class="field">
+                    <div class="required field">
                         <label>수온</label>
                         <input type="text" th:name="temperature" th:id="temperature" style="width:70px;" th:value="${content.resource.temperature}" />'C
                     </div>
