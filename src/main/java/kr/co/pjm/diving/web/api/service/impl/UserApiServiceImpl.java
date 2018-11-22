@@ -203,7 +203,7 @@ public class UserApiServiceImpl implements UserApiService {
     
     try {
       String url = UriComponentsBuilder.fromUriString(apiBaseUrl)
-          .path("/v1/users/{id}/loginDate")
+          .path("/v1/users/{id}/login_date")
           .buildAndExpand(id)
           .toString();
       

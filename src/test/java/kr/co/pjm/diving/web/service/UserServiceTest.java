@@ -82,7 +82,7 @@ public class UserServiceTest {
     Long id = (long) 1;
     
     UserDto userDto = new UserDto();
-    userDto.setId(id);
+    //userDto.setId(id);
     userDto.setName("박재명 222");
     userDto.setNickname("검은몽스 222");
     userDto.setCountry("Korea 222");
