@@ -135,6 +135,13 @@ var signupModule = signupModule || (function($) {
         url: url,
         data: JSON.stringify(data)
       }).done(function(data) {
+        UiUtilModule.mask.close();
+        
+        if (data.resultCd !== constants.result.SUCCESS) {
+          alert(data.resultMsg);
+          return false;
+        }
+        
         location.href = '/';
       }).fail(function(jqXHR, textStatus, errorThrown) {
         UiUtilModule.mask.close();

@@ -1,8 +1,10 @@
 package kr.co.pjm.diving.web.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -25,6 +27,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import kr.co.pjm.diving.common.domain.entity.User;
 import kr.co.pjm.diving.common.domain.entity.UserRole;
+import kr.co.pjm.diving.web.common.enumeration.Result;
 import kr.co.pjm.diving.web.common.security.model.SocialUserDetail;
 import kr.co.pjm.diving.web.domain.dto.UserDto;
 import kr.co.pjm.diving.web.service.UserService;
@@ -62,30 +65,49 @@ public class SignUpController {
   
   @PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
-  public void signupAndLogin(@RequestBody UserDto userDto, WebRequest request) throws Exception {
-    /** user create */
-    userService.set(userDto);
+  public Map<String, Object> signupAndLogin(@RequestBody UserDto userDto, WebRequest request) throws Exception {
+    Map<String, Object> resultMap = new HashMap<String, Object>();
     
-    /** get user */
-    User user = userService.getByEmail(userDto.getEmail());
-    
-    /** social signUp */
-    providerSignInUtils.doPostSignUp(user.getEmail(), request);
-    
-    List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-    Iterator<UserRole> itr = user.getUserRoles().iterator();
-    while (itr.hasNext()) {
-      UserRole userRole = itr.next();
+    try {
+      /** user duplicate check */
+      User isEmailUser = userService.getByEmail(userDto.getEmail());
+      if (isEmailUser != null) {
+        throw new Exception(userDto.getEmail() + "은(는) 중복되어 사용 할 수가 없습니다.");
+      }
       
-      authorities.add(new SimpleGrantedAuthority(userRole.getRole().getRole().name()));
+      /** user create */
+      userService.set(userDto);
+      
+      /** get user */
+      User user = userService.getByEmail(userDto.getEmail());
+      
+      /** social signUp */
+      providerSignInUtils.doPostSignUp(user.getEmail(), request);
+      
+      List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+      Iterator<UserRole> itr = user.getUserRoles().iterator();
+      while (itr.hasNext()) {
+        UserRole userRole = itr.next();
+        
+        authorities.add(new SimpleGrantedAuthority(userRole.getRole().getRole().name()));
+      }
+      
+      /** social signIn */
+      SocialUserDetail socialUserDetail = new SocialUserDetail(user);
+      socialUserDetail.setAuthorities(authorities);
+      
+      Authentication authentication = new UsernamePasswordAuthenticationToken(socialUserDetail, null, socialUserDetail.getAuthorities());
+      SecurityContextHolder.getContext().setAuthentication(authentication);
+      
+      resultMap.put("resultCd", Result.SUCCESS.getCd());
+    } catch (Exception e) {
+      e.printStackTrace();
+      
+      resultMap.put("resultCd", Result.FAIL.getCd());
+      resultMap.put("resultMsg", e.getMessage());
     }
     
-    /** social signIn */
-    SocialUserDetail socialUserDetail = new SocialUserDetail(user);
-    socialUserDetail.setAuthorities(authorities);
-    
-    Authentication authentication = new UsernamePasswordAuthenticationToken(socialUserDetail, null, socialUserDetail.getAuthorities());
-    SecurityContextHolder.getContext().setAuthentication(authentication);
+    return resultMap;
   }
 
 }

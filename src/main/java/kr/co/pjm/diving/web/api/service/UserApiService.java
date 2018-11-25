@@ -17,4 +17,6 @@ public interface UserApiService {
   
   ApiReponseDto updateUserLoginDate(Long id);
   
+  ApiReponseDto getUserByEmail(String email);
+  
 }

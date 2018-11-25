@@ -1,8 +1,5 @@
 package kr.co.pjm.diving.web.service.impl;
 
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +41,7 @@ public class UserServiceImpl implements UserService {
     return (User) apiReponseDto.getData();
   }
 
-  @SuppressWarnings("unchecked")
+  /*@SuppressWarnings("unchecked")
   @Override
   public User getByEmail(String email) throws Exception {
     // TODO : paging, search
@@ -59,6 +56,16 @@ public class UserServiceImpl implements UserService {
     List<User> users = (List<User>) apiReponseDto.getData();
     
     return users.get(0);
+  }*/
+  
+  @Override
+  public User getByEmail(String email) throws Exception {
+    ApiReponseDto apiReponseDto = userApiService.getUserByEmail(email);
+    if (apiReponseDto.getStatus() == HttpStatus.OK.value()) {
+      return (User) apiReponseDto.getData();
+    } else {
+      return null;  
+    }
   }
 
   @Override

@@ -131,7 +131,6 @@ public class UserApiServiceImpl implements UserApiService {
     }
     
     return apiReponseDto;
-    
   }
 
   @Override
@@ -230,6 +229,33 @@ public class UserApiServiceImpl implements UserApiService {
       apiReponseDto.setData(e.getResponseBodyAsString());
     }
 
+    return apiReponseDto;
+  }
+
+  @Override
+  public ApiReponseDto getUserByEmail(String email) {
+    ApiReponseDto apiReponseDto = new ApiReponseDto();
+    
+    try {
+      String url = UriComponentsBuilder.fromUriString(apiBaseUrl)
+          .path("/v1/users/{email}/email")
+          .buildAndExpand(email)
+          .toString();
+      
+      HttpHeaders headers = new HttpHeaders();
+      HttpEntity<String> requestEntity = new HttpEntity<String>(headers); 
+      
+      ResponseEntity<User> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, User.class);
+      
+      apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
+      apiReponseDto.setData(responseEntity.getBody());
+    } catch (HttpStatusCodeException e) {
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(e.getRawStatusCode());
+      apiReponseDto.setData(e.getResponseBodyAsString());
+    }
+    
     return apiReponseDto;
   }
 
