@@ -42,12 +42,16 @@ public class SignUpController {
   private ProviderSignInUtils providerSignInUtils;
 
   @GetMapping(value = "/signup", consumes = MediaType.ALL_VALUE, produces = MediaType.TEXT_HTML_VALUE)
-  public String redirectRequestToRegistrationPage(WebRequest request, Model model) {
+  public String redirectRequestToRegistrationPage(WebRequest request, Model model) throws Exception {
     Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
     if (!StringUtils.isEmpty(connection)) {
       UserProfile userProfile = connection.fetchUserProfile();
       
-      /* TODO: Members need duplicate check (email) */
+      /** user duplicate check */
+      User user = userService.getByEmail(userProfile.getEmail());
+      if (user != null) {
+        return "redirect:/login?error=duplicate";
+      }
       
       String email = !StringUtils.isEmpty(userProfile.getEmail()) ? userProfile.getEmail() : "";
       String firstName = !StringUtils.isEmpty(userProfile.getFirstName()) ? userProfile.getFirstName() : "";
