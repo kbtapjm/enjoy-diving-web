@@ -31,7 +31,9 @@ import kr.co.pjm.diving.web.common.enumeration.Result;
 import kr.co.pjm.diving.web.common.security.model.SocialUserDetail;
 import kr.co.pjm.diving.web.domain.dto.UserDto;
 import kr.co.pjm.diving.web.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class SignUpController {
   
@@ -47,6 +49,13 @@ public class SignUpController {
     if (!StringUtils.isEmpty(connection)) {
       UserProfile userProfile = connection.fetchUserProfile();
       
+      if (log.isDebugEnabled()) {
+        log.debug("getDisplayName : {}" + connection.getDisplayName());
+        log.debug("getApi : {}", connection.getApi());
+        log.debug("getProviderId : {}", connection.getKey().getProviderId());
+        log.debug("getProviderUserId : {}", connection.getKey().getProviderUserId());  
+      }
+      
       /** user duplicate check */
       User user = userService.getByEmail(userProfile.getEmail());
       if (user != null) {
@@ -57,7 +66,11 @@ public class SignUpController {
       String firstName = !StringUtils.isEmpty(userProfile.getFirstName()) ? userProfile.getFirstName() : "";
       String lastName = !StringUtils.isEmpty(userProfile.getLastName()) ? userProfile.getLastName() : "";
       
-      UserDto userDto = UserDto.builder().email(email).name(firstName + lastName).build(); 
+      UserDto userDto = UserDto.builder()
+          .email(email)
+          .name(firstName + lastName)
+          .provider(connection.getKey().getProviderId())
+          .build(); 
       
       model.addAttribute("user", userDto);  
     } else {

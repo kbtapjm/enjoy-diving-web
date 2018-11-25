@@ -39,10 +39,13 @@ public class UserDto {
 
   private String signature;
   
+  private String provider;
+  
   @Builder
-  public UserDto(String email, String name) {
+  public UserDto(String email, String name, String provider) {
     this.email = email;
     this.name = name;
+    this.provider = provider;
   }
 
 }
