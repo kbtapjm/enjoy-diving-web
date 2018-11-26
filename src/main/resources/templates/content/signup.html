@@ -22,7 +22,7 @@
                 <div class="two fields">
                     <div class="required field">
                         <label>이메일</label>
-                        <input type="text" th:name="email" th:id="email" placeholder="이메일" th:value="${user.email}" />
+                        <input type="text" th:name="email" th:id="email" placeholder="이메일" th:value="${user.email}" th:readonly="${user.provider != null}" />
                     </div>
                     <div class="required field">
                         <label>이름</label>
