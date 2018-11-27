@@ -44,9 +44,8 @@ spring:
     port: 6379
   social:
     facebook:
-      app-id: 1271694569512492
-      app-secret: dae737184554557de33db0cb4d8c1923
-       
+      app-id: ENC(V6C597eeyQ7kBLMknP9JW658DyIyDFEg9/vya4RSwkE=)
+      app-secret: ENC(e8d8vYGSi9+mCY61UG66tgeOFbjjJrxNbdjeb7NMM6GX/tIZwRkgUCFgsfXRKQ/z) 
 security:
   basic:
     enabled: false
