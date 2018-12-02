@@ -45,12 +45,20 @@
                 <div class="item" sec:authorize="isAuthenticated()">
                     <a class="ui button" th:href="@{/signOut}" th:text="#{msg.label.logout}">로그아웃</a>
                 </div>
-                <div class="item" sec:authorize="isAuthenticated()">
-                    <a class="ui button" th:href="@{/my/profile}" th:classappend="${uri == '/my/profile' ? 'active':''}" sec:authentication="name"></a>
-                </div>
                 <div class="item" sec:authorize="!isAuthenticated()">
                     <a class="ui primary button" th:href="@{/signup}" th:text="#{msg.label.signin}">회원가입</a>
                 </div>
+                
+                <!-- 나의 정보 -->
+                <th:block sec:authorize="isAuthenticated()">
+                    <div class="ui simple dropdown item">
+                        <span sec:authentication="name">My</span> <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item" th:href="@{/my/pwd}" th:text="#{msg.label.my.password}">비밀번호 변경</a>
+                            <a class="item" th:href="@{/my/profile}" th:text="#{msg.label.my.profile}">내정보</a>
+                        </div>
+                    </div>
+                </th:block>
                 
                 <!-- 다국어 설정 -->
                 <div class="ui simple dropdown item">
@@ -84,6 +92,17 @@
             </div>
         </div>
         
+        <!-- 나의 정보 -->
+        <th:block sec:authorize="isAuthenticated()">
+            <div class="item">
+                <div class="header" sec:authentication="name">내정보</div>
+                <div class="menu">
+                    <a class="item" th:classappend="${uri == '/my/pwd' ? 'active':''}" th:href="@{/my/pwd}" th:text="#{msg.label.my.password}">비밀번호 변경</a>
+                    <a class="item" th:classappend="${uri == '/my/profile' ? 'active':''}" th:href="@{/my/profile}" th:text="#{msg.label.my.profile}">내정보</a>
+                </div>
+            </div>    
+        </th:block>
+        
         <!-- 다국어 설정 -->
         <div class="item">
             <div class="header" th:text="#{msg.label.language}">언어</div>
@@ -94,8 +113,6 @@
         </div>
         
         <a class="item" th:href="@{/signOut}" sec:authorize="isAuthenticated()" th:text="#{msg.label.logout}">로그아웃</a>
-        <a class="item" th:href="@{/my/pwd}" sec:authorize="isAuthenticated()" th:classappend="${uri == '/my/pwd' ? 'active':''}">비밀번호 변경</a>
-        <a class="item" th:href="@{/my/profile}" sec:authorize="isAuthenticated()" th:classappend="${uri == '/my/profile' ? 'active':''}" sec:authentication="name">내정보</a>
     </div>
     
     <!-- Page Contents -->
@@ -125,8 +142,18 @@
                     <div class="right item">
                         <a class="ui inverted button" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{msg.label.login}">로그인</a>
                         <a class="ui inverted button" th:href="@{/signOut}" sec:authorize="isAuthenticated()" th:text="#{msg.label.logout}">로그아웃</a>
-                        <a class="ui inverted button" th:href="@{/my/profile}" sec:authorize="isAuthenticated()" th:classappend="${uri == '/my/profile' ? 'active':''}" sec:authentication="name">내정보</a>
                         <a class="ui inverted button" th:href="@{/signup}" sec:authorize="!isAuthenticated()" th:text="#{msg.label.signin}">회원가입</a>
+                        
+                        <!-- 나의 정보 -->
+                        <th:block sec:authorize="isAuthenticated()">
+                            <div class="ui simple dropdown item">
+                                <span sec:authentication="name">My</span> <i class="dropdown icon"></i>
+                                <div class="menu">
+                                    <a class="item" th:href="@{/my/pwd}" th:text="#{msg.label.my.password}">비밀번호 변경</a>
+                                    <a class="item" th:href="@{/my/profile}" th:text="#{msg.label.my.profile}">내정보</a>
+                                </div>
+                            </div>
+                        </th:block>
                         
                         <!-- 다국어 설정 -->
                         <div class="ui simple dropdown item">
