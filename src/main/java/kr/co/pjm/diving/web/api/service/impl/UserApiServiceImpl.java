@@ -261,7 +261,7 @@ public class UserApiServiceImpl implements UserApiService {
   }
 
   @Override
-  public ApiReponseDto updatePassword(Long id, Password dto) {
+  public ApiReponseDto updateUserPassword(Long id, Password dto) {
     ApiReponseDto apiReponseDto = new ApiReponseDto();
     
     try {

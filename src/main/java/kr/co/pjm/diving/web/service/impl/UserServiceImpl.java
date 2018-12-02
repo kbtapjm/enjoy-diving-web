@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void delete(Long id) throws Exception{
+  public void delete(Long id) throws Exception {
     ApiReponseDto apiReponseDto = userApiService.deleteUser(id);
     if (apiReponseDto.getStatus() != HttpStatus.NO_CONTENT.value()) {
       throw new EnjoyDivingWebException(apiReponseDto);
@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void updatePassword(Long id, UserDto.Password dto) throws Exception {
-    ApiReponseDto apiReponseDto = userApiService.updatePassword(id, dto);
+    ApiReponseDto apiReponseDto = userApiService.updateUserPassword(id, dto);
     if (apiReponseDto.getStatus() != HttpStatus.OK.value()) {
       throw new EnjoyDivingWebException(apiReponseDto);
     };
