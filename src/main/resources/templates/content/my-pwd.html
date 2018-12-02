@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" layout:decorator="layout/template-default">
+    <head>
+        <title>비밀번호 변경 - Enjoy Diving </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    </head>
+    <body>
+        <th:block layout:fragment="content">
+        <div class="ui form">
+            <form class="ui form attached fluid segment" th:id="myPwdform" onsubmit="return false;">
+                <div class="required field">
+                    <label>현재 비밀번호</label>
+                    <input type="password" th:name="oldPassword" th:id="oldPassword" value="" />
+                </div>
+                <div class="two fields">
+                    <div class="required field">
+                        <label>새 비밀번호</label>
+                        <input type="password" th:name="newPassword" th:id="newPassword" value="" />
+                    </div>
+                    <div class="required field">
+                        <label>비밀번호 확인</label>
+                        <input type="password" th:name="newPassword-confirm" th:id="newPassword-confirm" value="" />
+                    </div>
+                </div>
+                
+                <div class="ui blue submit button" id="update">비밀번호 수정</div>
+                <div class="ui error message"></div>
+            </form>
+        </div>
+            
+        <script src="js/content/my-pwd.js" data-th-src="@{/static/js/content/my-pwd.js}"></script>
+        
+        </th:block>
+        
+    </body>
+</html>

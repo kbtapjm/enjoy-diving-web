@@ -19,4 +19,5 @@ public interface UserApiService {
   
   ApiReponseDto getUserByEmail(String email);
   
+  ApiReponseDto updatePassword(Long id, UserDto.Password dto);
 }

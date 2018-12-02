@@ -94,6 +94,7 @@
         </div>
         
         <a class="item" th:href="@{/signOut}" sec:authorize="isAuthenticated()" th:text="#{msg.label.logout}">로그아웃</a>
+        <a class="item" th:href="@{/my/pwd}" sec:authorize="isAuthenticated()" th:classappend="${uri == '/my/pwd' ? 'active':''}">비밀번호 변경</a>
         <a class="item" th:href="@{/my/profile}" sec:authorize="isAuthenticated()" th:classappend="${uri == '/my/profile' ? 'active':''}" sec:authentication="name">내정보</a>
     </div>
     

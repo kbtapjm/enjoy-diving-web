@@ -17,4 +17,6 @@ public interface UserService {
   
   void updateLoginDate(Long id) throws Exception;
   
+  void updatePassword(Long id, UserDto.Password dto) throws Exception;
+  
 }

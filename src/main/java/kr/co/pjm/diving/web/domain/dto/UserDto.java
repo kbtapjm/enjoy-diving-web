@@ -47,5 +47,12 @@ public class UserDto {
     this.name = name;
     this.provider = provider;
   }
+  
+  @Getter
+  @Setter
+  public static class Password {
+    private String oldPassword;
+    private String newPassword;
+  }
 
 }

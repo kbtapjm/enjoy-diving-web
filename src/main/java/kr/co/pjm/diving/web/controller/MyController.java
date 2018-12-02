@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import kr.co.pjm.diving.common.domain.entity.User;
 import kr.co.pjm.diving.web.common.enumeration.Result;
+import kr.co.pjm.diving.web.common.security.component.CertificationUser;
 import kr.co.pjm.diving.web.domain.dto.UserDto;
 import kr.co.pjm.diving.web.service.UserService;
 
@@ -40,9 +41,13 @@ static final String RESOURCE_PATH = "/my";
     return "content/my-profile";
   }
   
+  @GetMapping(value = "/pwd", consumes = MediaType.ALL_VALUE, produces = MediaType.TEXT_HTML_VALUE)
+  public String myPwd(Model model) throws Exception {
+    return "content/my-pwd";
+  }
+  
   @PutMapping(value = "/profile/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody 
-  @ResponseStatus(HttpStatus.OK)
   public Map<String, Object> updateProfile(@PathVariable("id") Long id, @RequestBody UserDto userDto) throws Exception {
     Map<String, Object> resultMap = new HashMap<String, Object>();
     
@@ -62,12 +67,30 @@ static final String RESOURCE_PATH = "/my";
   
   @DeleteMapping(value = "/profile/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody 
-  @ResponseStatus(HttpStatus.OK)
   public Map<String, Object> deleteProfile(@PathVariable("id") Long id) {
     Map<String, Object> resultMap = new HashMap<String, Object>();
     
     try {
       userService.delete(id);
+      
+      resultMap.put("resultCd", Result.SUCCESS.getCd());
+    } catch (Exception e) {
+      e.printStackTrace();
+      
+      resultMap.put("resultCd", Result.FAIL.getCd());
+      resultMap.put("resultMsg", e.getMessage());
+    }
+    
+    return resultMap;
+  }
+  
+  @PutMapping(value = "/pwd", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody 
+  public Map<String, Object> updatePassword(@RequestBody UserDto.Password dto) throws Exception {
+    Map<String, Object> resultMap = new HashMap<String, Object>();
+    
+    try {
+      userService.updatePassword(CertificationUser.getLongId(), dto);
       
       resultMap.put("resultCd", Result.SUCCESS.getCd());
     } catch (Exception e) {

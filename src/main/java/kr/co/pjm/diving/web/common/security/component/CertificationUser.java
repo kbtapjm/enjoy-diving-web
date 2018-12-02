@@ -12,6 +12,12 @@ public class CertificationUser {
     return String.valueOf(user.getId());
   }
   
+  public static Long getLongId() {
+    kr.co.pjm.diving.common.domain.entity.User user = CertificationUser.getUser();
+    
+    return user.getId();
+  }
+  
   public static String getEmail() {
     kr.co.pjm.diving.common.domain.entity.User user = CertificationUser.getUser();
     

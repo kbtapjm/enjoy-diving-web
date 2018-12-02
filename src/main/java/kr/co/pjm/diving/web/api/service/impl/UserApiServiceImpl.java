@@ -24,6 +24,7 @@ import kr.co.pjm.diving.common.domain.entity.User;
 import kr.co.pjm.diving.web.api.dto.ApiReponseDto;
 import kr.co.pjm.diving.web.api.service.UserApiService;
 import kr.co.pjm.diving.web.domain.dto.UserDto;
+import kr.co.pjm.diving.web.domain.dto.UserDto.Password;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -256,6 +257,42 @@ public class UserApiServiceImpl implements UserApiService {
       apiReponseDto.setData(e.getResponseBodyAsString());
     }
     
+    return apiReponseDto;
+  }
+
+  @Override
+  public ApiReponseDto updatePassword(Long id, Password dto) {
+    ApiReponseDto apiReponseDto = new ApiReponseDto();
+    
+    try {
+      String url = UriComponentsBuilder.fromUriString(apiBaseUrl)
+          .path("/v1/users/{id}/password")
+          .buildAndExpand(id)
+          .toString();
+      
+      String requestBody = new ObjectMapper().writeValueAsString(dto);
+      
+      HttpHeaders headers = new HttpHeaders();
+      headers.setContentType(MediaType.APPLICATION_JSON);
+      
+      HttpEntity<String> requestEntity = new HttpEntity<String>(requestBody, headers);
+      
+      ResponseEntity<ErrorDto> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, ErrorDto.class);
+      
+      apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
+      apiReponseDto.setData(responseEntity.getBody());
+    } catch (JsonProcessingException e) {
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+      apiReponseDto.setData(e.getMessage());
+    } catch (HttpStatusCodeException e) {
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(e.getRawStatusCode());
+      apiReponseDto.setData(e.getResponseBodyAsString());
+    }
+
     return apiReponseDto;
   }
 

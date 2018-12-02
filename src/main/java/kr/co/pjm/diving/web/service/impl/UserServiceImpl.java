@@ -92,4 +92,12 @@ public class UserServiceImpl implements UserService {
     };
   }
 
+  @Override
+  public void updatePassword(Long id, UserDto.Password dto) throws Exception {
+    ApiReponseDto apiReponseDto = userApiService.updatePassword(id, dto);
+    if (apiReponseDto.getStatus() != HttpStatus.OK.value()) {
+      throw new EnjoyDivingWebException(apiReponseDto);
+    };
+  }
+
 }
