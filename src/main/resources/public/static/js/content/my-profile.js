@@ -9,7 +9,7 @@ $(document).ready(function() {
 var UserReadModule = UserReadModule || (function($) {
   'use strict'
   
-  var _form = $('#form');
+  var _form = $('#myProfileForm');
 
   var init = function() {
     this.data.init();
@@ -22,7 +22,7 @@ var UserReadModule = UserReadModule || (function($) {
     },
     
     validation: function() {
-      $('.ui.form')
+      $('#myProfileForm')
       .form({
         fields: {
           name: {
@@ -72,7 +72,7 @@ var UserReadModule = UserReadModule || (function($) {
         data[key] = $.trim(value);
       });
       
-      if (!$('.ui.form').form('is valid')) {
+      if (!$('#myProfileForm').form('is valid')) {
         return false;
       }
       

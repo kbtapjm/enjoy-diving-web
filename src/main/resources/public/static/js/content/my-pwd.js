@@ -39,11 +39,11 @@ var myPwdModule = myPwdModule || (function($) {
             rules: [
               {
                 type   : 'empty',
-                prompt : '비밀번호를 입력하세요.'
+                prompt : '새 비밀번호를 입력하세요.'
               },
               {
                 type   : 'minLength[6]',
-                prompt : '비밀번호는 {ruleValue}자 이상이어야합니다.'
+                prompt : '새 비밀번호는 {ruleValue}자 이상이어야합니다.'
               }
             ]
           },
@@ -52,11 +52,11 @@ var myPwdModule = myPwdModule || (function($) {
             rules: [
               {
                 type   : 'empty',
-                prompt : '비밀번호 확인을 입력하세요.'
+                prompt : '새 비밀번호 확인을 입력하세요.'
               },
               {
                 type   : 'match[newPassword]',
-                prompt : '비밀번호와 비밀번호 확인 값이 일치 하지 않습니다.'
+                prompt : '새 비밀번호와 새 비밀번호 확인 값이 일치 하지 않습니다.'
               }
             ]
           }
