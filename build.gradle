@@ -15,7 +15,6 @@ dependencies {
         springSocialVersion = '1.1.4.RELEASE'
         springSocialFacebookVersion = '3.0.0.M1'
         queryDslVersion = '4.1.4'
-        embeddedRedisVersion = '0.6'
     }
 
     compile project(':enjoy-diving-common')

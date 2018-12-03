@@ -46,7 +46,7 @@
                     <a class="ui button" th:href="@{/signOut}" th:text="#{msg.label.logout}">로그아웃</a>
                 </div>
                 <div class="item" sec:authorize="!isAuthenticated()">
-                    <a class="ui primary button" th:href="@{/signup}" th:text="#{msg.label.signin}">회원가입</a>
+                    <a class="ui primary button" th:href="@{/signup?type=normal}" th:text="#{msg.label.signin}">회원가입</a>
                 </div>
                 
                 <!-- 나의 정보 -->
@@ -79,7 +79,7 @@
         <a class="item" th:classappend="${uri == '/story' ? 'active':''}" th:href="@{/story}" th:text="#{msg.label.story}">이야기</a>
         <a class="item" th:classappend="${uri == '/tour' ? 'active':''}" th:href="@{/tour}" sec:authorize="isAuthenticated()" th:text="#{msg.label.tour}">투어정보</a>
         <a class="item" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{msg.label.login}">로그인</a>
-        <a class="item" th:href="@{/signup}" sec:authorize="!isAuthenticated()" th:text="#{msg.label.signin}">회원가입</a>
+        <a class="item" th:href="@{/signup?type=normal}" sec:authorize="!isAuthenticated()" th:text="#{msg.label.signin}">회원가입</a>
         
         <!-- ADMIN -->
         <div class="item" th:if="${#authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}">
@@ -142,7 +142,7 @@
                     <div class="right item">
                         <a class="ui inverted button" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{msg.label.login}">로그인</a>
                         <a class="ui inverted button" th:href="@{/signOut}" sec:authorize="isAuthenticated()" th:text="#{msg.label.logout}">로그아웃</a>
-                        <a class="ui inverted button" th:href="@{/signup}" sec:authorize="!isAuthenticated()" th:text="#{msg.label.signin}">회원가입</a>
+                        <a class="ui inverted button" th:href="@{/signup?type=normal}" sec:authorize="!isAuthenticated()" th:text="#{msg.label.signin}">회원가입</a>
                         
                         <!-- 나의 정보 -->
                         <th:block sec:authorize="isAuthenticated()">

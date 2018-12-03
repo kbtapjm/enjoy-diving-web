@@ -22,6 +22,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
@@ -44,9 +45,11 @@ public class SignUpController {
   private ProviderSignInUtils providerSignInUtils;
 
   @GetMapping(value = "/signup", consumes = MediaType.ALL_VALUE, produces = MediaType.TEXT_HTML_VALUE)
-  public String redirectRequestToRegistrationPage(WebRequest request, Model model) throws Exception {
+  public String redirectRequestToRegistrationPage(WebRequest request, Model model,
+      @RequestParam(value = "type", required = false) String type) throws Exception {
+    
     Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
-    if (!StringUtils.isEmpty(connection)) {
+    if (!StringUtils.isEmpty(connection) && type == null) {
       UserProfile userProfile = connection.fetchUserProfile();
       
       if (log.isDebugEnabled()) {
@@ -99,7 +102,9 @@ public class SignUpController {
       User user = userService.getByEmail(userDto.getEmail());
       
       /** social signUp */
-      providerSignInUtils.doPostSignUp(user.getEmail(), request);
+      if (!StringUtils.isEmpty(userDto.getProvider())) {
+        providerSignInUtils.doPostSignUp(user.getEmail(), request);  
+      }
       
       List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
       Iterator<UserRole> itr = user.getUserRoles().iterator();
