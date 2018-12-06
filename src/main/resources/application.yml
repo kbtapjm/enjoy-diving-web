@@ -12,7 +12,7 @@ spring:
     ansi:
       enabled: always
   profiles:
-    active: local
+    active: dev
   resources:
     chain:
       enabled: true
@@ -49,25 +49,11 @@ spring:
 security:
   basic:
     enabled: false
-    
----
 
+---
+# local
 spring:
   profiles: local
-  profiles.include: mysqlDB
-
-logging:
-  level:
-    root: DEBUG 
-    org.apache: INFO
-  config: classpath:config/logback-spring.xml
-  file : local
-  path : data/logs
-  
----
-
-spring:
-  profiles: h2database
   h2:
     console:
       enabled: true
@@ -81,16 +67,35 @@ spring:
     username: sa
     password: test
     initialize: true
-    schema: classpath:database/sql/ddl-*.sql
-    data: classpath:database/sql/dml-*.sql
+    #schema: classpath:database/sql/ddl-*.sql
+    #data: classpath:database/sql/dml-*.sql
+  jpa:
+    database: H2
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 
+logging:
+  level:
+    root: DEBUG 
+    org.apache: INFO
+  config: classpath:config/logback-spring.xml
+  file : local
+  path : data/logs
+  
 props:
   apiBaseUrl: http://api.enjoydiving.io:8081
-    
----
+---  
 
+# dev
 spring:
-  profiles: mysqlDB
+  profiles: dev
   datasource:
     url: ENC(JhbAOrO9c0MhlBJkcBhM15vkfabBJgxc4dxv+S93sxLPAcCMCjlXIfJFEBvXMNLr)
     username: ENC(jauxnix93NIxNidJQpxZGQ==)
@@ -109,7 +114,51 @@ spring:
         show_sql: true
         format_sql: true
         use_sql_comments: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+         
+logging:
+  level:
+    root: DEBUG 
+    org.apache: INFO
+  config: classpath:config/logback-spring.xml
+  file : local
+  path : data/logs
 
 props:
   apiBaseUrl: http://api.enjoydiving.io:8081
+
+---  
+
+# stg
+spring:
+  profiles: stg
+  datasource:
+    url: ENC(JhbAOrO9c0MhlBJkcBhM15vkfabBJgxc4dxv+S93sxLPAcCMCjlXIfJFEBvXMNLr)
+    username: ENC(jauxnix93NIxNidJQpxZGQ==)
+    password: ENC(Jbk2+ry3C3T9suJEsBqWow==)
+    driver-class-name: com.mysql.jdbc.Driver
+    sql-script-encoding: UTF-8
+    #schema: classpath:database/sql/ddl-*.sql
+    #data: classpath:database/sql/dml-*.sql
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
       
+logging:
+  level:
+    root: INFO 
+    org.apache: INFO
+  config: classpath:config/logback-spring.xml
+  file : local
+  path : data/logs
+  
+props:
+  apiBaseUrl: http://api.enjoydiving.io:8081
