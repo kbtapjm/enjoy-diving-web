@@ -45,6 +45,18 @@ eclipse {
     }
 }
 
+task buildDocker(type: Docker, dependsOn: build) {
+    push = true
+    applicationName = jar.baseName
+    dockerfile = file('src/main/docker/Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
+}
+
 bootRepackage {
     mainClass = 'kr.co.pjm.diving.web.Application'
 }
