@@ -133,7 +133,7 @@ props:
 spring:
   profiles: stg
   datasource:
-    url: ENC(JhbAOrO9c0MhlBJkcBhM15vkfabBJgxc4dxv+S93sxLPAcCMCjlXIfJFEBvXMNLr)
+    url: ENC(cfW7TvnQciD2KkBl35cty1vUKNw0FrSGi343dUOF2Nx9FrGx1GlRAU7XVC+GWR3+)
     username: ENC(jauxnix93NIxNidJQpxZGQ==)
     password: ENC(Jbk2+ry3C3T9suJEsBqWow==)
     driver-class-name: com.mysql.jdbc.Driver
@@ -161,4 +161,4 @@ logging:
   path : data/logs
   
 props:
-  apiBaseUrl: http://api.enjoydiving.io:8081
+  apiBaseUrl: http://enjoy-diving-service:8081
