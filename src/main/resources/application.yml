@@ -167,4 +167,4 @@ logging:
   path : data/logs
   
 props:
-  apiBaseUrl: http://enjoy-diving-service:8081
+  apiBaseUrl: http://35.243.227.248:8081
