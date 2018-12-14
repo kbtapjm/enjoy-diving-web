@@ -1,0 +1,59 @@
+version: '3'
+services:
+  mariadb:
+    container_name: mariadb
+    image: kbtapjm/mariadb:1.1
+    restart: always
+    volumes:
+      - /opt/mysql:/var/lib/mysql
+      - /opt/mysql/conf.d:/etc/mysql/conf.d
+    environment:
+      - MYSQL_DATABASE=diving
+      - MYSQL_USER=diver
+      - MYSQL_PASSWORD=1234
+      - MYSQL_ROOT_PASSWORD=1234
+      - TZ=Asia/Seoul
+    ports:
+      - 3306:3306
+    networks:
+      - kbtapjm_default
+    depends_on:
+      - redis
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci --lower_case_table_names=1
+  redis:
+    container_name: redis
+    image: kbtapjm/redis
+    ports:
+      - 6379:6379
+    volumes:
+      - /opt/redis/data:/data
+    command: [ "redis-server", "--protected-mode", "no" ]
+    restart: always
+    networks:
+      - kbtapjm_default
+  enjoy-diving-service:
+    container_name: enjoy-diving-service
+    image: kr.co.pjm.diving/enjoy-diving-service:0.0.1-SNAPSHOT
+    networks:
+      - kbtapjm_default
+    ports:
+      - 8081:8081
+    depends_on:
+      - mariadb
+      - redis
+    restart: always
+  enjoy-diving-web:
+    container_name: enjoy-diving-web
+    image: kr.co.pjm.diving/enjoy-diving-web:0.0.1-SNAPSHOT
+    networks:
+      - kbtapjm_default
+    ports:
+      - 8080:8080
+    depends_on:
+      - mariadb
+      - redis
+      - enjoy-diving-service
+    restart: always
+networks:
+  kbtapjm_default:
+    external: true
