@@ -64,8 +64,6 @@ spring:
     username: sa
     password: test
     initialize: true
-    #schema: classpath:database/sql/ddl-*.sql
-    #data: classpath:database/sql/dml-*.sql
   jpa:
     database: H2
     show-sql: true
@@ -102,8 +100,6 @@ spring:
     password: ENC(Jbk2+ry3C3T9suJEsBqWow==)
     driver-class-name: com.mysql.jdbc.Driver
     sql-script-encoding: UTF-8
-    #schema: classpath:database/sql/ddl-*.sql
-    #data: classpath:database/sql/dml-*.sql
   jpa:
     database: mysql
     show-sql: true
@@ -141,13 +137,11 @@ spring:
     password: ENC(Jbk2+ry3C3T9suJEsBqWow==)
     driver-class-name: com.mysql.jdbc.Driver
     sql-script-encoding: UTF-8
-    #schema: classpath:database/sql/ddl-*.sql
-    #data: classpath:database/sql/dml-*.sql
   jpa:
     database: mysql
     show-sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true
