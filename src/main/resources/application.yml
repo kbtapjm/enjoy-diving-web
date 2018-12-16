@@ -161,4 +161,4 @@ logging:
   path : data/logs
   
 props:
-  apiBaseUrl: http://35.243.227.248:8081
+  apiBaseUrl: http://35.196.60.72:8081
