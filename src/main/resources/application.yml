@@ -154,10 +154,10 @@ spring:
       
 logging:
   level:
-    root: stg 
+    root: DEBUG 
     org.apache: INFO
   config: classpath:config/logback-spring.xml
-  file : local
+  file : stg
   path : data/logs
   
 props:
