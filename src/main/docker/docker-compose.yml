@@ -19,7 +19,6 @@ services:
       - kbtapjm_default
     depends_on:
       - redis
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --lower_case_table_names=1
   redis:
     container_name: redis
     image: kbtapjm/redis
@@ -38,6 +37,8 @@ services:
       - kbtapjm_default
     ports:
       - 8081:8081
+    volumes:
+      - /opt/app/enjoy-diving-service/logs:data/logs
     depends_on:
       - mariadb
       - redis
@@ -49,6 +50,8 @@ services:
       - kbtapjm_default
     ports:
       - 8080:8080
+    volumes:
+      - /opt/app/enjoy-diving-web/logs:data/logs
     depends_on:
       - mariadb
       - redis
