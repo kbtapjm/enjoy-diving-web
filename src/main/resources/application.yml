@@ -154,11 +154,11 @@ spring:
       
 logging:
   level:
-    root: DEBUG 
+    root: INFO 
     org.apache: INFO
   config: classpath:config/logback-spring.xml
   file : stg
   path : data/logs
   
 props:
-  apiBaseUrl: http://35.196.60.72:8081
+  apiBaseUrl: http://enjoy-diving.biz:8081
