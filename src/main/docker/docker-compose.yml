@@ -32,7 +32,7 @@ services:
       - kbtapjm_default
   enjoy-diving-service:
     container_name: enjoy-diving-service
-    image: kr.co.pjm.diving/enjoy-diving-service:0.0.1-SNAPSHOT
+    image: kbtapjm/enjoy-diving-service:0.0.1-SNAPSHOT
     networks:
       - kbtapjm_default
     ports:
@@ -45,7 +45,7 @@ services:
     restart: always
   enjoy-diving-web:
     container_name: enjoy-diving-web
-    image: kr.co.pjm.diving/enjoy-diving-web:0.0.1-SNAPSHOT
+    image: kbtapjm/enjoy-diving-web:0.0.1-SNAPSHOT
     networks:
       - kbtapjm_default
     ports:
@@ -57,6 +57,17 @@ services:
       - redis
       - enjoy-diving-service
     restart: always
+  nginx:
+    container_name: nginx
+    image: nginx
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - /opt/app/nginx/vhosts.conf:/etc/nginx/conf.d/vhosts.conf
+      - /opt/app:/var/www/html
+    networks:
+      - kbtapjm_default
 networks:
   kbtapjm_default:
     external: true
