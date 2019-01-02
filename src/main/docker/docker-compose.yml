@@ -18,6 +18,7 @@ services:
     networks:
       - kbtapjm_default
     depends_on:
+      - nginx
       - redis
   redis:
     container_name: redis
@@ -40,6 +41,7 @@ services:
     volumes:
       - /opt/app/enjoy-diving-service/logs:/data/logs
     depends_on:
+      - nginx
       - mariadb
       - redis
     restart: always
@@ -53,6 +55,7 @@ services:
     volumes:
       - /opt/app/enjoy-diving-web/logs:/data/logs
     depends_on:
+      - nginx
       - mariadb
       - redis
       - enjoy-diving-service
@@ -63,9 +66,9 @@ services:
     restart: always
     ports:
       - 80:80
+      - 443:443
     volumes:
-      - /opt/app/nginx/vhosts.conf:/etc/nginx/conf.d/vhosts.conf
-      - /opt/app:/var/www/html
+      - /opt/nginx/conf.d:/etc/nginx/conf.d
     networks:
       - kbtapjm_default
 networks:
