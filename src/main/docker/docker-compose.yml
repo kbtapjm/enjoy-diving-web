@@ -59,7 +59,7 @@ services:
     restart: always
   nginx:
     container_name: nginx
-    image: kbtapjm/nginx
+    image: kbtapjm/nginx:1.0
     restart: always
     ports:
       - 80:80
