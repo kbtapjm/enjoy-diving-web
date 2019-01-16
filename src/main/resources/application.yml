@@ -125,6 +125,10 @@ logging:
 
 props:
   apiBaseUrl: http://api.enjoydiving.io:8081
+  google: 
+    recaptcha:
+      siteKey: 6LfLGYoUAAAAANmu-1CYbi2hS_cg98joNyU05u4p
+      secretKey: 6LfLGYoUAAAAAK7lbr863C0hGj4BzyiVRG6dHUfR
 
 ---  
 

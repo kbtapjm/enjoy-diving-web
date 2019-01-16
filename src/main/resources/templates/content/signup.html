@@ -5,6 +5,7 @@
         <title>회원가입 - Enjoy Diving </title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         
+        <script src='https://www.google.com/recaptcha/api.js?render=6LfLGYoUAAAAANmu-1CYbi2hS_cg98joNyU05u4p'></script>
     </head>
     <body>
         <th:block layout:fragment="content">
@@ -93,6 +94,16 @@
             <!-- <div class="ui bottom attached warning message">
                 Already signed up? <a href="#" th:href="@{/login}">Login here</a> instead.
             </div> -->
+            
+            <script>
+				grecaptcha.ready(function() {
+			      grecaptcha.execute('6LfLGYoUAAAAANmu-1CYbi2hS_cg98joNyU05u4p', {action: 'homepage'})
+				    .then(function(token) {
+			          // Verify the token on the server.
+			          log(token)
+			      });
+			    });
+		    </script>
             
             <script src="js/content/signup.js" data-th-src="@{/static/js/content/signup.js}"></script>
         
