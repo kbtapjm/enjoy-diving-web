@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,6 +31,7 @@ import org.springframework.web.context.request.WebRequest;
 import kr.co.pjm.diving.common.domain.entity.User;
 import kr.co.pjm.diving.common.domain.entity.UserRole;
 import kr.co.pjm.diving.web.common.enumeration.Result;
+import kr.co.pjm.diving.web.common.recapcha.service.RecaptchaService;
 import kr.co.pjm.diving.web.common.security.model.SocialUserDetail;
 import kr.co.pjm.diving.web.domain.dto.UserDto;
 import kr.co.pjm.diving.web.service.UserService;
@@ -40,6 +43,9 @@ public class SignUpController {
   
   @Autowired
   private UserService userService;
+  
+  @Autowired
+  private RecaptchaService recaptchaService;
   
   @Autowired
   private ProviderSignInUtils providerSignInUtils;
@@ -120,6 +126,28 @@ public class SignUpController {
       
       Authentication authentication = new UsernamePasswordAuthenticationToken(socialUserDetail, null, socialUserDetail.getAuthorities());
       SecurityContextHolder.getContext().setAuthentication(authentication);
+      
+      resultMap.put("resultCd", Result.SUCCESS.getCd());
+    } catch (Exception e) {
+      e.printStackTrace();
+      
+      resultMap.put("resultCd", Result.FAIL.getCd());
+      resultMap.put("resultMsg", e.getMessage());
+    }
+    
+    return resultMap;
+  }
+  
+  @PostMapping(value = "/recapchaVerify", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseBody
+  public Map<String, Object> recapchaVerify(@RequestParam(name = "token") String token,
+      HttpServletRequest request) throws Exception {
+    Map<String, Object> resultMap = new HashMap<String, Object>();
+    
+    try {
+      String ip = request.getRemoteAddr();
+      String result = recaptchaService.verifyRecaptcha(ip, token);
+      log.debug("result : {}", result);  
       
       resultMap.put("resultCd", Result.SUCCESS.getCd());
     } catch (Exception e) {

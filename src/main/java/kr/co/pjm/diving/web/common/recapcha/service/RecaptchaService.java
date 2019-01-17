@@ -18,39 +18,40 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class RecaptchaService {
-    
-    private static final String GOOGLE_RECAPTCHA_VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
-    
-    @Value("${props.google.recaptcha.secret}") 
-    private String recaptchaSecret;
-    
-    @Autowired
-    private RestTemplate restTemplate;
-    
-    @SuppressWarnings("unchecked")
-    public String verifyRecaptcha(String ip, String recaptchaResponse) {
-        Map<String, String> body = new HashMap<>();
-        body.put("secret", recaptchaSecret);
-        body.put("response", recaptchaResponse);
-        body.put("remoteip", ip);
-        
-        ResponseEntity<Map> recaptchaResponseEntity = restTemplate
-                .postForEntity(GOOGLE_RECAPTCHA_VERIFY_URL + "?secret={secret}&response={response}&remoteip={remoteip}", body, Map.class, body);
-                       
-        log.debug("Response from recaptcha: {}", recaptchaResponseEntity);
-        Map<String, Object> responseBody = recaptchaResponseEntity.getBody();
-        
-        boolean recaptchaSucess = (Boolean)responseBody.get("success");
-        if (!recaptchaSucess) {
-            List<String> errorCodes =  (List<String>) responseBody.get("error-codes");
-           
-            String errorMessage = errorCodes.stream().map(s -> RecaptchaUtil.RECAPTCHA_ERROR_CODE.get(s))
-              .collect(Collectors.joining(", "));
-               
-          return errorMessage;
-        } else {
-          return StringUtils.EMPTY;
-        }
+
+  private static final String GOOGLE_RECAPTCHA_VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
+
+  @Value("${props.google.recaptcha.secretKey}")
+  private String recaptchaSecretKey;
+
+  @Autowired
+  private RestTemplate restTemplate;
+
+  @SuppressWarnings("unchecked")
+  public String verifyRecaptcha(String ip, String recaptchaResponse) {
+    Map<String, String> body = new HashMap<>();
+    body.put("secret", recaptchaSecretKey);
+    body.put("response", recaptchaResponse);
+    body.put("remoteip", ip);
+
+    ResponseEntity<Map> recaptchaResponseEntity = restTemplate.postForEntity(
+        GOOGLE_RECAPTCHA_VERIFY_URL + "?secret={secret}&response={response}&remoteip={remoteip}",
+        body, Map.class, body);
+
+    log.debug("Response from recaptcha: {}", recaptchaResponseEntity);
+    Map<String, Object> responseBody = recaptchaResponseEntity.getBody();
+
+    boolean recaptchaSucess = (Boolean) responseBody.get("success");
+    if (!recaptchaSucess) {
+      List<String> errorCodes = (List<String>) responseBody.get("error-codes");
+
+      String errorMessage = errorCodes.stream().map(s -> RecaptchaUtil.RECAPTCHA_ERROR_CODE.get(s))
+          .collect(Collectors.joining(", "));
+
+      return errorMessage;
+    } else {
+      return StringUtils.EMPTY;
     }
+  }
 
 }
