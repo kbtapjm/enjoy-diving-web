@@ -41,6 +41,9 @@ public class UserDto {
   
   private String provider;
   
+  private String token;
+  
+  
   @Builder
   public UserDto(String email, String name, String provider) {
     this.email = email;

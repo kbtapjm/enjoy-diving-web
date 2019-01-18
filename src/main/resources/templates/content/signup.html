@@ -19,6 +19,7 @@
             
             <form class="ui form attached fluid segment" th:action="@{/signup}" th:id="signupForm" onsubmit="return false;">
                 <input type="hidden" th:name="provider" th:id="provider" th:value="${user.provider}" />
+                <input type="hidden" th:name="token" th:id="token" />
             
                 <div class="two fields">
                     <div class="required field">
@@ -94,30 +95,6 @@
             <!-- <div class="ui bottom attached warning message">
                 Already signed up? <a href="#" th:href="@{/login}">Login here</a> instead.
             </div> -->
-            
-            <script>
-				grecaptcha.ready(function() {
-			      grecaptcha.execute('6LfLGYoUAAAAANmu-1CYbi2hS_cg98joNyU05u4p', {action: 'homepage'})
-				    .then(function(token) {
-			          // Verify the token on the server.
-			          log(token)
-			          
-			          $.ajax({
-			            method: 'POST',
-			            headers: { 
-			              Accept: 'application/json; charset=UTF-8'
-			            },
-			            contentType: 'application/json; charset=UTF-8',
-			            url: '/recapchaVerify',
-			            data: 'token=' + token
-			          }).done(function(data) {
-			            
-			          }).fail(function(jqXHR, textStatus, errorThrown) {
-			            console.error(jqXHR);
-			          });
-			      });
-			    });
-		    </script>
             
             <script src="js/content/signup.js" data-th-src="@{/static/js/content/signup.js}"></script>
         

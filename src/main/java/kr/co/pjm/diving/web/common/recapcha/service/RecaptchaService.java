@@ -27,7 +27,7 @@ public class RecaptchaService {
   @Autowired
   private RestTemplate restTemplate;
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   public String verifyRecaptcha(String ip, String recaptchaResponse) {
     Map<String, String> body = new HashMap<>();
     body.put("secret", recaptchaSecretKey);

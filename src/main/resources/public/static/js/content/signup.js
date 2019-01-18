@@ -1,6 +1,13 @@
 $(document).ready(function() {
   try {
     signupModule.init();
+    
+    grecaptcha.ready(function() {
+      grecaptcha.execute('6LfLGYoUAAAAANmu-1CYbi2hS_cg98joNyU05u4p', {action: 'homepage'})
+        .then(function(token) {
+          $('#token').val(token);
+      });
+    });
   } catch (e) {
     log('Error : ' + e.toString());
   }
