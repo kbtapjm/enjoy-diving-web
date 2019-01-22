@@ -296,4 +296,39 @@ public class UserApiServiceImpl implements UserApiService {
     return apiReponseDto;
   }
 
+  @Override
+  public ApiReponseDto updateUserStatus(Long id, UserDto dto) {
+    ApiReponseDto apiReponseDto = new ApiReponseDto();
+    
+    try {
+      String url = UriComponentsBuilder.fromUriString(apiBaseUrl)
+          .path("/v1/users/{id}/status")
+          .buildAndExpand(id)
+          .toString();
+      
+      String requestBody = new ObjectMapper().writeValueAsString(dto);
+      
+      HttpHeaders headers = new HttpHeaders();
+      headers.setContentType(MediaType.APPLICATION_JSON);
+      
+      HttpEntity<String> requestEntity = new HttpEntity<String>(requestBody, headers);
+      
+      ResponseEntity<ErrorDto> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, ErrorDto.class);
+      
+      apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
+      apiReponseDto.setData(responseEntity.getBody());
+    } catch (JsonProcessingException e) {
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+      apiReponseDto.setData(e.getMessage());
+    } catch (HttpStatusCodeException e) {
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(e.getRawStatusCode());
+      apiReponseDto.setData(e.getResponseBodyAsString());
+    }
+
+    return apiReponseDto;
+  }
 }

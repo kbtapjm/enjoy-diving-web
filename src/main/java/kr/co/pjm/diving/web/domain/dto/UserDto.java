@@ -43,11 +43,23 @@ public class UserDto {
   
   private String token;
   
-  
   @Builder
-  public UserDto(String email, String name, String provider) {
+  public UserDto(String email, String password, String name, String nickname, GenderEnum gender,
+      String country, UserStatusEnum status, String profile, String introduce, String diveGroup,
+      String diveLevel, String team, String signature, String provider) {
     this.email = email;
+    this.password = password;
     this.name = name;
+    this.nickname = nickname;
+    this.gender = gender;
+    this.country = country;
+    this.status = status;
+    this.profile = profile;
+    this.introduce = introduce;
+    this.diveGroup = diveGroup;
+    this.diveLevel = diveLevel;
+    this.team = team;
+    this.signature = signature;
     this.provider = provider;
   }
   

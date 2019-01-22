@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import kr.co.pjm.diving.common.domain.entity.User;
+import kr.co.pjm.diving.common.domain.enumeration.UserStatusEnum;
 import kr.co.pjm.diving.web.common.enumeration.Result;
 import kr.co.pjm.diving.web.common.security.component.CertificationUser;
 import kr.co.pjm.diving.web.domain.dto.UserDto;
@@ -71,7 +72,8 @@ static final String RESOURCE_PATH = "/my";
     Map<String, Object> resultMap = new HashMap<String, Object>();
     
     try {
-      userService.delete(id);
+      UserDto dto = UserDto.builder().status(UserStatusEnum.WITHDRAWAL).build();
+      userService.updateStatus(id, dto);
       
       resultMap.put("resultCd", Result.SUCCESS.getCd());
     } catch (Exception e) {
