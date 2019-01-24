@@ -42,7 +42,10 @@ spring:
   social:
     facebook:
       app-id: ENC(V6C597eeyQ7kBLMknP9JW658DyIyDFEg9/vya4RSwkE=)
-      app-secret: ENC(e8d8vYGSi9+mCY61UG66tgeOFbjjJrxNbdjeb7NMM6GX/tIZwRkgUCFgsfXRKQ/z) 
+      app-secret: ENC(e8d8vYGSi9+mCY61UG66tgeOFbjjJrxNbdjeb7NMM6GX/tIZwRkgUCFgsfXRKQ/z)
+    google:
+      app-id: ENC(Cq6BirD7Te7WRTl+uIeESO/8kYfAgIkEbpXcpdkb81jI0RaWtg6eAwH8NdnqE929RiYRd/XkokrBOCiXoyBv/PQRphMgkJEj41jC9WV+IfsEs9rLjGuwMA==)
+      app-secret: ENC(BhvR8wFq/XPjeqFJzxh6nSaVcavsSYIA5yrRbhsHSlDa5XRBmWE0VQ==)
 security:
   basic:
     enabled: false
@@ -89,6 +92,10 @@ logging:
   
 props:
   apiBaseUrl: http://api.enjoydiving.io:8081
+  google: 
+    recaptcha:
+      siteKey: 6LfLGYoUAAAAANmu-1CYbi2hS_cg98joNyU05u4p
+      secretKey: 6LfLGYoUAAAAAK7lbr863C0hGj4BzyiVRG6dHUfR
 ---  
 
 # dev
@@ -166,3 +173,7 @@ logging:
   
 props:
   apiBaseUrl: http://enjoy-diving.biz:8081
+  google: 
+    recaptcha:
+      siteKey: 6LfLGYoUAAAAANmu-1CYbi2hS_cg98joNyU05u4p
+      secretKey: 6LfLGYoUAAAAAK7lbr863C0hGj4BzyiVRG6dHUfR

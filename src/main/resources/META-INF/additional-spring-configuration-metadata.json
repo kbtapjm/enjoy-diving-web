@@ -8,5 +8,15 @@
     "name": "props.api-base-url",
     "type": "java.lang.String",
     "description": "A description for 'props.api-base-url'"
+  },
+  {
+    "name": "spring.social.google.app-id",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.social.google.app-id'"
+  },
+  {
+    "name": "spring.social.google.app-secret",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.social.google.app-secret'"
   }
 ]}

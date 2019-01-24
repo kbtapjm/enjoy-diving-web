@@ -17,6 +17,7 @@ import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.connect.web.ConnectController;
 import org.springframework.social.connect.web.ProviderSignInUtils;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
 import org.springframework.social.security.AuthenticationNameUserIdSource;
 
 @Configuration
@@ -28,7 +29,11 @@ public class SocialConfiguration extends SocialConfigurerAdapter {
 
   @Override
   public void addConnectionFactories(ConnectionFactoryConfigurer connectionFactoryConfigurer, Environment environment) {
-    super.addConnectionFactories(connectionFactoryConfigurer, environment);
+    GoogleConnectionFactory googleConnectionFactory = new GoogleConnectionFactory(
+        environment.getProperty("spring.social.google.app-id"),
+        environment.getProperty("spring.social.google.app-secret"));
+    
+    connectionFactoryConfigurer.addConnectionFactory(googleConnectionFactory);
   }
 
   @Override
