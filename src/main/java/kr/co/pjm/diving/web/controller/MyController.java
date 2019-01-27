@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +15,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import kr.co.pjm.diving.common.domain.entity.User;
-import kr.co.pjm.diving.common.domain.enumeration.UserStatusEnum;
 import kr.co.pjm.diving.web.common.enumeration.Result;
 import kr.co.pjm.diving.web.common.security.component.CertificationUser;
 import kr.co.pjm.diving.web.domain.dto.UserDto;
+import kr.co.pjm.diving.web.service.MyService;
 import kr.co.pjm.diving.web.service.UserService;
 
 @Controller
@@ -33,6 +31,9 @@ static final String RESOURCE_PATH = "/my";
   
   @Autowired
   private UserService userService;
+  
+  @Autowired
+  private MyService myService;
   
   @GetMapping(value = "/profile", consumes = MediaType.ALL_VALUE, produces = MediaType.TEXT_HTML_VALUE)
   public String readPage(Model model, Principal principal) throws Exception {
@@ -72,8 +73,7 @@ static final String RESOURCE_PATH = "/my";
     Map<String, Object> resultMap = new HashMap<String, Object>();
     
     try {
-      UserDto dto = UserDto.builder().status(UserStatusEnum.WITHDRAWAL).build();
-      userService.updateStatus(id, dto);
+      myService.deleteUserLeave(id);
       
       resultMap.put("resultCd", Result.SUCCESS.getCd());
     } catch (Exception e) {

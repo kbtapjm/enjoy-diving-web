@@ -15,4 +15,6 @@ public interface DiveLogApiService {
   
   ApiReponseDto deleteDiveLog(Long id);
   
+  ApiReponseDto deleteDiveLogByUser(Long userId);
+  
 }

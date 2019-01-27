@@ -190,4 +190,31 @@ public class DiveLogApiServiceImpl implements DiveLogApiService {
     return apiReponseDto;
   }
 
+  @Override
+  public ApiReponseDto deleteDiveLogByUser(Long userId) {
+    ApiReponseDto apiReponseDto = new ApiReponseDto();
+    
+    try {
+      String url = UriComponentsBuilder.fromUriString(apiBaseUrl)
+          .path("/v1/divelogs/{userId}/user")
+          .buildAndExpand(userId)
+          .toString();
+      
+      HttpHeaders headers = new HttpHeaders();
+      HttpEntity<String> requestEntity = new HttpEntity<String>(headers); 
+      
+      ResponseEntity<ErrorDto> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, ErrorDto.class);
+      
+      apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
+      apiReponseDto.setData(responseEntity.getBody());
+    } catch (HttpStatusCodeException e) {
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(e.getRawStatusCode());
+      apiReponseDto.setData(e.getResponseBodyAsString());
+    }
+    
+    return apiReponseDto;
+  }
+
 }
