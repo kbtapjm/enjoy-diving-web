@@ -14,7 +14,7 @@
                 <div class="header">
                 인조이 다이빙 사이트에 오신걸 환영합니다.
                 </div>
-            <p>아래 양식을 작성하여 새 계정에 가입하십시오.</p>
+                <p>아래 양식을 작성하여 새 계정에 가입하십시오.</p>
             </div>
             
             <form class="ui form attached fluid segment" th:action="@{/signup}" th:id="signupForm" onsubmit="return false;">
@@ -53,7 +53,7 @@
                             <div class="ui radio checkbox">
                                 <input type="radio" th:name="gender" th:id="male" value="0" tabindex="0" class="hidden" checked="checked" />
                                 <label>남자</label>
-                            </div>
+                            </div>&nbsp;&nbsp;&nbsp;
                             <div class="ui radio checkbox">
                                 <input type="radio" th:name="gender" th:id="female" value="1" tabindex="1" class="hidden"  />
                                 <label>여자</label>

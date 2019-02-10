@@ -33,7 +33,7 @@
                             <div class="ui radio checkbox">
                                 <input type="radio" th:name="gender" th:id="male" value="0" tabindex="0" class="hidden" th:checked="${user.userBasic.gender.code == 0}" />
                                 <label>남자</label>
-                            </div>
+                            </div>&nbsp;&nbsp;&nbsp;
                             <div class="ui radio checkbox">
                                 <input type="radio" th:name="gender" th:id="female" value="1" tabindex="1" class="hidden" th:checked="${user.userBasic.gender.code == 1}" />
                                 <label>여자</label>
@@ -60,11 +60,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="two fields">
-                    <div class="field">
-                        <label>소개</label>
-                        <textarea rows="3" th:name="introduce" th:id="introduce" th:text="${user.userBasic.introduce}"></textarea>
-                    </div>
+                <div class="field">
+                    <label>소개</label>
+                    <textarea rows="3" th:name="introduce" th:id="introduce" th:text="${user.userBasic.introduce}"></textarea>
                 </div>
                 
                 <h4 class="ui dividing header">다이브 정보</h4>
