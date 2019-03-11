@@ -2,6 +2,7 @@ package kr.co.pjm.diving.web.api.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -331,5 +332,36 @@ public class UserApiServiceImpl implements UserApiService {
 
     return apiReponseDto;
   }
+
+  @Override
+  public ApiReponseDto createUserLoginLog(Long id) {
+    ApiReponseDto apiReponseDto = new ApiReponseDto();
+    
+    try {
+      String url = UriComponentsBuilder.fromUriString(apiBaseUrl)
+          .path("/v1/users/{id}/login_log")
+          .buildAndExpand(id)
+          .toString();
+      
+      HttpHeaders headers = new HttpHeaders();
+      headers.setContentType(MediaType.APPLICATION_JSON);
+      
+      HttpEntity<String> requestEntity = new HttpEntity<String>(StringUtils.EMPTY, headers);
+      
+      ResponseEntity<ErrorDto> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, ErrorDto.class);
+      
+      apiReponseDto.setStatus(responseEntity.getStatusCodeValue());
+      apiReponseDto.setData(responseEntity.getBody());
+    } catch (HttpStatusCodeException e) {
+      log.error("Error : {}", e);
+      
+      apiReponseDto.setStatus(e.getRawStatusCode());
+      apiReponseDto.setData(e.getResponseBodyAsString());
+    }
+
+    return apiReponseDto;
+  }
+  
+  
   
 }

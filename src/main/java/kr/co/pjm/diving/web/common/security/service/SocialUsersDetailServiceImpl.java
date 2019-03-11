@@ -33,7 +33,11 @@ public class SocialUsersDetailServiceImpl implements SocialUserDetailsService {
     
     SocialUserDetail socialUserDetail = (SocialUserDetail) userDetails;
     
+    // update last login date
     userApiService.updateUserLoginDate(socialUserDetail.getUser().getId());
+    
+    // create login log
+    userApiService.createUserLoginLog(socialUserDetail.getUser().getId());
     
     return socialUserDetail;
   }

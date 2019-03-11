@@ -23,4 +23,6 @@ public interface UserApiService {
   
   ApiReponseDto updateUserStatus(Long id, UserDto dto);
   
+  ApiReponseDto createUserLoginLog(Long id);
+  
 }
