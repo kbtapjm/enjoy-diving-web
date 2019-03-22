@@ -7,9 +7,9 @@ public class EnjoyDivingTest {
   public static void main(String[] args) {
     StandardPBEStringEncryptor pbeEnc = new StandardPBEStringEncryptor();
     pbeEnc.setAlgorithm("PBEWithMD5AndDES");
-    pbeEnc.setPassword("test");
+    pbeEnc.setPassword("Cloudzcp!23$");
     
-    String enc = pbeEnc.encrypt("XFHtOW7PctfzfH9dbt6C6H-x");
+    String enc = pbeEnc.encrypt("cloudzcp-admin");
     System.out.println("enc = " + enc);
     
     String des = pbeEnc.decrypt(enc);
